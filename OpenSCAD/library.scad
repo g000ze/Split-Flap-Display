@@ -15,7 +15,7 @@
    limitations under the License.
 */
 
-$fn=100;
+$fn=200;
 
 // Karussell
 karussell_durchmesser = 82;
@@ -178,51 +178,58 @@ module karussell_scheibe(){
 
         // Löcher für Flaps
         for(i=[1:anzahl_flaps]){
-            translate([radius_pfad_flaps*cos(i*(360/anzahl_flaps)),radius_pfad_flaps*sin(i*(360/anzahl_flaps)),0]) cylinder(d=durchmesser_loecher_flaps, h=karussell_wandstaerke_loecher, $fn=20, center = true);
+            translate([radius_pfad_flaps*cos(i*(360/anzahl_flaps)),radius_pfad_flaps*sin(i*(360/anzahl_flaps)),0]) cylinder(d=durchmesser_loecher_flaps, h=karussell_wandstaerke_loecher, $fn=10, center = true);
         }
 
         // Löcher für Motor Poulley
         for(i=[1:poulley_anzahl_loecher]){
-            translate([poulley_radius_pfad*cos(i*(360/poulley_anzahl_loecher)),poulley_radius_pfad*sin(i*(360/poulley_anzahl_loecher)),0]) cylinder(d=poulley_durchmesser_loecher, h=karussell_wandstaerke_loecher, $fn=20, center = true);
+            translate([poulley_radius_pfad*cos(i*(360/poulley_anzahl_loecher)),poulley_radius_pfad*sin(i*(360/poulley_anzahl_loecher)),0]) cylinder(d=poulley_durchmesser_loecher, h=karussell_wandstaerke_loecher, $fn=10, center = true);
         }
 
         // Löcher Spacers
         for(i=[1:spacer_anzahl]){
-            translate([spacer_radius_pfad*cos(i*(360/spacer_anzahl)),spacer_radius_pfad*sin(i*(360/spacer_anzahl)),0]) cylinder(d=spacer_durchmesser_loecher, h=karussell_wandstaerke_loecher, $fn=20, center = true);
+            translate([spacer_radius_pfad*cos(i*(360/spacer_anzahl)),spacer_radius_pfad*sin(i*(360/spacer_anzahl)),0]) cylinder(d=spacer_durchmesser_loecher, h=karussell_wandstaerke_loecher, $fn=10, center = true);
         }
 
         // 2mm Loch für das Magnet und als Alignement
         x=(360/50*7);
         translate([radius_pfad_magnet*cos(x),radius_pfad_magnet*sin(x),0]){
-            cylinder(d=durchmesser_loch_magnet, h=karussell_wandstaerke_loecher, $fn=20, center = true);
+            cylinder(d=durchmesser_loch_magnet, h=karussell_wandstaerke_loecher, $fn=10, center = true);
         }
     }
 
     // check
-    x=(360/50*7);
+    //x=(360/50*7);
     //translate([0,0,3]) rotate([0,0,x]) color("red") square([100,0.2], center = true);
 }
 
 module karussell_scheibe_links(){
-    translate([0,0,(karussell_abstand/2)+(karussell_wandstaerke/2)]){
-        difference() {
-            karussell_scheibe();
-            // angle_a, angle_b, inner, strength, height
-            rotate([0,0,0])   arc(5, 12, (karussell_dm_ausschnitt/2) - 12, karussell_wandstaerke + 1);
-            rotate([0,0,90])  arc(5, 12, (karussell_dm_ausschnitt/2) - 12, karussell_wandstaerke + 1);
-            rotate([0,0,180]) arc(5, 12, (karussell_dm_ausschnitt/2) - 12, karussell_wandstaerke + 1);
-            rotate([0,0,270]) arc(5, 12, (karussell_dm_ausschnitt/2) - 12, karussell_wandstaerke + 1);
+    rotate([270,11,0]){
+        translate([0,0,(karussell_abstand/2)+(karussell_wandstaerke/2)]){
+            difference() {
+                karussell_scheibe();
+                // angle_a, angle_b, inner, strength, height
+                rotate([0,0,0])   arc(5, 12, (karussell_dm_ausschnitt/2) - 12, karussell_wandstaerke + 1);
+                rotate([0,0,90])  arc(5, 12, (karussell_dm_ausschnitt/2) - 12, karussell_wandstaerke + 1);
+                rotate([0,0,180]) arc(5, 12, (karussell_dm_ausschnitt/2) - 12, karussell_wandstaerke + 1);
+                rotate([0,0,270]) arc(5, 12, (karussell_dm_ausschnitt/2) - 12, karussell_wandstaerke + 1);
+            }
         }
     }
 }
 
-module karussell_scheibe_rechts(){
-    translate([0,0,-(karussell_abstand/2)-(karussell_wandstaerke/2)]){
-        difference(){
-            karussell_scheibe();
+module karussell_scheibe_rechts()
+{
+    rotate([270,11,0]){
+        translate([0,0,-(karussell_abstand/2)-(karussell_wandstaerke/2)])
+        {
+            difference()
+            {
+                karussell_scheibe();
 
-            // Ausschnitt
-            cylinder(d=karussell_dm_ausschnitt, h=karussell_wandstaerke_loecher, center = true);
+                // Ausschnitt
+                cylinder(d=karussell_dm_ausschnitt, h=karussell_wandstaerke_loecher, center = true);
+            }
         }
     }
 }
@@ -242,37 +249,10 @@ module karussell_spacer(){
     }
 }
 
-
-
-module all_flaps(){
-    // speed up things with union 
-    union() {
-        // die oberen Flaps
-        for(i=[1:anzahl_flaps/2]){
-            rotate([0, 0, ((360/anzahl_flaps) * i) + 90]) {
-                translate([(flaps_hoehe/2) - (durchmesser_loecher_flaps/2) + 0.1, radius_pfad_flaps, 0]){
-                    rotate([0, 0, 90]) {
-                        flap();
-                    }
-                }
-            }
-        }
-
-        // die unteren Flaps
-        for(i=[1:anzahl_flaps/2]){  // XXX                                                                                                                         komisch
-            translate([radius_pfad_flaps*cos(i*(360/anzahl_flaps)),radius_pfad_flaps*sin(i*(360/anzahl_flaps)) + (flaps_hoehe/2) - (durchmesser_loecher_flaps/2) + 0.3, 0]){
-                rotate([0, 0, 180]) {
-                    flap();
-                }
-            }
-        }
-    }
-}
-
 module odd_flap_bottom(){
     rotate([0,0,51*1.2]){
         translate([(radius_pfad_flaps+(flaps_hoehe/2)-1.5),0,0]){
-            rotate([0,0,90]){
+            rotate([90,0,0]){
                 flap();
             }
         }
@@ -281,7 +261,7 @@ module odd_flap_bottom(){
 
 module example_flap_front_top(){
     translate([radius_pfad_flaps, -((flaps_hoehe/2)-1.5), 0]){
-        rotate([0,0,0]){
+        rotate([90,0,270]){
             flap();
         }
     }
@@ -289,7 +269,7 @@ module example_flap_front_top(){
 
 module example_flap_front_bottom(){
     translate([(radius_pfad_flaps - 0.3),((flaps_hoehe/2)+3.2),0]){
-        rotate([180,0,0]){
+        rotate([90,0,90]){
             flap();
         }
     }
@@ -297,7 +277,7 @@ module example_flap_front_bottom(){
 
 module example_flap_bottom(){
     translate([0, (flaps_hoehe/2) + (radius_pfad_flaps - (durchmesser_loecher_flaps / 2)) , 0]){
-        rotate([180,0,0]){
+        rotate([90,0,90]){
             flap();
         }
     }
@@ -381,7 +361,7 @@ module chassis_front(){
     }
 }
 
-module chassis_left(){
+module chassis_right(){
     translate([0,0,-((geh_innenabstand/2)+(geh_wandstaerke/2))]){
         difference(){
             cube([geh_breite,geh_hoehe,geh_wandstaerke], center = true);
@@ -407,7 +387,7 @@ module chassis_left(){
     }
 }
 
-module chassis_right(){
+module chassis_left(){
     // mit Ausschnitt für Karussell
     translate([0,0,((geh_innenabstand/2)+(geh_wandstaerke/2))]){
         difference(){
@@ -456,55 +436,47 @@ module resistor(){
 }
 
 module flap(){
-    color("#222") cube([flaps_wandstaerke,flaps_hoehe,flaps_breite], center = true);
-    translate([0,((flaps_hoehe/2) - (flaps_nasen/2)), ((flaps_breite/2) + (flaps_nasen/2))]) color("red") cube([flaps_wandstaerke,flaps_nasen,flaps_nasen], center = true);
-    translate([0,((flaps_hoehe/2) - (flaps_nasen/2)),-((flaps_breite/2) + (flaps_nasen/2))]) color("red") cube([flaps_wandstaerke,flaps_nasen,flaps_nasen], center = true);
-}
-
-module rotating_flap(){
     rotate([0, 0, 90])
     {
         color("#333") cube([flaps_breite,flaps_hoehe,flaps_wandstaerke], center = true);
-        translate([ (flaps_breite/2) + (flaps_nasen/2), -(flaps_hoehe/2) + (flaps_nasen/2), 0])
+        translate([ (flaps_breite/2) + (flaps_nasen/2), (flaps_hoehe/2) - (flaps_nasen/2), 0])
         {
             color("red") cube([flaps_nasen,flaps_nasen,flaps_wandstaerke], center = true);
         }
-        translate([-(flaps_breite/2) - (flaps_nasen/2), -(flaps_hoehe/2) + (flaps_nasen/2), 0]) 
+        translate([-(flaps_breite/2) - (flaps_nasen/2), (flaps_hoehe/2) - (flaps_nasen/2), 0]) 
         {
             color("red") cube([flaps_nasen,flaps_nasen,flaps_wandstaerke], center = true);
         }
     }
 }
 
-module rotating_flaps()
+module rotating_carousel()
 {
-    translate([-(radius_pfad_flaps/2)+0.5, 0, 0]) rotate([0, -360 * $t, 0])
+    for(i=[1:anzahl_flaps])
     {
-        for(i=[1:anzahl_flaps])
+        rotated_angle = (i * (360 / anzahl_flaps) + (360 * $t)) % 360;
+        translate([
+                    (radius_pfad_flaps)*sin(i*(360/anzahl_flaps)),
+                    0, 
+                    (radius_pfad_flaps)*cos(i*(360/anzahl_flaps))
+                  ])
         {
-            rotated_angle = (i * (360 / anzahl_flaps) - (360 * $t) + 360) % 360;
-            translate([
-                        (radius_pfad_flaps)*sin(i*(360/anzahl_flaps)),
-                        0, 
-                        (radius_pfad_flaps)*cos(i*(360/anzahl_flaps))
-                      ])
+            rotate([0, -360 * $t, 0])
             {
-                rotate([0, 360 * $t, 0])
+                color = [i/50, 0.5+sin(10*i)/2, 0.5+sin(10*i)/2];
+                if (rotated_angle >= 0 && rotated_angle <= 180)
                 {
-                    if (rotated_angle >= 0 && rotated_angle <= 180)
-                    {
-                        translate([radius_pfad_flaps/2 - flaps_wandstaerke, 0, 0])
-                        rotate([0, rotated_angle + 180, 0])
-                        //                       keine Ahnung warum
-                        translate([-(radius_pfad_flaps/2) + flaps_wandstaerke, 0, 0])
-                        //if(i == 1) color("red") rotating_flap(); else rotating_flap();
-                        color( [i/50, 0.5+sin(10*i)/2, 0.5+sin(10*i)/2] ) rotating_flap();
-                    }
-                    else
-                    {
-                        //if(i == 1) color("red") rotating_flap(); else rotating_flap();
-                        color( [i/50, 0.5+sin(10*i)/2, 0.5+sin(10*i)/2] ) rotating_flap();
-                    }
+                    rotate([0, (rotated_angle - 180), 0])
+                    translate([ radius_pfad_flaps/2 - flaps_wandstaerke, 0, 0])
+                    //if(i == 1) color("red") flap(); else flap();
+                    color(color) flap();
+                }
+                else
+                {
+                    translate([-radius_pfad_flaps/2 + flaps_wandstaerke, 0, 0])
+                    rotate([0,180,0])
+                    //if(i == 1) color("red") flap(); else flap();
+                    color(color) flap();
                 }
             }
         }
