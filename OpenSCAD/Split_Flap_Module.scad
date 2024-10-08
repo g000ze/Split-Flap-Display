@@ -17,29 +17,21 @@
 
 include<library.scad>;
 
-
+          
 module split_flap(){
     *check();
-
     
     translate(karussell_pos){
-        rotate([0, 0, 360 * $t]){
-            // Scheibe für an den Motor
-            karussell_scheibe_links();
-            
-            // Scheibe mit Ausschnitt
-            karussell_scheibe_rechts();
 
-            // Spacer für Karussell
-            karussell_spacer();
-
-            // Poulley
-            color("lightgrey") stepper_pouley();
+        rotate([90, 0, 270])
+        {
+            rotate([0, 360 * $t, 0])
+            {
+                karussell_scheibe_rechts();
+                karussell_scheibe_links();
+                rotating_carousel();
+            }
         }
-        
-        // Flaps
-        *all_flaps();
-        rotate([270, 0, 270]) rotating_flaps();
 
         // Schräges Flap, um zu checken, ob es am unteren
         // Ende des Gehäuseausschnittes anschlägt.
@@ -79,5 +71,5 @@ module split_flap(){
 
 // Hier wird das Modul "projection" verwendet, um 2D 
 // darzustellen und danach nach "dfx" zu exportieren.
-rotate([-90,0,0]) split_flap();
+rotate([270, 0, 0]) split_flap();
 
