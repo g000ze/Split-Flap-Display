@@ -23,10 +23,13 @@ module split_flap(){
     
     translate(karussell_pos){
 
+        stepper_pouley();
+        
         rotate([90, 0, 270])
         {
             rotate([0, 360 * $t, 0])
             {
+                *karussell_spacer();
                 karussell_scheibe_rechts();
                 karussell_scheibe_links();
                 rotating_carousel();

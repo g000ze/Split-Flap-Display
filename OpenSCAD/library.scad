@@ -235,16 +235,18 @@ module karussell_scheibe_rechts()
 }
 
 module karussell_spacer(){
-    for(i=[1:spacer_anzahl]){
-        translate([spacer_radius_pfad*cos(i*(360/spacer_anzahl)),spacer_radius_pfad*sin(i*(360/spacer_anzahl)),0]){
-            translate([0,0,1.5]) schraube();
-            difference(){
-                cylinder(d=spacer_durchmesser_aussen, h=spacer_laenge, center = true);
-                cylinder(d=spacer_durchmesser_innen, h=spacer_laenge, center = true);
+    rotate([270,11,0]){
+        for(i=[1:spacer_anzahl]){
+            translate([spacer_radius_pfad*cos(i*(360/spacer_anzahl)),spacer_radius_pfad*sin(i*(360/spacer_anzahl)),0]){
+                translate([0,0,1.5]) schraube();
+                difference(){
+                    cylinder(d=spacer_durchmesser_aussen, h=spacer_laenge, center = true);
+                    cylinder(d=spacer_durchmesser_innen, h=spacer_laenge, center = true);
 
+                }
+                // Gewindeeinsatz
+                translate([0, 0 ,(karussell_abstand / 2 + karussell_wandstaerke + (0.85 / 2))]) color("#F1A426") cylinder(d=6.10, h=0.85, center = true);
             }
-            // Gewindeeinsatz
-            translate([0, 0 ,(karussell_abstand / 2 + karussell_wandstaerke + (0.85 / 2))]) color("#F1A426") cylinder(d=6.10, h=0.85, center = true);
         }
     }
 }
