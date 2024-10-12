@@ -10,7 +10,3 @@ https://github.com/tasoftch/php-i2c-extension
 
 ## Documentation
 ... will follow ...
-
-
-https://github.com/user-attachments/assets/ecb3630a-0b7a-4cba-a50a-3ee453b5d145
-
