@@ -15,23 +15,22 @@
    limitations under the License.
 */
 
-include<library.scad>;
-
+include<3D_library.scad>;
           
+
 module split_flap(){
     *check();
     
-    translate(karussell_pos){
+    translate(carousel_pos){
 
-        stepper_pouley();
         
-        rotate([90, 0, 270])
+        rotate([270, 0, 270])
         {
-            rotate([0, 360 * $t, 0])
+            rotate([0, -360 * $t, 0])
             {
                 *karussell_spacer();
-                karussell_scheibe_rechts();
-                karussell_scheibe_links();
+                karussell_scheibe_position("rechts");
+                karussell_scheibe_position("links");
                 rotating_carousel();
             }
         }
@@ -51,6 +50,8 @@ module split_flap(){
         // Spacer für Motor
         stepper_spacer();
 
+        // Das Pouley
+        color("grey") stepper_pouley();
     }
 
     // Gehäuse Seiten:
@@ -62,17 +63,11 @@ module split_flap(){
         #chassis_left();
 
         // Front
-        // um die Front transparent zu machen, kann ein "#" Hashtag vorangestellt werden.
-        // So ist es möglich, das oberste Flap zu sehen, bevor es fällt.
         #chassis_front();
     }
     
     // PCB
     pcb();
-    resistor();
 }
 
-// Hier wird das Modul "projection" verwendet, um 2D 
-// darzustellen und danach nach "dfx" zu exportieren.
 rotate([270, 0, 0]) split_flap();
-
