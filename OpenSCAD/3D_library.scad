@@ -15,7 +15,7 @@
    limitations under the License.
 */
 
-include<../settings.scad>;
+include<_settings.scad>;
 
 module check(){
     motor_befestigung_vorne  = (((housing_width/2) - (motor_winding_distance/2)) - carousel_pos_x);
@@ -369,7 +369,7 @@ module flap(){
 
 module rotating_carousel()
 {
-    for(i=[1:nr_of_flaps])
+    for(i=[0:nr_of_flaps-1])
     {
         rotated_angle = (i * (360 / nr_of_flaps) - (360 * $t) + 360) % 360;
 
@@ -403,13 +403,13 @@ module flap_with_char(char)
         intersection()
         {
             cube([flap_height,flap_width, flap_thickness + 0.01], center = true);
-            mirror([0, 0, 0]) rotate([0, 0, 270]) translate([0, -(flap_height/2),  0.01]) linear_extrude(height = flap_thickness, center = true) draw_letter(chars[char-2]);
+            mirror([0, 0, 0]) rotate([0, 0, 270]) translate([0, -(flap_height/2),  0.01]) linear_extrude(height = flap_thickness, center = true) draw_letter(chars[char-1]);
         }    
         // bottom part
         intersection()
         {
             cube([flap_height,flap_width, flap_thickness + 0.01], center = true);
-            mirror([0, 1, 0]) rotate([0, 0, 90])  translate([0,  (flap_height/2), -0.01]) linear_extrude(height = flap_thickness, center = true) draw_letter(chars[char-1]);
+            mirror([0, 1, 0]) rotate([0, 0, 90])  translate([0,  (flap_height/2), -0.01]) linear_extrude(height = flap_thickness, center = true) draw_letter(chars[char]);
         }    
     }
 }

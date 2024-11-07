@@ -17,7 +17,6 @@
 
 include<3D_library.scad>;
 
-
 module chassis(){
     // Gehäuse Seiten:
     union()
@@ -37,4 +36,3 @@ module chassis(){
 }
 
 rotate([-90,0,0]) chassis();
-

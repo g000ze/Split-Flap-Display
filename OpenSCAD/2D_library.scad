@@ -15,7 +15,11 @@
    limitations under the License.
 */
 
-include<../settings.scad>;
+include<_settings.scad>;
+
+// horizontal and vertical discances between flaps
+h_distance = (h_space_between_flaps + flap_width + (2 * flap_pin));
+v_distance = (v_space_between_flaps + flap_height);
 
 // Das ist die totale Breite sämtlicher Flaps inkl. Nasen & Abstände
 total_width_flaps = (cols * (flap_width + (2 * flap_pin))) + (cols - 1) * h_space_between_flaps;
@@ -23,9 +27,9 @@ total_width_flaps = (cols * (flap_width + (2 * flap_pin))) + (cols - 1) * h_spac
 total_height_flaps = (rows * flap_height)                  + (rows - 1) * v_space_between_flaps;
 
 
-module draw_base_flap()
+module draw_base_flap(overlap = 0)
 {
-    square([flap_width, flap_height], center = true);
+    square([flap_width, flap_height + overlap], center = true);
 }
 
 module draw_flap()
@@ -96,7 +100,7 @@ module draw_half_letter(col, row)
         {
             // this does the overlap of the letter
             //draw_flap();
-            square([flap_width, flap_height + overlap], center = true);
+            draw_base_flap(overlap);
             
             // mind front and back as well as last character
             if(side == "front")
