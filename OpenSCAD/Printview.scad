@@ -17,19 +17,20 @@
 
 include<2D_library.scad>;
 
+// es fehlen noch die indicators
+
 // 1 - 5 or 6 - 10
-//start_row = 1;
-//end_row = 10;
-
-// es fehlen noch die indicators sowie
-// start und end row zeugs
-
-
+start_row = 1;
+end_row = 10;
 
 // front or back
 side = "front";
 zoom = 10;
 
+// Das ist die totale Breite sämtlicher Flaps inkl. Nasen & Abstände
+total_width_flaps = ((flap_total_width) * cols)                        + (h_space_between_flaps * (cols - 1));
+// Das ist die totale Höhe sämtlicher Flaps inkl. Abstände
+total_height_flaps = (flap_height       * (end_row - (start_row + 1))) + (v_space_between_flaps * ((end_row - (start_row + 1)) - 1));
 
 // dieses render() hilft gegen die Fehlermeldung
 // Normalized tree is growing past 200000 elements. Aborting normalization
@@ -39,7 +40,8 @@ render()
     {
         difference()
         {
-            draw_foil();
+            foil();
+
             // two translates, for better understanding:
             // 1) move by half flap in width and height, due to center = true
             // 2) move to center of foil
@@ -47,11 +49,11 @@ render()
             {
                 translate([-total_width_flaps/2, total_height_flaps/2])
                 {
-                    draw_cols_and_rows();
+                    cols_and_rows();
                 }
             }
 
-            draw_indicators();
+            indicators();
         }
     }
 }
