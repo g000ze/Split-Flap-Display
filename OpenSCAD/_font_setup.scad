@@ -36,9 +36,12 @@ Configure font presets below. Each font has the following settings:
 
 */
 
+
+use<MS-Gothic-SFD.ttf>;
+
 _font_settings = [
-    "msgothic", [
-        "font", "msgothic",
+    "msgothicsfd", [
+        "font", "MS Gothic SFD",
         "height", 0.9,
         "width", 0.92,
         "offset_x", 0,
@@ -55,6 +58,8 @@ _font_settings = [
         ],
     ],
 ];
+
+
 
 // Private functions
 function _get_entry_in_dict_array(arr, key) = arr[search([key], arr)[0] + 1];

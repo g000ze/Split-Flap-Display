@@ -24,6 +24,7 @@ flap_width = 50;
 flap_height = 40;
 flap_thickness = 0.76;
 flap_pin = 3;
+flap_total_width = flap_width + (2 * flap_pin);
 
 // Karussell
 carousel_diameter = 82;
@@ -142,8 +143,8 @@ chars = [
 
 include<_font_setup.scad>;
 
-font_preset = "msgothic";
-letter_facet_number = 100;
+font_preset = "msgothicsfd";
+letter_facet_number = 200;
 
 // how many columns and rows to display
 cols = 5;
@@ -158,7 +159,7 @@ h_space_between_flaps = 8;
 // vertical space between flaps
 v_space_between_flaps = 8;
 
-outline_weight = 0.2;
+outline_weight = 0.1;
 
 // overlap letter for cutting tolerance
 overlap = 4;
