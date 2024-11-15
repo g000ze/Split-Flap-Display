@@ -37,11 +37,11 @@ difference()
             if((col + row) %  2 == 0)
             {
                 // render() makes the preview faster
-                karussell_scheibe_rechts();
+                render() karussell_scheibe_rechts();
             }
             else
             {
-                karussell_scheibe_links();
+                render() karussell_scheibe_links();
             }
         }
     }
