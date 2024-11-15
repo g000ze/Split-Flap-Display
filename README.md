@@ -6,7 +6,7 @@ For the Raspberry Pi to communicate with Arduino using I2C, I used this extensio
 https://github.com/tasoftch/php-i2c-extension
 
 ## OpenSCAD
-![sfd](https://github.com/user-attachments/assets/c3299888-fdff-45a3-af96-d47903632ab1)
 
 ## Documentation
 ... will follow ...
+![sfd](https://github.com/user-attachments/assets/58d5921d-cbc4-47c8-ab11-2fe780040a1a)
