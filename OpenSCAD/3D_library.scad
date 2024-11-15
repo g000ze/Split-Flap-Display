@@ -359,11 +359,11 @@ module flap(){
     color("#333") cube([flap_height,flap_width, flap_thickness], center = true);
     translate([-((flap_height/2) - (flap_pin/2)), -((flap_width/2) + (flap_pin/2)), 0])
     {
-        color("red") cube([flap_pin,flap_pin,flap_thickness], center = true);
+        color("#333") cube([flap_pin,flap_pin,flap_thickness], center = true);
     }
     translate([-((flap_height/2) - (flap_pin/2)),  ((flap_width/2) + (flap_pin/2)), 0]) 
     {
-        color("red") cube([flap_pin,flap_pin,flap_thickness], center = true);
+        color("#333") cube([flap_pin,flap_pin,flap_thickness], center = true);
     }
 }
 

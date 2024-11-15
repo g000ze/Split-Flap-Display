@@ -17,37 +17,28 @@
 
 include<_settings.scad>;
 
-// horizontal and vertical discances between flaps
-h_distance = (h_space_between_flaps + flap_width + (2 * flap_pin));
-v_distance = (v_space_between_flaps + flap_height);
 
-// Das ist die totale Breite sämtlicher Flaps inkl. Nasen & Abstände
-total_width_flaps = (cols * (flap_width + (2 * flap_pin))) + (cols - 1) * h_space_between_flaps;
-// Das ist die totale Höhe sämtlicher Flaps inkl. Abstände
-total_height_flaps = (rows * flap_height)                  + (rows - 1) * v_space_between_flaps;
-
-
-module draw_base_flap(overlap = 0)
+module base_flap(overlap = 0)
 {
     square([flap_width, flap_height + overlap], center = true);
 }
 
-module draw_flap()
+module flap()
 {
-    draw_base_flap();
-    draw_pins();
+    base_flap();
+    pins();
 }
 
-module draw_flap_outline()
+module flap_outline()
 {
     difference()
     {
-        offset(delta = +outline_weight) draw_flap();
-        draw_flap();
+        offset(delta = +outline_weight) flap();
+        flap();
     }
 }
 
-module draw_pins()
+module pins()
 {
     translate([ ((flap_width/2) + (flap_pin/2)), -((flap_height/2) - (flap_pin/2))])
     {
@@ -59,48 +50,48 @@ module draw_pins()
     }
 }
 
-module draw_pins_outline()
+module pins_outline()
 {
     difference()
     {
-        offset(delta = +outline_weight) draw_pins();
-        draw_pins();
+        offset(delta = +outline_weight) pins();
+        pins();
         // lets make the inner line disapear with an additional square
         translate([0, -((flap_height/2) - (flap_pin/2))]) square([flap_width, flap_pin + (outline_weight * 2)], center = true);
     }
 }
 
-module draw_foil()
+module foil()
 {
     square([foil_width, foil_height], center = true);
 }
 
-module draw_indicator_cross()
+module indicator_cross()
 {
     square([width_marker, length_marker], center = true);
     square([length_marker, width_marker], center = true);
 }
 
-module draw_indicators(){
+module indicators(){
     // Indicators for CAD initialisation
     h_pos = (foil_width  / 2) - indicator_position;
     v_pos = (foil_height / 2) - indicator_position;
     
-    translate([ h_pos,  v_pos, 0]) draw_indicator_cross();
-    translate([-h_pos,  v_pos, 0]) draw_indicator_cross();
-    translate([-h_pos, -v_pos, 0]) draw_indicator_cross();
-    translate([ h_pos, -v_pos, 0]) draw_indicator_cross();
+    translate([ h_pos,  v_pos, 0]) indicator_cross();
+    translate([-h_pos,  v_pos, 0]) indicator_cross();
+    translate([-h_pos, -v_pos, 0]) indicator_cross();
+    translate([ h_pos, -v_pos, 0]) indicator_cross();
 }
-
-module draw_half_letter(col, row)
+    
+module half_letter(col, row)
 {
     difference()
     {
         intersection()
         {
             // this does the overlap of the letter
-            //draw_flap();
-            draw_base_flap(overlap);
+            //flap();
+            base_flap(overlap);
             
             // mind front and back as well as last character
             if(side == "front")
@@ -120,17 +111,17 @@ module draw_half_letter(col, row)
     }
 }
 
-module draw_cols_and_rows()
+module cols_and_rows()
 {
     for(col=[0:1:cols-1])
     {
-        for(row=[0:1:rows-1])
+        for(row=[start_row-1:1:end_row-1])
         {
             // this translate shifts the objects in rows and cols
-            translate([((flap_width + (2 * flap_pin) + h_space_between_flaps) * col), -((flap_height + v_space_between_flaps) * row)])
+            translate([(flap_total_width + h_space_between_flaps) * col, -(flap_height + v_space_between_flaps) * (row - start_row)])
             {
-                draw_half_letter(col, row);
-                draw_flap_outline();
+                half_letter(col, row);
+                flap_outline();
             }
         }
     }
