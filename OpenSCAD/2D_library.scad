@@ -106,8 +106,8 @@ module half_letter(col, row)
                     draw_letter(chars[character]);
             }
         }
-        // Das ist der Balken, der alles Überstehende abschneidet
-        translate([0, (flap_height/2) - (cut_off_blind/2)]) square([flap_width, cut_off_blind], center = true);
+        // Das ist der Balken, der unten alles Überstehende abschneidet
+        if(side != "front") translate([0, (flap_height/2) - (cut_off_blind/2)]) square([flap_width, cut_off_blind], center = true);
     }
 }
 
