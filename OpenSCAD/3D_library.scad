@@ -394,23 +394,24 @@ module rotating_carousel()
     }
 }
 
-module flap_with_char(char)
+module draw_half_letter(char, flip = false)
 {
-    flap();
-    color("white")
+    overrides     = get_letter_overrides(chars[char]);
+    color         = is_undef(overrides[5]) ? get_font_setting("color") : overrides[5];
+    rotate_letter = flip ? [0, 180, 90]      : [0, 0, 270];
+    lift_letter   = flip ? -0.01             : 0.02;
+    move_letter   = flip ? (flap_height/2)   : -(flap_height/2);
+
+    translate([0, 0, lift_letter]) color(color) intersection()
     {
-        // top part
-        intersection()
-        {
-            cube([flap_height,flap_width, flap_thickness + 0.01], center = true);
-            mirror([0, 0, 0]) rotate([0, 0, 270]) translate([0, -(flap_height/2),  0.01]) linear_extrude(height = flap_thickness, center = true) draw_letter(chars[char-1]);
-        }    
-        // bottom part
-        intersection()
-        {
-            cube([flap_height,flap_width, flap_thickness + 0.01], center = true);
-            mirror([0, 1, 0]) rotate([0, 0, 90])  translate([0,  (flap_height/2), -0.01]) linear_extrude(height = flap_thickness, center = true) draw_letter(chars[char]);
-        }    
+        cube([flap_height, flap_width, flap_thickness], center = true);
+        rotate(rotate_letter) translate([0, move_letter, 0]) linear_extrude(height = flap_thickness) draw_letter(chars[char]);
     }
 }
 
+module flap_with_char(char)
+{
+    flap();
+    draw_half_letter(char-1, flip = false);
+    draw_half_letter(char,   flip = true);
+}
