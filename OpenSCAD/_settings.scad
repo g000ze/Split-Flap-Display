@@ -110,6 +110,7 @@ pcb_hole_top_from_top_edge = 7;
 pcb_hole_bottom_from_bottom_edge = 5;
 
 
+// always adjust overrides in _font_setup.scad accordingly
 chars = [ 
                "0", "A", "B", "C", "D",  
                "1", "E", "F", "G", "H", 
@@ -120,7 +121,7 @@ chars = [
                "6", "Y", "Z", "+", "-", 
                "7", "?", "!", ".", ",", 
                "8", "@", ":", ";", "#", 
-               "9", "&", "*", "$", " ",  
+               "9", "*", "$", "w", " ",  
         ];
 
 /*
@@ -134,14 +135,12 @@ chars = [
 */
 
 
-
-
-
 /*
   Settings for the flaps sheet
 */
 
 include<_font_setup.scad>;
+
 
 font_preset = "msgothicsfd";
 letter_facet_number = 200;
@@ -150,9 +149,6 @@ letter_facet_number = 200;
 cols = 5;
 //rows = 10;
 rows = ceil(len(chars) / cols);
-
-// Der Balken, der alles Überstehende abschneidet
-cut_off_blind      = 4.5;
 
 // horizontal space between flaps
 h_space_between_flaps = 8;
@@ -163,6 +159,9 @@ outline_weight = 0.1;
 
 // overlap letter for cutting tolerance
 overlap = 4;
+
+// Der Balken, der alles Überstehende abschneidet
+cut_off_blind      = 4.5;
 
 // the size of the foil
 foil_width  = 360;
@@ -176,4 +175,5 @@ length_marker = 8;
 width_marker  = 0.2;
 
 indicator_position = 14;
+
 
