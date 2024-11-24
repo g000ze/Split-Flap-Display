@@ -154,13 +154,13 @@ module karussell_scheibe_position(side = "rechts")
 }
 
 module karussell_spacer(){
-    rotate([90,11,0]){
+    rotate([90,0,0]){
         for(i=[1:carousel_spacer_nr]){
             translate([carousel_spacer_path_radius*cos(i*(360/carousel_spacer_nr)),carousel_spacer_path_radius*sin(i*(360/carousel_spacer_nr)),0]){
                 translate([0,0,1.5]) schraube();
                 difference(){
                     cylinder(d=carousel_spacer_outer_diameter, h=carousel_spacer_length, center = true);
-                    cylinder(d=carousel_spacer_inner_diameter, h=carousel_spacer_length, center = true);
+                    cylinder(d=carousel_spacer_inner_diameter, h=carousel_spacer_length + 0.01, center = true);
 
                 }
                 // Gewindeeinsatz
@@ -384,7 +384,7 @@ module rotating_carousel()
                 angle = (rotated_angle > 0 && rotated_angle < 180) ? rotated_angle : 180 ;
                 rotate([0, angle, 0])
                 {
-                    translate([(carousel_flap_path_radius/2 - flap_thickness), 0, 0])
+                    translate([(flap_height / 2) - (flap_pin / 2), 0, 0])
                     {
                         flap_with_char(i);
                     }
