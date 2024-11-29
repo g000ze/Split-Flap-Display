@@ -8,9 +8,6 @@ https://github.com/tasoftch/php-i2c-extension
 ## OpenSCAD
 
 ## Documentation
-... will follow ...
-![sfd](https://github.com/user-attachments/assets/58d5921d-cbc4-47c8-ab11-2fe780040a1a)
-
-
 https://github.com/user-attachments/assets/f0f93f7b-00a4-478b-8500-96269c6c5e51
 
+... will follow ...
