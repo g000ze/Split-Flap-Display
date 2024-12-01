@@ -24,8 +24,10 @@ Configure font presets below. Each font has the following settings:
          
      'offset_y'
          Vertical offset, in mm, of letters within flaps. A value of 0 uses default font centering.
+
      'color'
          the default color of the character, used in 3D_library.scad
+
      'type'
          whether the given font or a white square should be drawn. Valid values are "square" or "font"
          
