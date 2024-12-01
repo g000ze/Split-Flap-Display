@@ -83,17 +83,9 @@ module karussell_scheibe(){
     difference(){
         cylinder(d=carousel_diameter, h=carousel_thickness, center = true);
 
-        // Achse
-        cylinder(d=carousel_axis_diameter, h=carousel_thickness_holes, center = true);
-
         // Löcher für Flaps
         for(i=[1:nr_of_flaps]){
             translate([carousel_flap_path_radius*cos(i*(360/nr_of_flaps)),carousel_flap_path_radius*sin(i*(360/nr_of_flaps)),0]) cylinder(d=carousel_flap_holes_diameter, h=carousel_thickness_holes, $fn=50, center = true);
-        }
-
-        // Löcher für Motor Poulley
-        for(i=[1:pulley_nr_of_holes]){
-            translate([pulley_holes_path_radius*cos(i*(360/pulley_nr_of_holes)),pulley_holes_path_radius*sin(i*(360/pulley_nr_of_holes)),0]) cylinder(d=pulley_holes_diameter, h=carousel_thickness_holes, $fn=50, center = true);
         }
 
         // Löcher Spacers
@@ -122,6 +114,14 @@ module karussell_scheibe_links()
         rotate([0,0,90])  arc(5, 12, (carousel_diameter_cutout/2) - 12, carousel_thickness + 1);
         rotate([0,0,180]) arc(5, 12, (carousel_diameter_cutout/2) - 12, carousel_thickness + 1);
         rotate([0,0,270]) arc(5, 12, (carousel_diameter_cutout/2) - 12, carousel_thickness + 1);
+
+        // Achse
+        cylinder(d=carousel_axis_diameter, h=carousel_thickness_holes, center = true);
+
+        // Löcher für Motor Poulley
+        for(i=[1:pulley_nr_of_holes]){
+            translate([pulley_holes_path_radius*cos(i*(360/pulley_nr_of_holes)),pulley_holes_path_radius*sin(i*(360/pulley_nr_of_holes)),0]) cylinder(d=pulley_holes_diameter, h=carousel_thickness_holes, $fn=50, center = true);
+        }
     }
 }
 
@@ -189,7 +189,7 @@ module example_flap_front_top(){
 }
 
 module example_flap_front_bottom(){
-    translate([(carousel_flap_path_radius - 0.3),((flap_height/2)+3.2),0]){
+    translate([(carousel_flap_path_radius - (flap_thickness/2)),((flap_height/2) + carousel_flap_holes_diameter),0]){
         rotate([90,0,90]){
             flap();
         }
@@ -201,6 +201,23 @@ module example_flap_bottom(){
         rotate([90,0,90]){
             flap();
         }
+    }
+}
+
+module example_flaps_bolt()
+{
+    // Winkelwerte für Flaps 36 bis 50
+    angles = [234, 231.5, 228, 223, 218, 212, 206, 200, 194, 189, 185, 182, 180.5, 180, 180];
+
+    for (i = [36:50]) {
+        angle = angles[i - 36]; // Entsprechend dem Index 36-50
+
+        translate([carousel_flap_path_radius * sin(i * (360 / nr_of_flaps)),
+                   0,
+                   carousel_flap_path_radius * cos(i * (360 / nr_of_flaps))])
+        rotate([0, angle, 0])
+        translate([(flap_height / 2) - (flap_pin / 2), 0, 0])
+        flap();
     }
 }
 
@@ -258,11 +275,10 @@ module stepper_pouley(){
             // Achse
             cylinder(d=pulley_axis_diameter, h=pulley_thickness, center = true);
 
-            // m3 Gewinde
-            translate([0,pulley_holes_path_radius,0])  cylinder(d=pulley_holes_diameter, h=pulley_thickness, center = true);
-            translate([0,-pulley_holes_path_radius,0]) cylinder(d=pulley_holes_diameter, h=pulley_thickness, center = true);
-            translate([pulley_holes_path_radius,0,0])  cylinder(d=pulley_holes_diameter, h=pulley_thickness, center = true);
-            translate([-pulley_holes_path_radius,0,0]) cylinder(d=pulley_holes_diameter, h=pulley_thickness, center = true);
+            // Löcher für Motor Poulley
+            for(i=[1:pulley_nr_of_holes]){
+                translate([pulley_holes_path_radius*cos(i*(360/pulley_nr_of_holes)),pulley_holes_path_radius*sin(i*(360/pulley_nr_of_holes)),0]) cylinder(d=pulley_holes_diameter, h=carousel_thickness_holes, $fn=50, center = true);
+            }
         }
     }
 }
@@ -302,8 +318,7 @@ module chassis_right(){
             }
             
             // Und hier noch das Loch für den Bolzen
-            // XXX ToDo XXX
-            translate([(housing_width/2)-18,(housing_height/2)-24,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);
+            translate([(housing_width/2) - housing_bolt_h,(housing_height/2) - housing_bolt_v,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);
         }
     }
 }
@@ -367,16 +382,16 @@ module flap(){
     }
 }
 
-module rotating_carousel()
+module rotating_carousel() 
 {
-    for(i=[0:nr_of_flaps-1])
+    for (i = [0:nr_of_flaps-1])
     {
         rotated_angle = (i * (360 / nr_of_flaps) - (360 * $t) + 360) % 360;
 
         translate([
-                    (carousel_flap_path_radius)*sin(i*(360/nr_of_flaps)),
-                    0, 
-                    (carousel_flap_path_radius)*cos(i*(360/nr_of_flaps))
+                    carousel_flap_path_radius * sin(i * (360 / nr_of_flaps)),
+                    0,
+                    carousel_flap_path_radius * cos(i * (360 / nr_of_flaps))
                   ])
         {
             rotate([0, 360 * $t, 0])
