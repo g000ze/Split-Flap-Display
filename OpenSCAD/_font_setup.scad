@@ -30,7 +30,7 @@ Configure font presets below. Each font has the following settings:
 
      'type'
          whether the given font or a white square should be drawn. Valid values are "square" or "font"
-         
+
      'overrides'
          Array of position/size overrides for specific letters. Each entry is a set of overrides for a single letter,
          specified as an array with the following entries:
@@ -45,7 +45,6 @@ Configure font presets below. Each font has the following settings:
 
 
 use<MS-Gothic-SFD.ttf>;
-use<MSGOTHIC.TTF>;
 
 _font_settings = [
     "msgothicsfd", [

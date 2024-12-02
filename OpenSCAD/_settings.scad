@@ -1,4 +1,5 @@
 /*
+
    Copyright Stefan Frech, 10.12.2021 - 28.09.2024
    Projekt Split-Flap Display Module
 
@@ -51,10 +52,6 @@ pulley_diameter = 19;
 pulley_thickness = 5;
 pulley_axis_diameter = carousel_axis_diameter;
 
-// Magnet
-magnet_hole_diameter = 1.9;
-magnet_hole_path_radius = 33;
-
 // Spacers Karussell
 carousel_spacer_outer_diameter = 6;
 carousel_spacer_inner_diameter = 3.4;
@@ -62,6 +59,10 @@ carousel_spacer_length = carousel_inner_distance;
 carousel_spacer_nr = 4;
 carousel_spacer_holes_diameter = 3.2;
 carousel_spacer_path_radius = 33;
+
+// Magnet
+magnet_hole_diameter = 1.9;
+magnet_hole_path_radius = carousel_spacer_path_radius;
 
 // Die Schrauben durch die Karussell Spacer
 screw_length = 60;
@@ -95,6 +96,10 @@ housing_cutout_width = 53;
 housing_cutout_small_height = 35;
 housing_cutout_small_width = 3;
 housing_cutout_position_y = 3;
+
+// Das Loch für den Bolzen
+housing_bolt_v = 26;
+housing_bolt_h = 16;
 
 // PCB
 pcb_width = 42.67;
@@ -175,5 +180,4 @@ length_marker = 8;
 width_marker  = 0.2;
 
 indicator_position = 14;
-
 
