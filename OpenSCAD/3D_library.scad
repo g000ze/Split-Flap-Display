@@ -283,7 +283,6 @@ module stepper_pouley(){
     }
 }
 
-
 module chassis_front(){
     difference(){
         geh_front_pos = (housing_width/2)-(housing_thickness/2);
@@ -307,14 +306,14 @@ module chassis_right(){
                 translate([0, 0, 0]) cylinder(d=motor_axis_diameter + 1, h=housing_thickness + 1, center = true);
                 
                 // Löcher für Motor-Spacer                
-                translate([motor_winding_distance/2,motor_winding_distance/2,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);
-                translate([-motor_winding_distance/2,motor_winding_distance/2,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);
-                translate([motor_winding_distance/2,-motor_winding_distance/2,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);
-                translate([-motor_winding_distance/2,-motor_winding_distance/2,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);                        
+                translate([motor_winding_distance/2,motor_winding_distance/2,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 0.01, center = true);
+                translate([-motor_winding_distance/2,motor_winding_distance/2,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 0.01, center = true);
+                translate([motor_winding_distance/2,-motor_winding_distance/2,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 0.01, center = true);
+                translate([-motor_winding_distance/2,-motor_winding_distance/2,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 0.01, center = true);                        
 
                 // Löcher für PCB
-                translate([-((motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + pcb_hole_top_from_left),  -((pcb_width / 2) - pcb_hole_top_from_top_edge), 0])     cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);
-                translate([-((motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + pcb_hole_bottom_from_left),  ((pcb_width / 2) - pcb_hole_bottom_from_bottom_edge), 0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);
+                translate([-((motor_winding_distance/2) + pcb_hole_top_from_left_housing),    -(motor_winding_distance/2), 0]) cylinder(d=pcb_hole_diameter, h=housing_thickness + 0.01, center = true); 
+                translate([-((motor_winding_distance/2) + pcb_hole_bottom_from_left_housing),  (motor_winding_distance/2), 0]) cylinder(d=pcb_hole_diameter, h=housing_thickness + 0.01, center = true);
             }
             
             // Und hier noch das Loch für den Bolzen
@@ -332,45 +331,43 @@ module chassis_left(){
         }
     }
 }
-
-module pcb(){
-    // (pcb_length / 2) + (motor_winding_distance / 2) + (motor_spacer_outer_diameter / 2) - carousel_pos_x)
-    translate([-((pcb_length / 2) + (motor_winding_distance / 2) + (motor_spacer_outer_diameter / 2) - carousel_pos_x), carousel_pos_y, -((housing_inner_distance / 2) - (pcb_thickness / 2))]){
-        color("#1F6239"){
-            difference(){
+module pcb()
+{
+    translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - (pcb_thickness/2))])
+    {
+        color("#1F6239")
+        {
+            // Basic PCB
+            difference()
+            {
                 cube([pcb_length, pcb_width, pcb_thickness], center = true);
-                // die Löcher
-                translate([((pcb_length / 2) - pcb_hole_top_from_left), -((pcb_width/2) - pcb_hole_top_from_top_edge),0])     cylinder(d=pcb_hole_diameter, h=pcb_thickness + 1, center = true);
-                translate([((pcb_length / 2) - pcb_hole_bottom_from_left), ((pcb_width/2) - pcb_hole_bottom_from_bottom_edge),0]) cylinder(d=pcb_hole_diameter, h=pcb_thickness + 1, center = true);
-            }
-            translate([-((pcb_length / 2) + (pcb_edge_length / 2)), 0, 0]){
-                cube([pcb_edge_length, pcb_edge_width, pcb_thickness], center = true);
+                translate([((pcb_length/2) - pcb_hole_top_from_left_pcb), -(motor_winding_distance/2),0]) cylinder(d=pcb_hole_diameter, h=pcb_thickness + 0.01, center = true);
+                translate([((pcb_length/2) - pcb_hole_bottom_from_left_pcb),  (motor_winding_distance/2),0]) cylinder(d=pcb_hole_diameter, h=pcb_thickness + 0.01, center = true);
             }
         }
-        color("orange"){
-            translate([-((pcb_length / 2) + (pcb_edge_length / 2)), 10, 0]) cube([pcb_edge_length, 2, pcb_thickness + 0.01], center = true);
-            translate([-((pcb_length / 2) + (pcb_edge_length / 2)), 6, 0]) cube([pcb_edge_length, 2, pcb_thickness + 0.01], center = true);
-            translate([-((pcb_length / 2) + (pcb_edge_length / 2)), 2, 0]) cube([pcb_edge_length, 2, pcb_thickness + 0.01], center = true);
-            translate([-((pcb_length / 2) + (pcb_edge_length / 2)), -2, 0]) cube([pcb_edge_length, 2, pcb_thickness + 0.01], center = true);
-            translate([-((pcb_length / 2) + (pcb_edge_length / 2)), -6, 0]) cube([pcb_edge_length, 2, pcb_thickness + 0.01], center = true);
-            translate([-((pcb_length / 2) + (pcb_edge_length / 2)), -10, 0]) cube([pcb_edge_length, 2, pcb_thickness + 0.01], center = true);
+
+        // Card Edge Connector
+        translate([-((pcb_length / 2) + (pcb_edge_length / 2)), 0, 0])
+        {
+            color("#1F6239") cube([pcb_edge_length, pcb_edge_width, pcb_thickness], center = true);
+            color("orange")
+            for (i = [0:6-1])
+            {
+                translate([0, 10 - (i * 4), 0]) cube([pcb_edge_length, 2, pcb_thickness + 0.01], center = true);
+            }
         }
-    }
-    
-    // resistor bzw. hall sensor
-    translate([-((pcb_length / 2) + (motor_winding_distance / 2) + (motor_spacer_outer_diameter / 2) - carousel_pos_x), carousel_pos_y, -((housing_inner_distance / 2) - (pcb_thickness / 2))]){
-        resistor_breite=2.6;
-        resistor_hoehe=3.1;
-        resistor_dicke=0.7;
+
+        // resistor bzw. hall sensor
         color("red"){
-            translate([20, 0, ((pcb_thickness / 2) + (resistor_dicke / 2))]){
-                cube([resistor_hoehe, resistor_breite, resistor_dicke], center = true);
+            translate([((pcb_length/2) - pcb_hall_top_from_left), (-(pcb_width/2) + pcb_hall_top_from_top), ((pcb_thickness/2) + (pcb_hall_height/2))]){
+                cube([pcb_hall_length, pcb_hall_width, pcb_hall_height], center = true);
             }
         }
     }
 }
 
-module flap(){
+module flap()
+{
     color("#333") cube([flap_height,flap_width, flap_thickness], center = true);
     translate([-((flap_height/2) - (flap_pin/2)), -((flap_width/2) + (flap_pin/2)), 0])
     {
