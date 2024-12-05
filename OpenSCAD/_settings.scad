@@ -34,8 +34,8 @@ carousel_inner_distance = 51;
 carousel_flap_holes_diameter = 3.4;
 carousel_flap_path_radius = flap_height - (carousel_flap_holes_diameter/2);
 carousel_axis_diameter = 5;
-carousel_pos_x = 20.5; // 0.5 mm nach vorne korrigiert
-carousel_pos_y = -13.5; // 2 mm nach oben korrigiert
+carousel_pos_x = 20.5;
+carousel_pos_y = -13.5;
 carousel_pos = [carousel_pos_x,carousel_pos_y,0];
 
 // Die Löcher werden etwas länger, damit die Darstellung von OpenSCAD stimmt
@@ -109,10 +109,25 @@ pcb_edge_length = 7.4;
 pcb_thickness = 1.6;
 
 pcb_hole_diameter = 3.2;
-pcb_hole_top_from_left = 47;
-pcb_hole_bottom_from_left = 24;
-pcb_hole_top_from_top_edge = 7;
-pcb_hole_bottom_from_bottom_edge = 5;
+// Die Position der Löcher im Gehäuse für das PCB sind jeweils
+// gemessen an den hinteren Löchern für den Motor. 
+// also: pcb_hole_top_from_left = 52 bedeutet, dass das obere Loch
+// für das PCB 52mm vom hinteren Loch des Motors weg ist.
+pcb_hole_top_from_left_housing = 52;
+pcb_hole_bottom_from_left_housing = 27;
+
+// Die Position der Löcher im PCB sind jeweils gemessen
+// am linken Rand des PCB.
+// pcb_hole_top_from_left_housing - pcb_hole_top_from_left_pcb = (motor_spacer_outer_diameter/2) + 0.5
+// 52 - 48.5 = (6/2) + 0.5
+pcb_hole_top_from_left_pcb = 48.5;
+pcb_hole_bottom_from_left_pcb = 23.5;
+
+pcb_hall_top_from_left = 12.25;
+pcb_hall_top_from_top  = 10.85;
+pcb_hall_width  = 2.6;
+pcb_hall_length = 3.1;
+pcb_hall_height = 0.7;
 
 
 // always adjust overrides in _font_setup.scad accordingly
@@ -180,4 +195,3 @@ length_marker = 8;
 width_marker  = 0.2;
 
 indicator_position = 14;
-
