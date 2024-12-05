@@ -16,7 +16,6 @@
 */
 
 include<3D_library.scad>;
-          
 
 module split_flap(){
     *check();
@@ -32,6 +31,7 @@ module split_flap(){
                 karussell_scheibe_position("rechts");
                 karussell_scheibe_position("links");
                 rotating_carousel();
+                *example_flaps_bolt();
             }
         }
 
@@ -52,6 +52,9 @@ module split_flap(){
 
         // Das Pouley
         color("grey") stepper_pouley();
+
+        // PCB
+        pcb();
     }
 
     // Gehäuse Seiten:
@@ -66,8 +69,6 @@ module split_flap(){
         #chassis_front();
     }
     
-    // PCB
-    pcb();
 }
 
 rotate([270, 0, 0]) split_flap();
