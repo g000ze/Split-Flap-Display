@@ -186,6 +186,7 @@ void set_ms_to_go(byte module){
   // proceed only if a valid character has been provided
   if(new_flap_pos == 0){
     new_ms_pos[module] = 0;
+    ms_to_go[module] = 0;
     return;
   }
 
@@ -258,4 +259,3 @@ void request_i2c_event(){
     }
   }
 }
-
