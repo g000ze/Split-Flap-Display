@@ -16,4 +16,11 @@ https://github.com/tasoftch/php-i2c-extension
 
 https://github.com/user-attachments/assets/f0f93f7b-00a4-478b-8500-96269c6c5e51
 
+## Features
+- Customizable font
+- Any type of character set
+
+<img width="1298" alt="Overallview" src="https://github.com/user-attachments/assets/38d25479-a005-4a71-952e-5d17faed29d9" />
+
+
 ... will follow ...
