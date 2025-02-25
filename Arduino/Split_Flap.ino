@@ -1,12 +1,12 @@
-#include </Users/stefan/Documents/Arduino/Split_Flap/inputs/inputs.ino>
+#include <inputs/inputs.ino>
 #include <Wire.h>
 
 // motor and flap settings
 const byte microsteps = 16;   // Microsteps for the driver
 const byte motorsteps = 200;  // Stepper motor takes 200 positions per revolution
 const byte flaps = 50;        // number of flaps on carrousel
-const word ms_per_revolution = motorsteps * microsteps; // microsteps performed by carousel revolution
-const word ms_per_flap = ms_per_revolution / flaps; // microsteps performed by flap position
+const int ms_per_revolution = motorsteps * microsteps; // microsteps performed by carousel revolution
+const int ms_per_flap = ms_per_revolution / flaps; // microsteps performed by flap position
 
 /*
  Speed: The greater the number the slower it turns.
@@ -14,20 +14,22 @@ const word ms_per_flap = ms_per_revolution / flaps; // microsteps performed by f
 
  grundsätzlich ist jede Geschwindigkeit möglich, solange
  sie sich durch 32 (Anz. max. Microsteps) teilen lässt.
+ sneak:  128000
  slow:   38400
  normal: 28800
  fast:   19200
  stress: 9600
  */
-const long speed = 28800 / microsteps;
+const unsigned long speed = 28800 / microsteps;
 
 // Number of modules
 const byte modules = 8;
 
 // array settings
 // As of Backplane V2 PCB
-
-//////////////////////////////
+#include <inputs/pins_v2.ino>
+//// example /////////////////
+/*
 const byte hall_pin_0 = 18;
 const byte hall_pin_1 = 19;
 const byte hall_pin_2 = 20;
@@ -45,12 +47,8 @@ const byte step_pin_4 = 5;
 const byte step_pin_5 = 4;
 const byte step_pin_6 = 17;
 const byte step_pin_7 = 16;
-//////////////////////////////
-
-/*
-const byte hall_pin_0 = 6;
-const byte step_pin_0 = 0;
 */
+//////////////////////////////
 
 const byte hall_pin[modules] =
 {
@@ -80,25 +78,24 @@ const byte step_pin[modules] =
 unsigned long curr_time = 0;
 unsigned long prev_time = 0;
 
-word cur_ms_pos[modules]          = {};
-word new_ms_pos[modules]          = {};
+int  cur_ms_pos[modules]          = {};
+int  new_ms_pos[modules]          = {};
 int  ms_to_go[modules]            = {};
 char new_char[modules]            = {};
 bool set_ms_pos[modules]          = {};
 
 // Feineinstellung
-const word init_ms_pos[modules]   = {50, 10, 10, 10, 10, 10, 10, 10};
+const int init_ms_pos[modules]   = {43, 43, 43, 43, 43, 43, 43, 43};
 
 void setup() {
   Serial.begin(9600);
 
-  /*
   // Join I2C bus as slave with uniqe address
   Wire.begin(0x0b);
   // set I2C receive and request functions
   Wire.onReceive(receive_i2c_event);
   Wire.onRequest(request_i2c_event);
-  */
+
   // setup pins and variables
   for(byte module = 0; module < modules; module++){
     pinMode(step_pin[module], OUTPUT);
@@ -112,9 +109,6 @@ void setup() {
   }
 }
 
-// ToDo XXX
-//#include </Users/stefan/Documents/Arduino/Split_Flap/output/output.ino>
-
 void loop() {
   motor_run();
   receive_serial_event();
@@ -127,7 +121,7 @@ void motor_run(){
     for(byte module = 0; module < modules; module++){
       if(ms_to_go[module] > 0){
         digitalWrite(step_pin[module], HIGH);
-        digitalWrite(step_pin[module], LOW);  
+        digitalWrite(step_pin[module], LOW);
         update_ms_pos(module);
       }
     }
@@ -141,14 +135,16 @@ void update_ms_pos(byte module){
   // reset cur_ms_pos only once if magnet is at home place
   if(is_magnet_home(module)){
     if(set_ms_pos[module]){
-      /*
+      // uncomment for debugging purposes.
+      /*      
       if(cur_ms_pos[module] > ms_per_revolution){
-        // magnet behind counter
+        Serial.print("magnet behind counter ");
       }
-      if(cur_ms_pos[module] < ms_per_revolution - 1){
-        // magnet before counter
+      if(cur_ms_pos[module] < ms_per_revolution - 1){   // weshalb - 1 ?
+        Serial.print("magnet before counter ");
       }
       */
+
       cur_ms_pos[module] = 0;
 
       // instant adjustment of microsteps to go
@@ -160,6 +156,14 @@ void update_ms_pos(byte module){
     }
     set_ms_pos[module] = false;
   }else{
+    /*
+    // wait for magnet after one revolution
+    if(cur_ms_pos[module] >= ms_per_revolution){
+      if(cur_ms_pos[module] <= (ms_per_revolution * 3)){
+        ms_to_go[module] = 1;
+      }
+    }
+    */
     set_ms_pos[module] = true;
   }
 }
@@ -180,15 +184,13 @@ new = 30
 (50 - 44) + 30 = 36
 */
 void set_ms_to_go(byte module){
-  word new_flap_pos = get_position(new_char[module]);
-  new_ms_pos[module] = new_flap_pos * ms_per_flap;
-
+  unsigned int new_flap_pos = get_position(new_char[module]);
   // proceed only if a valid character has been provided
   if(new_flap_pos == 0){
-    new_ms_pos[module] = 0;
-    ms_to_go[module] = 0;
     return;
   }
+
+  new_ms_pos[module] = new_flap_pos * ms_per_flap;
 
   // pretend to be on correct position, even if magnet has not been spotted
   int position = cur_ms_pos[module] % ms_per_revolution;
@@ -201,50 +203,51 @@ void set_ms_to_go(byte module){
   }
 }
 
-bool is_valid_module(byte module) {
-    return module < modules;
+bool is_magnet_home(byte module) {
+  return (digitalRead(hall_pin[module]) == 0);
 }
 
-bool is_magnet_home(byte module){
-  if (digitalRead(hall_pin[module]) == 0) {
-    return true;
-  }
-  return false;
-}
-
-bool is_running(byte module){
-  if (ms_to_go[module] > 0) {
-    return true;
-  }
-  return false;
+bool is_running(byte module) {
+  return (ms_to_go[module] > 0);
 }
 
 /*
  * serial events
  */
-void receive_serial_event(){
-  if(Serial.available() > 0){
-    String content = Serial.readStringUntil('\n');
-    for(byte module = 0; module < modules; module++){
-      //new_char[module] = Serial.read();
-      new_char[module] = content.charAt(module);
-      set_ms_to_go(module);
-    }
+
+void receive_serial_event() {
+  if (!Serial.available()) {
+    return;
+  }
+
+  String content = Serial.readStringUntil('\n');
+  for (byte module = 0; module < modules && module < content.length(); module++) {
+    new_char[module] = content.charAt(module);
+    set_ms_to_go(module);
   }
 }
 
 /*
  * I2C events
  */
-void receive_i2c_event(int bytes){
-  // the first byte is the register which sends the php lib. Drop it!
-  int trash = Wire.read();
-  byte module = 0;
-  while(Wire.available() > 0){
-    char content = Wire.read();
-    new_char[module] = content;
-    set_ms_to_go(module);
-    module++;
+void receive_i2c_event(int bytes) {
+  // at least one byte must be given
+  if (bytes <= 0) {
+    return;
+  }
+
+  // ignore the first byte (register-byte)
+  if (Wire.available() > 0) {
+    Wire.read();
+  }
+
+  // Version von Chat GPT
+  for (byte module = 0; module < modules && Wire.available() > 0; module++) {
+  //while(Wire.available() > 0){
+    for (byte module = 0; module < modules; module++) {
+      new_char[module] = Wire.read();
+      set_ms_to_go(module);
+    }
   }
 }
 
@@ -253,9 +256,9 @@ void request_i2c_event(){
     if(ms_to_go[module] > 0){
       Wire.write(255);
     }else{
-      // ToDo XXX
-      //Wire.write(cur_flap_pos[module]);
-      Wire.write(cur_ms_pos[module]);
+      //round, in case something ran out of count
+      Wire.write(round((float)(cur_ms_pos[module] - init_ms_pos[module]) / ms_per_flap));
+      //Wire.write((cur_ms_pos[module] - init_ms_pos[module]) / ms_per_flap);
     }
   }
 }
