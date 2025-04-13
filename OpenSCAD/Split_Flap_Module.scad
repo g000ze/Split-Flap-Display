@@ -20,9 +20,8 @@ include<3D_library.scad>;
 module split_flap(){
     *check();
     
-    translate(carousel_pos){
-
-        
+    translate(carousel_pos)
+    {
         rotate([270, 0, 270])
         {
             rotate([0, -360 * $t, 0])
@@ -58,15 +57,15 @@ module split_flap(){
     }
 
     // Gehäuse Seiten:
-    color("#555"){
+    #color("#555"){
         // Rechts mit grossem Ausschnitt
-        #chassis_right();
+        chassis_right();
 
         // Links mit Löcher für Motor
-        #chassis_left();
+        chassis_left();
 
         // Front
-        #chassis_front();
+        chassis_front();
     }
     
 }

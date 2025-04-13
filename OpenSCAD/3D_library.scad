@@ -139,14 +139,14 @@ module karussell_scheibe_position(side = "rechts")
     color("#555") rotate([90,90,0])
     if(side == "rechts")
     {
-        translate([0,0,-(carousel_inner_distance/2)-(carousel_thickness/2)])
+        translate([0,0,-((carousel_inner_distance/2)+(carousel_thickness/2))])
         {
             karussell_scheibe_rechts();
         }
     }
     else
     {
-        translate([0,0,(carousel_inner_distance/2)+(carousel_thickness/2)])
+        translate([0,0, ((carousel_inner_distance/2)+(carousel_thickness/2))])
         {
             karussell_scheibe_links();
         }
@@ -205,17 +205,22 @@ module example_flap_bottom(){
 }
 
 module example_flaps_bolt()
-{
-    // Winkelwerte für Flaps 36 bis 50
-    angles = [234, 231.5, 228, 223, 218, 212, 206, 200, 194, 189, 185, 182, 180.5, 180, 180];
-
-    for (i = [36:50]) {
-        angle = angles[i - 36]; // Entsprechend dem Index 36-50
+{   // Differences                                   0  -6  -5.7   -5.1   -4.2 -3.1   -2     -0.9
+    angles = [26.1, 24.1, 21, 16.8, 11.7, 6, 0, -6, -11.7, -16.8, -21, -24.1, -26.1];
+    start = 35;
+    end = start + (len(angles) - 1);
+    middle = floor((len(angles) / 2));
+    
+    start_angle = (start + middle) * (360 / nr_of_flaps) - 90;
+    
+    for (i = [start:end]) 
+    {
+        rotated_angle = (360 * (i / nr_of_flaps - $t) + 360) % 360;
 
         translate([carousel_flap_path_radius * sin(i * (360 / nr_of_flaps)),
                    0,
                    carousel_flap_path_radius * cos(i * (360 / nr_of_flaps))])
-        rotate([0, angle, 0])
+        rotate([0, (angles[i-(start)] + start_angle), 0])
         translate([(flap_height / 2) - (flap_pin / 2), 0, 0])
         flap();
     }
@@ -273,11 +278,11 @@ module stepper_pouley(){
             cylinder(d=pulley_diameter, h=pulley_thickness, center = true);
 
             // Achse
-            cylinder(d=pulley_axis_diameter, h=pulley_thickness, center = true);
+            cylinder(d=pulley_axis_diameter, h=pulley_thickness + 1, center = true);
 
             // Löcher für Motor Poulley
             for(i=[1:pulley_nr_of_holes]){
-                translate([pulley_holes_path_radius*cos(i*(360/pulley_nr_of_holes)),pulley_holes_path_radius*sin(i*(360/pulley_nr_of_holes)),0]) cylinder(d=pulley_holes_diameter, h=carousel_thickness_holes, $fn=50, center = true);
+                translate([pulley_holes_path_radius*cos(i*(360/pulley_nr_of_holes)),pulley_holes_path_radius*sin(i*(360/pulley_nr_of_holes)),0]) cylinder(d=pulley_holes_diameter, h=pulley_thickness + 0.1, $fn=50, center = true);
             }
         }
     }

@@ -33,7 +33,9 @@ difference()
     {
         for(row=[0:1:rows-1])
         {
-            translate([(carousel_diameter / 2) + ((carousel_diameter + space) * row), (carousel_diameter / 2) + ((carousel_diameter + space) * col), 0])
+            //                                                                         verschieben auf dem Quadrat
+            //                                                                         v                                                                    v
+            translate([(carousel_diameter / 2) + ((carousel_diameter + space) * row) + 1.5, (carousel_diameter / 2) + ((carousel_diameter + space) * col) + 1.5, 0])
             if((col + row) %  2 == 0)
             {
                 // render() makes the preview faster

@@ -123,6 +123,7 @@ pcb_hole_bottom_from_left_housing = 27;
 pcb_hole_top_from_left_pcb = 48.5;
 pcb_hole_bottom_from_left_pcb = 23.5;
 
+// Hall Sensor
 pcb_hall_top_from_left = 12.25;
 pcb_hall_top_from_top  = 10.85;
 pcb_hall_width  = 2.6;
