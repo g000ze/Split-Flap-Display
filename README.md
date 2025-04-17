@@ -17,6 +17,9 @@ https://github.com/tasoftch/php-i2c-extension
 https://github.com/user-attachments/assets/f0f93f7b-00a4-478b-8500-96269c6c5e51
 
 ## Features
+- 50 characters per mudule
+- 8 modules per Arduino
+- Simple web interface for text input
 - Customizable font
 - Any type of character set
 
