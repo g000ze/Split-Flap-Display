@@ -1,7 +1,7 @@
 ## Intro
 Older people (like me) look back with nostalgia at train stations and airports, middle-aged people are captivated by technology, and the younger generation is excited by the clattering sound combined with the non-virtual movement. The split flap display remains a fascinating display panel for text and small animations.
 
-One day, while watching a video about split flap displays, I suddenly felt the desire to own one. After a relatively short research, I realized that only a few manufacturers build such displays. There are, for example, "Oat Foundry," "Vestaboard," or the one called "Split Flap Display Manufacturer." No matter which manufacturer you choose, the displays are either very expensive or don't meet my requirements. So I decided to try building one myself.
+One day, while watching a video about split flap displays, I suddenly felt the desire to own one. After a relatively short research, I realized that only a few manufacturers build such displays. There are, for example, [Oat Foundry](https://www.oatfoundry.com/), [Vestaboard](https://www.vestaboard.com/), [Scott Bezek](https://github.com/scottbez1/splitflap) or the one called "Split Flap Display Manufacturer." No matter which manufacturer you choose, the displays are either very expensive or don't meet my requirements. So I decided to try building one myself.
 
 [![DIY Split Flap Display on YouTube](https://img.youtube.com/vi/JR2ThV7CSwY/maxresdefault.jpg)](https://youtu.be/JR2ThV7CSwY?si=3bZnhtjU7jKmc7q2)
 
@@ -47,9 +47,9 @@ The stepper motor is located inside the carousel. With its 82mm diameter, the ca
 ## Other
 
 ## Tools Used
-- OpenSCAD
-- KiCad
-- FreeCAD
+- OpenSCAD: https://openscad.org/
+- KiCad: https://www.kicad.org/
+- FreeCAD: https://www.freecad.org/
 - For the Raspberry Pi to communicate with Arduino using I2C, I used this extension: https://github.com/tasoftch/php-i2c-extension
 
 
