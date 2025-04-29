@@ -37,7 +37,7 @@ The TMC2208 and the Hall sensor on the module PCB each operate at +5 VCC, while 
 
 ## The Carousel
 The Carousel is attached to the pouley on the motor shaft so that it can be rotated by the steppermotor. It also holds the 50 flaps in position. The stepper motor is located inside the carousel. With its 82mm diameter, the carousel fits perfectly around the motor and there's enough space for the 50 flap positions. The two wheels are different, as the left wheel contains spokes, while the right wheel is open.
-![Carousel](https://github.com/user-attachments/assets/cd2c80ef-01e6-48a0-b217-f27e4b992056)
+![Carousel](https://github.com/user-attachments/assets/d797df04-d1a4-482a-b0e6-0794be64aacd)
 
 ## The Flaps
 
