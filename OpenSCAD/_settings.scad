@@ -32,7 +32,7 @@ carousel_diameter = 82;
 carousel_thickness = 3;
 carousel_inner_distance = 51;
 carousel_flap_holes_diameter = 3.4;
-carousel_flap_path_radius = flap_height - (carousel_flap_holes_diameter/2);
+carousel_flap_path_radius = 40 - (carousel_flap_holes_diameter/2);
 carousel_axis_diameter = 5;
 carousel_pos_x = 20.5;
 carousel_pos_y = -13.5;
@@ -65,8 +65,8 @@ magnet_hole_diameter = 1.9;
 magnet_hole_path_radius = carousel_spacer_path_radius;
 
 // Die Schrauben durch die Karussell Spacer
-screw_length = 60;
-screw_diameter = 3;
+carousel_spacer_screw_length = 60;
+carousel_spacer_screw_diameter = 3;
 
 // Stepper Motor
 motor_width = 42;
@@ -82,7 +82,10 @@ motor_winding_distance = 31;
 // Spacer für Motor
 motor_spacer_outer_diameter = 6;
 motor_spacer_inner_diameter = 3.2;
-motor_carousel_spacer_length = 20;
+motor_spacer_length = 20;
+// Schrauben für die Befestigung des Motors
+motor_screw_diameter = 3;
+motor_screw_length = 25;
 
 // Gehäuse
 housing_width = 120;
