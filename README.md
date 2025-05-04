@@ -38,6 +38,9 @@ Two different types of PCBs are required. One is a small PCB that is attached to
 
 The TMC2208 and the Hall sensor on the module PCB each operate at +5 VCC, while the motor naturally requires 12 volts.
 
+<img width="736" alt="PCB Module" src="https://github.com/user-attachments/assets/e4f5725f-ebec-4d98-9d66-4125d489c933" />
+<img width="1862" alt="PCB Backplane" src="https://github.com/user-attachments/assets/dafbdfff-4e1d-4719-8974-50a09bd5f2fc" />
+
 ## The Carousel
 The Carousel is attached to the pouley on the motor shaft so that it can be rotated by the steppermotor. It also holds the 50 flaps in position. The stepper motor is located inside the carousel. With its 82mm diameter, the carousel fits perfectly around the motor and there's enough space for the 50 flap positions. The two wheels are different, as the left wheel contains spokes, while the right wheel is open.
 <img width="530" alt="carousel" src="https://github.com/user-attachments/assets/e03de4d8-926e-418a-9f79-a05566217747" />
