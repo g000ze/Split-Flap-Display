@@ -12,8 +12,9 @@ As already mentioned, a single module produces little effect, so we want multipl
 - The power supply for all electronics, including the motors
 
 **Animation of spinning spool using OpenSCAD**
-[Split Flap Display](https://github.com/user-attachments/assets/4345d856-2881-447f-8bcb-9b5cd47e7906)
 
+![Spinning Carousel](https://github.com/user-attachments/assets/4345d856-2881-447f-8bcb-9b5cd47e7906)
+ 
 ## The Housing
 The housing is used to position the motor, along with the carousel and flaps, as well as the PCB with the Hall sensor. If everything is exactly right, the flaps will drop at the right time and the magnet will move correctly over the sensor. I used 0.8 mm sheet steel for the housing. The 3D OpenSCAD drawing can be found [here](https://github.com/g000ze/Split-Flap-Display/blob/main/OpenSCAD/Chassis.scad). I found a company in Switzerland called [Blexon](https://blexon.ch), that will punch and bend the housing according to my specifications.
 
@@ -36,7 +37,7 @@ The TMC2208 and the Hall sensor on the module PCB each operate at +5 VCC, while 
 
 ## The Carousel
 The Carousel is attached to the pouley on the motor shaft so that it can be rotated by the steppermotor. It also holds the 50 flaps in position. The stepper motor is located inside the carousel. With its 82mm diameter, the carousel fits perfectly around the motor and there's enough space for the 50 flap positions. The two wheels are different, as the left wheel contains spokes, while the right wheel is open.
-![Carousel](https://github.com/user-attachments/assets/d797df04-d1a4-482a-b0e6-0794be64aacd)
+<img width="530" alt="carousel" src="https://github.com/user-attachments/assets/e03de4d8-926e-418a-9f79-a05566217747" />
 
 I decided to use 3mm PVC plates for the carousel. A company named [Waterjet](https://www.waterjet.ch/) located in Switzerland did the water cutting to cut out the carousel wheels.
 
