@@ -12,8 +12,9 @@ As already mentioned, a single module produces little effect, so we want multipl
 - The power supply for all electronics, including the motors
 
 **Animation of spinning spool using OpenSCAD**
-!([Spinning Carousel](https://github.com/user-attachments/assets/4345d856-2881-447f-8bcb-9b5cd47e7906))
 
+![Spinning Carousel](https://github.com/user-attachments/assets/4345d856-2881-447f-8bcb-9b5cd47e7906)
+ 
 ## The Housing
 The housing is used to position the motor, along with the carousel and flaps, as well as the PCB with the Hall sensor. If everything is exactly right, the flaps will drop at the right time and the magnet will move correctly over the sensor. I used 0.8 mm sheet steel for the housing. The 3D OpenSCAD drawing can be found [here](https://github.com/g000ze/Split-Flap-Display/blob/main/OpenSCAD/Chassis.scad). I found a company in Switzerland called [Blexon](https://blexon.ch), that will punch and bend the housing according to my specifications.
 
