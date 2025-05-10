@@ -12,9 +12,8 @@ As already mentioned, a single module produces little effect, so we want multipl
 - The power supply for all electronics, including the motors
 
 **Animation of spinning spool using OpenSCAD**
- 
-[![Spinning Carousel](https://g000ze.github.io/docs/index.html)](https://github.com/user-attachments/assets/4345d856-2881-447f-8bcb-9b5cd47e7906)
 
+[![Spinning Carousel](https://g000ze.github.io/docs/index.html)](https://github.com/user-attachments/assets/af98eea6-6dcd-4d9f-962c-459cd9d655be)
 
 Click [here](https://g000ze.github.io/docs/index.html) to see it spinning infinitely.
 
