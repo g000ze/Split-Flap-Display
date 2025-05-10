@@ -452,14 +452,17 @@ module pcb_muttern(){
 
 module flap()
 {
-    color("#333") cube([flap_height,flap_width, flap_thickness], center = true);
-    translate([-((flap_height/2) - (flap_pin/2)), -((flap_width/2) + (flap_pin/2)), 0])
+    union() 
     {
-        color("#333") cube([flap_pin,flap_pin,flap_thickness], center = true);
-    }
-    translate([-((flap_height/2) - (flap_pin/2)),  ((flap_width/2) + (flap_pin/2)), 0]) 
-    {
-        color("#333") cube([flap_pin,flap_pin,flap_thickness], center = true);
+        color("#333") cube([flap_height,flap_width, flap_thickness], center = true);
+        translate([-((flap_height/2) - (flap_pin/2)), -((flap_width/2) + (flap_pin/2)), 0])
+        {
+            color("#333") cube([flap_pin,flap_pin,flap_thickness], center = true);
+        }
+        translate([-((flap_height/2) - (flap_pin/2)),  ((flap_width/2) + (flap_pin/2)), 0]) 
+        {
+            color("#333") cube([flap_pin,flap_pin,flap_thickness], center = true);
+        }
     }
 }
 
@@ -500,7 +503,7 @@ module draw_half_letter(char, flip = false)
 
     translate([0, 0, lift_letter]) color(color) intersection()
     {
-        cube([flap_height, flap_width, flap_thickness], center = true);
+        cube([flap_height - 0.1, flap_width - 0.1, flap_thickness], center = true);
         rotate(rotate_letter) translate([0, move_letter, 0]) linear_extrude(height = flap_thickness) draw_letter(chars[char]);
     }
 }
