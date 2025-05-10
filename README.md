@@ -12,9 +12,12 @@ As already mentioned, a single module produces little effect, so we want multipl
 - The power supply for all electronics, including the motors
 
 **Animation of spinning spool using OpenSCAD**
-
-![Spinning Carousel](https://github.com/user-attachments/assets/4345d856-2881-447f-8bcb-9b5cd47e7906)
  
+[![Spinning Carousel](https://g000ze.github.io/docs/index.html)](https://github.com/user-attachments/assets/4345d856-2881-447f-8bcb-9b5cd47e7906)
+
+
+Click [here](https://g000ze.github.io/docs/index.html) to see it spinning infinitely.
+
 ## The Housing
 The housing is used to position the motor, along with the carousel and flaps, as well as the PCB with the Hall sensor. If everything is exactly right, the flaps will drop at the right time and the magnet will move correctly over the sensor. I used 0.8 mm sheet steel for the housing. The 3D OpenSCAD drawing can be found [here](https://github.com/g000ze/Split-Flap-Display/blob/main/OpenSCAD/Chassis.scad). I found a company in Switzerland called [Blexon](https://blexon.ch), that will punch and bend the housing according to my specifications.
 
@@ -34,6 +37,9 @@ Two different types of PCBs are required. One is a small PCB that is attached to
 - +12V
 
 The TMC2208 and the Hall sensor on the module PCB each operate at +5 VCC, while the motor naturally requires 12 volts.
+
+<img width="736" alt="PCB Module" src="https://github.com/user-attachments/assets/e4f5725f-ebec-4d98-9d66-4125d489c933" />
+<img width="1862" alt="PCB Backplane" src="https://github.com/user-attachments/assets/dafbdfff-4e1d-4719-8974-50a09bd5f2fc" />
 
 ## The Carousel
 The Carousel is attached to the pouley on the motor shaft so that it can be rotated by the steppermotor. It also holds the 50 flaps in position. The stepper motor is located inside the carousel. With its 82mm diameter, the carousel fits perfectly around the motor and there's enough space for the 50 flap positions. The two wheels are different, as the left wheel contains spokes, while the right wheel is open.
