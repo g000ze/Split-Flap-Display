@@ -13,9 +13,17 @@ As already mentioned, a single module produces little effect, so we want multipl
 
 **Animation of spinning spool using OpenSCAD**
 
+
+
+
+
 [![Spinning Carousel](https://g000ze.github.io/docs/index.html)](https://github.com/user-attachments/assets/af98eea6-6dcd-4d9f-962c-459cd9d655be)
 
 Click [here](https://g000ze.github.io/docs/index.html) to see it spinning infinitely.
+
+[![Exploded View]](https://github.com/user-attachments/assets/ecffe0bf-9c8d-47f0-b8ce-c02ede4a916f)
+
+
 
 ## The Housing
 The housing is used to position the motor, along with the carousel and flaps, as well as the PCB with the Hall sensor. If everything is exactly right, the flaps will drop at the right time and the magnet will move correctly over the sensor. I used 0.8 mm sheet steel for the housing. The 3D OpenSCAD drawing can be found [here](https://github.com/g000ze/Split-Flap-Display/blob/main/OpenSCAD/Chassis.scad). I found a company in Switzerland called [Blexon](https://blexon.ch), that will punch and bend the housing according to my specifications.
