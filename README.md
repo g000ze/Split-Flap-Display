@@ -23,7 +23,7 @@ The housing is used to position the motor, along with the carousel and flaps, as
 <img width="567" alt="Housing" src="https://github.com/user-attachments/assets/7d457f1f-1d2f-4849-aac7-7d4a1348fe1a" />
 
 ## The Stepper Motor
-Normally, Nema 17 stepper motors are mounted on the side where the shaft is located. This display is different; the motor must be mounted on one side, and the shaft, where the carousel is screwed to, must be on the other side. The [17HS13-0404D](https://www.omc-stepperonline.com/de/doppel-schacht-nema-17-bipolar-1-8deg-26ncm-36-8oz-in-0-4a-12v-42x34mm-4-draehte-17hs13-0404d) is the only Nema 17 I could find with the shaft on the opposite side from where it is mounted. This motor is actually a "dual shaft" motor. The 17HS13-0404D is powered by +12 volts.
+Normally, Nema 17 stepper motors are mounted on the side where the shaft is located. This display is different; the motor must be mounted on one side, and the shaft, where the carousel is screwed to, must be on the opposite side. The [17HS13-0404D](https://www.omc-stepperonline.com/de/doppel-schacht-nema-17-bipolar-1-8deg-26ncm-36-8oz-in-0-4a-12v-42x34mm-4-draehte-17hs13-0404d) is the only Nema 17 I could find with the shaft on the opposite side from where it is mounted. This motor is actually a "dual shaft" motor. The 17HS13-0404D is powered by +12 volts.
 
 <img width="340" alt="17HS13-0404D" src="https://github.com/user-attachments/assets/5ccef8f6-140d-484a-8c40-83faac180ccc" />
 
