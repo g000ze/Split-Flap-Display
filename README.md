@@ -25,6 +25,8 @@ The housing is used to position the motor, along with the carousel and flaps, as
 ## The Stepper Motor
 Normally, Nema 17 stepper motors are mounted on the side where the shaft is located. This display is different; the motor must be mounted on one side, and the shaft, where the carousel is screwed to, must be on the other side. The [17HS13-0404D](https://www.omc-stepperonline.com/de/doppel-schacht-nema-17-bipolar-1-8deg-26ncm-36-8oz-in-0-4a-12v-42x34mm-4-draehte-17hs13-0404d) is the only Nema 17 I could find with the shaft on the opposite side from where it is mounted. This motor is actually a "dual shaft" motor. The 17HS13-0404D is powered by +12 volts.
 
+<img width="340" alt="17HS13-0404D" src="https://github.com/user-attachments/assets/5ccef8f6-140d-484a-8c40-83faac180ccc" />
+
 ## The Driver
 To operate a stepper motor, you need a driver. There are many. I experimented with stepper motor drivers for a long time until I finally came across the TMC2208 "Silent Step Stick" from [Watterott](https://learn.watterott.com/de/silentstepstick/). This driver allows the 17HS13-0404D to run almost silently. Finally, the sound of a split-flap display plays a crucial role. We want to hear only the flaps clattering, not the motors.
 
