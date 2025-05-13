@@ -53,7 +53,7 @@ I decided to use 3mm PVC plates for the carousel. A company named [Waterjet](htt
 The pouley connects the motor and the carousel together. [This](https://www.pololu.com/product/1998) one was actually the only one I found to suit the motor shaft. So I bought it, even though it is insanely overpriced.
 
 ## The Flaps
-The flaps are the essential parts, since the show the text that you want to see. Basically almost all kind of fonts, characters, signs and pictures are possible.
+The flaps are the essential parts, since they show the text that you want to see. Basically almost all kind of fonts, characters, signs and pictures are possible. After endless searching, trying and disapointments, I found a company named [Ren Peck](http://www.ren-peck.com/) in China who was willing to create what I am looking for. In fact it is the very same company that created the flaps for [Scott Bezek](https://github.com/scottbez1/splitflap)s Split Flap Display. 
 
 <img width="851" alt="Flaps" src="https://github.com/user-attachments/assets/ca76837a-219c-4259-87e0-854e23e6e386" />
 
