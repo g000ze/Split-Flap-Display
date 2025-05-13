@@ -46,8 +46,7 @@ Two different types of PCBs are required. One is a small PCB that is attached to
 - +12V
 
 The TMC2208 and the Hall sensor on the module PCB each operate at +5 VCC, while the motor naturally requires 12 volts.
-
-<img width="567" alt="PCB Module" src="https://github.com/user-attachments/assets/d0b413ae-fbd7-4843-8d17-c20868f546a3" />
+<img width="567" alt="PCB Module" src="https://github.com/user-attachments/assets/ab931367-9ad7-4703-a052-73e8839e27a8" />
 <img width="1418" alt="PCB Backplane" src="https://github.com/user-attachments/assets/a44f44f3-0cbd-4914-85cf-c44a03d4fe48" />
 
 ## The Carousel
