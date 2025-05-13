@@ -57,6 +57,9 @@ The Carousel is attached to the pouley on the motor shaft so that it can be rota
 
 I decided to use 3mm PVC plates for the carousel. A company named [Waterjet](https://www.waterjet.ch/) located in Switzerland did the water cutting to cut out the carousel wheels.
 
+## The Pouley
+The pouley connects the motor and the carousel together. [This](https://www.pololu.com/product/1998) one was actually the only one I found to suit the motor shaft. So i bought it even though it is insanely overpriced.
+
 ## The Flaps
 <img width="851" alt="Flaps" src="https://github.com/user-attachments/assets/ca76837a-219c-4259-87e0-854e23e6e386" />
 
