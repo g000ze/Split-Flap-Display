@@ -1,59 +1,31 @@
 #!/usr/bin/php
 <?php
 
-require(dirname(__FILE__) . "/library.php");
+require "./split-flap.php";
 
-# default values
-$noblock = false;
-$animation = "n";
-$same = false;
+$longopts  = array(
+    "text:",
+    "animation:",
+    "noblock",
+    "same",
+);
 
-# desperate attempt to optarg in php
-# maybe someone has a better solution!
-array_shift($argv);
-while ($arg = array_shift($argv)) {
-  if(substr($arg, 0, 7) == '--text='){
-    # take the second part of $arg found by delimiter "="
-    # and make every sinlge charakter being an array member
-    $text = str_split(explode("=", $arg, 2)[1], 1);
-  }
-  if(substr($arg, 0, 9) == '--noblock'){
-    $noblock = true;
-  }
-  if(substr($arg, 0, 11) == '--animation'){
-    $animation = explode("=", $arg, 2)[1];
-  }
-  if(substr($arg, 0, 6) == '--same'){
-    $same = true;
-  }
+$options = getopt("", $longopts);
+$options['same']    = isset($options['same'])    && !$options['same']    ? true : false;
+$options['noblock'] = isset($options['noblock']) && !$options['noblock'] ? true : false;
+$options = filter_options($options);
+
+if (isset($options) && ! empty($options)) {
+    $fd = i2c_open("/dev/i2c-1");
+    $options['text'] = sanitize_string($options['text']);
+    $array = text_to_array($options['text'], $options['same']);
+    $text = set_delay ($array, $options['animation']);
+    run_carrousel($text);
+    if(!$options['noblock']){
+        block();
+    }
+
+    i2c_close($fd);
 }
 
-# set random text, if none is given
-if(!isset($text)){
-  $text = get_random_values();
-}
 
-# generate array to be used by library
-$display = create_text_to_display($text);
-
-# do not run on same characters
-if($same){
-  $display = ignore_same_positions($display);
-}
-
-$display = set_delay($display, $animation);
-
-foreach($text as $value){
-  echo "$value";
-}
-echo "\n\n";
-
-run_carrousel($display);
-
-if(!$noblock){
-  block();
-}
-
-i2c_close($fd);
-
-?>
