@@ -3,7 +3,7 @@ Older people (like me) look back with nostalgia at train stations and airports, 
 
 One day, while watching a video about split flap displays, I suddenly felt the desire to own one. After a relatively short research, I realized that only a few manufacturers build such displays. There are, for example, [Oat Foundry](https://www.oatfoundry.com/), [Vestaboard](https://www.vestaboard.com/), [Scott Bezek](https://github.com/scottbez1/splitflap) or the one called "Split Flap Display Manufacturer." No matter which manufacturer you choose, the displays are either very expensive or don't meet my requirements. So I decided to try building one myself.
 
-[![DIY Split Flap Display on YouTube](https://img.youtube.com/vi/JR2ThV7CSwY/maxresdefault.jpg)](https://youtu.be/JR2ThV7CSwY?si=3bZnhtjU7jKmc7q2)
+[![DIY Split Flap Display on YouTube](https://i.ytimg.com/vi/Lept-73BvrE/hq720.jpg)](https://www.youtube.com/watch?v=Lept-73BvrE)
 
 A typical split flap display looks best when it can display text. This text is naturally composed of characters, i.e., letters, numbers, and special characters. Optionally, symbols, colors, or images can also be displayed. A character is represented on the display by a so-called module. A module consists of a housing, a stepper motor, a motor driver, a PCB that connects the driver and the motor, a carousel, 50 flaps for the characters, and, of course, various spacers and screws that hold the whole thing together. A magnetic sensor (Hall effect sensor) is also integrated into the carousel, which tells the microprocessor when position 0 or the home position has been reached.
 
