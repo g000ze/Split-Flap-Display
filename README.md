@@ -59,6 +59,10 @@ The flaps are the essential parts, since they show the text that you want to see
 
 <img width="851" alt="Flaps" src="https://github.com/user-attachments/assets/ca76837a-219c-4259-87e0-854e23e6e386" />
 
+One flap has basically the size of 40mm height and 50mm width. There are two little notches on each side in order to hold them in the carousel and to make them actually flip down. 
+
+![Flaps Small](https://github.com/user-attachments/assets/0acedc98-daa6-42de-a18b-f75c15f40719)
+
 ## The Software
 
 ## Other
