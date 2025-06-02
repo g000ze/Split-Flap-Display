@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/dist/css/cover.css" rel="stylesheet">
 
-    <style type='text/css'>
+    <style>
     .text-input {
       font-family: monospace;
       font-size: 2em;
@@ -38,6 +38,14 @@
             <h1 class="display-4 link-body-emphasis mb-1 text-nowrap text-center">Split Flap Display</h1>
         </div>
       </header>
+
+      <!--
+      <div class="nav-scroller py-1 mb-1 border-bottom">
+        <nav class="nav nav-underline justify-content-between">
+          <a href="#" class="nav-item nav-link link-body-emphasis active">Home</a>
+        </nav>
+      </div>
+      -->
     </div>
 
     <main class="container d-flex justify-content-center align-items-center" style="min-height: 50vh;">
