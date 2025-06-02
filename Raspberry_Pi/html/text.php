@@ -1,5 +1,5 @@
 <?php
-require("/home/stefan/git/Split-Flap-Display/Raspberry_Pi/split-flap.php");
+require (__DIR__ . "/../split-flap.php");
 
 if (isset($_POST['text']) && ! empty($_POST['text'])) {
   $fd = i2c_open("/dev/i2c-1");
