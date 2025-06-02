@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-require "./split-flap.php";
+require (__DIR__ . "/split-flap.php");
 
 $longopts  = array(
     "text:",
@@ -13,6 +13,7 @@ $longopts  = array(
 $options = getopt("", $longopts);
 $options['same']    = isset($options['same'])    && !$options['same']    ? true : false;
 $options['noblock'] = isset($options['noblock']) && !$options['noblock'] ? true : false;
+$options['text']    = isset($options['text']) ? $options['text'] : '';
 $options = filter_options($options);
 
 if (isset($options) && ! empty($options)) {
@@ -27,5 +28,4 @@ if (isset($options) && ! empty($options)) {
 
     i2c_close($fd);
 }
-
 

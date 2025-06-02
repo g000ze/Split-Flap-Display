@@ -24,52 +24,27 @@ $characters = array(
 );
 
 /** @var $targets */
-/*
 $targets = array(
     # lines
     0 => array(
         # arduinos or blocks
         0 => array(
             'size' => 8,    // number of modules
-            'i2c'  => 0x0b, // i2c address of arduino
+            'i2c'  => 0x0c, // i2c address of arduino
         ),
         1 => array(
-            'size' => 8,
-            'i2c'  => 0x0c,
-        ),
-        2 => array(
-            'size' => 8,
-            'i2c'  => 0x0d,
+            'size' => 8,    // number of modules
+            'i2c'  => 0x0d, // i2c address of arduino
         ),
     ),
     1 => array(
-        # arduinos
-        0 => array(
-            'size' => 8,
-            'i2c'  => 14,
-        ),
-        1 => array(
-            'size' => 8,
-            'i2c'  => 18,
-        ),
-    ),
-);
-*/
-$targets = array(
-    # lines
-    0 => array(
-        # arduinos or blocks
         0 => array(
             'size' => 8,    // number of modules
-            'i2c'  => 0x0d, // i2c address of arduino
+            'i2c'  => 0x0e, // i2c address of arduino
         ),
         1 => array(
             'size' => 8,    // number of modules
             'i2c'  => 0x0f, // i2c address of arduino
-        ),
-        2 => array(
-            'size' => 8,    // number of modules
-            'i2c'  => 0x0c, // i2c address of arduino
         ),
     ),
 );
@@ -129,6 +104,9 @@ function sanitize_string(string $string): string
 
     # Unicode-Normalisierung in Form KD (Kompatibilitätszerlegung)
     $string = Normalizer::normalize($string, Normalizer::FORM_KD);
+
+    # replace whitespaces
+    $string = preg_replace('/\r\n|\r|\n|\t|\v|\f/u', ' ', $string);
 
     # Entfernt diakritische Zeichen (Akzente)
     $string = preg_replace('/\p{Mn}/u', '', $string);
