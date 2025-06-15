@@ -102,6 +102,7 @@
           success: function(response) {
             console.log('Server-Antwort:', response);
             // document.getElementById('text').select();
+            $('#text').focus();
           },
           error: function(xhr, status, error) {
             console.error('Fehler:', error);
@@ -110,7 +111,7 @@
       });
 
       $('#clear').on('click', function() {
-        $('#text').val('');
+        $('#text').val('').focus();
       });
     </script>
 
