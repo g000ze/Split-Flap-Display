@@ -119,6 +119,13 @@ function sanitize_string(string $string): string
     # string to uppercase
     $string = strtoupper($string);
 
+    # fill up string with spaces
+    if (strlen($string) < $modules) {
+      for ($i = strlen($string); $i < $modules; $i++) {
+        $string[$i] = " ";
+      }
+    }
+
     # replace any character with placeholder, if it isn't part of the $characters array
     for ($i = 0; $i < strlen($string); $i++) {
         if (!in_array($string[$i], $characters, true)) {
