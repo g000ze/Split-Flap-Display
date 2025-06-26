@@ -83,8 +83,9 @@ One flap has basically the size of 40mm height and 50mm width. There are two lit
 |   Pouley                  |   Eckstein            |                | https://www.pololu.com/product/1998 https://eckstein-shop.de/PololuUniversalAluminumMountingHubfor5mmShaft2CM3Holes2-PackEN        |
 |   PCB                     |   JLCPCB              |                | https://jlcpcb.com/                                                                                                                |
 |   Stepper Driver          |   Digikey             | TMC2208        | https://www.digikey.ch/de/products/detail/analog-devices-inc-maxim-integrated/TMC2208SILENTSTEPSTICK/6873626                       |
-|   Spacer Motor            |   Axxatronic          | OG-PA-6-3,2-20 | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
-|   Spacer Carousel         |   Axxatronic          | OG-PA-6-3,2-51 | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
+|   Spacer Motor 20mm       |   Axxatronic          | OG-PA-6-3,2-20 | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
+|   Spacer Carousel 51mm    |   Axxatronic          | OG-PA-6-3,2-51 | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
+|   Spacer PCB 2mm          |   Axxatronic          | OG-PA-6-3,2-02 | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
 |   Hall Sensor             |   Digikey             | 620-1002-1-ND  | https://www.digikey.ch/de/products/detail/allegro-microsystems/A1102LLHLT-T/1006577                                                |
 |   Card Edge Connector     |   Digikey             | EDC305122-ND   | https://www.digikey.ch/de/products/detail/edac-inc/305-012-520-202/107502                                                          |
 |   Female Header Pins      |   Digikey             | NPPC082KFMS-RC | https://www.digikey.ch/de/products/detail/sullins-connector-solutions/NPPC082KFMS-RC/776176                                        |
