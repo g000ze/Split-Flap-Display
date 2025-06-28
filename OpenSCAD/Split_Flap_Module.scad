@@ -26,16 +26,19 @@ module split_flap(){
         {
             rotate([0, -360 * $t, 0])
             {
-                color("#333") karussell_spacer();
+                color("#bbb") karussell_spacer();
                 karussell_schrauben();
                 karussell_muttern();
                 karussell_scheibe_position("rechts");
                 karussell_scheibe_position("links");
-                rotating_carousel();
-                *example_flaps_bolt();
+
                 // Das Pouley
                 color("grey") stepper_pouley();
                 color("#888") pouley_schrauben();
+
+                // The flaps
+                rotating_carousel();
+                *example_flaps_bolt();
             }
         }
 
@@ -58,11 +61,12 @@ module split_flap(){
         // PCB
         color("#888") pcb_schrauben();
         color("#888") pcb_muttern();
+        color("#333") pcb_spacer();
         pcb();
     }
 
     // Gehäuse Seiten:
-    color([0.85, 0.85, 0.85,0.6]){
+    color([0.85, 0.85, 0.85, 0.6]){
         // Rechts mit grossem Ausschnitt
         %chassis_right();
 
@@ -75,39 +79,42 @@ module split_flap(){
 }
 
 
+
+explode = 12;
 module split_flap_exploded(){
     
     translate(carousel_pos)
     {
         rotate([270, 0, 270])
         {
-            translate([0, -100, 0]) color("#333") karussell_spacer();
-            translate([0, -20, 0])  karussell_schrauben();
-            translate([0, -125, 0]) karussell_muttern();
-            translate([0, -80,  0]) karussell_scheibe_position("rechts");
-            translate([0, -120, 0]) karussell_scheibe_position("links");
+            translate([0, -(explode * 10), 0])  color("#333")   karussell_spacer();
+            translate([0, -(explode * 2), 0])                   karussell_schrauben();
+            translate([0, -(explode * 12.5), 0])                karussell_muttern();
+            translate([0, -(explode * 8),  0])                  karussell_scheibe_position("rechts");
+            translate([0, -(explode * 12), 0])                  karussell_scheibe_position("links");
             // Das Pouley
-            translate([0, -115, 0]) color("grey") stepper_pouley();
-            translate([0, -130, 0]) color("#888") pouley_schrauben();
+            translate([0, -(explode * 11.5), 0]) color("grey") stepper_pouley();
+            translate([0, -(explode * 13.5), 0]) color("#888") pouley_schrauben();
             
-            *translate([0, -100, 0]) rotating_carousel();
+            *translate([0, -(explode * 10), 0]) rotating_carousel();
             *example_flaps_bolt();
 
         }
 
-        translate([0, 0, 100]) example_flap_bottom();
+        translate([0, 0, (explode * 10)]) example_flap_bottom();
 
         // Stepper Motor, Schrittmotor
-        translate([0,  0, 100]) color("silver") stepper_motor();
-        translate([0, 0, -30])  color("#888")  motor_schrauben();
+        translate([0, 0, (explode * 10)])   color("silver") stepper_motor();
+        translate([0, 0, -explode * 3])     color("#888")   motor_schrauben();
 
         // Spacer für Motor
-        translate([0,  0, 80]) color("#333") stepper_spacer();
+        translate([0, 0, (explode * 8)])    color("#333")   stepper_spacer();
 
         // PCB
-        translate([0,  0, 10]) pcb();
-        translate([0,  0, -12]) color("#888") pcb_schrauben();
-        translate([0,  0, 20]) color("#888") pcb_muttern();
+        translate([0, 0, (explode * 1)])                    pcb();
+        translate([0, 0, -(explode * 1.2)]) color("#888")   pcb_schrauben();
+        translate([0, 0, (explode * 2)])    color("#888")   pcb_muttern();
+        translate([0, 0, (explode * 0.5)])  color("#333")   pcb_spacer();
 
     }
 
@@ -124,8 +131,8 @@ module split_flap_exploded(){
     }
 }
 
-rotate([270, 0, 0]) split_flap();
-*rotate([0, 0, -360 * $t])
+*rotate([270, 0, 0]) split_flap();
+rotate([0, 0, -360 * $t])
 {
     translate([0,  -55, 0]) 
     rotate([270, 0, 0]) split_flap_exploded();
