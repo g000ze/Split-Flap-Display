@@ -6,7 +6,7 @@ if (isset($_POST['text']) && ! empty($_POST['text'])) {
   get_current_positions();
   $options = filter_options($_POST);
 
-  $rawtext = sanitize_string($options['text']);
+  $rawtext = sanitize_string($options['text'], $options['wipe']);
   $array = text_to_array($rawtext, $options['same']);
   $text = set_delay ($array, $options['animation']);
   $options['noblock'] = true;

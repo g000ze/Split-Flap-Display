@@ -71,7 +71,12 @@
             <input class="form-check-input" type="checkbox" id="same" name="same" value="1">
             <label class="form-check-label" for="same">Skip aligned</label>
           </div> 
-    
+
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="wipe" name="wipe" value="1">
+            <label class="form-check-label" for="wipe">Wipe to the end</label>
+          </div>
+
           <div class="text-center">
             <button type="submit" class="btn btn-primary">Display</button>
             <button type="button" class="btn btn-secondary" id="clear">Clear</button>

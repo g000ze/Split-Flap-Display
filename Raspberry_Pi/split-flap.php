@@ -77,6 +77,12 @@ function filter_options (array $options)
                 'default' => false,
             ],
         ],
+        'wipe'    => [
+            'filter'  => FILTER_VALIDATE_BOOLEAN,
+            'options' => [
+                'default' => false,
+            ],
+        ],
         'animation' => [
             'filter'  => FILTER_VALIDATE_REGEXP,
             'options' => [
@@ -98,7 +104,7 @@ function filter_options (array $options)
  * @return string
  */
 
-function sanitize_string(string $string): string
+function sanitize_string(string $string, $wipe = false): string
 {
     global $characters, $placeholder, $modules;
 
@@ -120,9 +126,11 @@ function sanitize_string(string $string): string
     $string = strtoupper($string);
 
     # fill up string with spaces
-    if (strlen($string) < $modules) {
-      for ($i = strlen($string); $i < $modules; $i++) {
-        $string[$i] = " ";
+    if ($wipe) {
+      if (strlen($string) < $modules) {
+        for ($i = strlen($string); $i < $modules; $i++) {
+          $string[$i] = " ";
+        }
       }
     }
 
