@@ -74,23 +74,30 @@ One flap has basically the size of 40mm height and 50mm width. There are two lit
 - For the Raspberry Pi to communicate with Arduino using I2C, I used this extension: https://github.com/tasoftch/php-i2c-extension
 
 ## Parts
-|   Part                    |   Provider            | Model          | Link                                                                                                                               |
-|---------------------------|-----------------------|----------------|------------------------------------------------------------------------------------------------------------------------------------|
-|   Housing                 |   Blexon Galgenen     |                | https://blexon.com/                                                                                                                |
-|   Stepper Motor           |   Stepper Online      | 17HS13-0404D   | https://www.omc-stepperonline.com/de/doppel-schacht-nema-17-bipolar-1-8deg-26ncm-36-8oz-in-0-4a-12v-42x34mm-4-draehte-17hs13-0404d |
-|   Wheels for the Carousel |   Waterjet Mörschwil  |                | https://www.waterjet.ch/                                                                                                           |
-|   Flaps                   |   Ren Peck China      |                | https://www.alibaba.com/product-detail/China-Ren-peck-supply-emotion-cards-60650877066.html                                        |
-|   Pouley                  |   Eckstein            |                | https://www.pololu.com/product/1998 https://eckstein-shop.de/PololuUniversalAluminumMountingHubfor5mmShaft2CM3Holes2-PackEN        |
-|   PCB                     |   JLCPCB              |                | https://jlcpcb.com/                                                                                                                |
-|   Stepper Driver          |   Digikey             | TMC2208        | https://www.digikey.ch/de/products/detail/analog-devices-inc-maxim-integrated/TMC2208SILENTSTEPSTICK/6873626                       |
-|   Spacer Motor            |   Axxatronic          | OG-PA-6-3,2-20 | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
-|   Spacer Carousel         |   Axxatronic          | OG-PA-6-3,2-51 | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
-|   Hall Sensor             |   Digikey             | 620-1002-1-ND  | https://www.digikey.ch/de/products/detail/allegro-microsystems/A1102LLHLT-T/1006577                                                |
-|   Card Edge Connector     |   Digikey             | EDC305122-ND   | https://www.digikey.ch/de/products/detail/edac-inc/305-012-520-202/107502                                                          |
-|   Female Header Pins      |   Digikey             | NPPC082KFMS-RC | https://www.digikey.ch/de/products/detail/sullins-connector-solutions/NPPC082KFMS-RC/776176                                        |
-|   Magnet                  |   supermagnete.ch     | S-02-02-N      | https://www.supermagnete.ch/scheibenmagnete-neodym/scheibenmagnet-2mm-2mm_S-02-02-N                                                |
-|   Arduino Micro           |   Digikey             | A000053        | https://www.digikey.ch/de/products/detail/arduino/A000053/4486332                                                                  |
-| Screws                    | Schraubenking         |                | https://www.schraubenking.ch/                                                                                                      |
+| Part                    | Provider            | Model           | Link                                                                                                                               |
+|-------------------------|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Housing                 | Blexon Galgenen     |                 | https://blexon.com/                                                                                                                |
+| Stepper Motor           | Stepper Online      | 17HS13-0404D    | https://www.omc-stepperonline.com/de/doppel-schacht-nema-17-bipolar-1-8deg-26ncm-36-8oz-in-0-4a-12v-42x34mm-4-draehte-17hs13-0404d |
+| Wheels for the Carousel | Waterjet Mörschwil  |                 | https://www.waterjet.ch/                                                                                                           |
+| Flaps                   | Ren Peck China      |                 | https://www.alibaba.com/product-detail/China-Ren-peck-supply-emotion-cards-60650877066.html                                        |
+| Pouley                  | Eckstein            |                 | https://www.pololu.com/product/1998 https://eckstein-shop.de/PololuUniversalAluminumMountingHubfor5mmShaft2CM3Holes2-PackEN        |
+| PCB                     | JLCPCB              |                 | https://jlcpcb.com/                                                                                                                |
+| Stepper Driver          | Digikey             | TMC2208         | https://www.digikey.ch/de/products/detail/analog-devices-inc-maxim-integrated/TMC2208SILENTSTEPSTICK/6873626                       |
+| Spacer Motor 20mm       | Axxatronic          | OG-PA-6-3,2-20  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
+| Spacer Carousel 51mm    | Axxatronic          | OG-PA-6-3,2-51  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
+| Spacer PCB 2mm          | Axxatronic          | OG-PA-6-3,2-02  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
+| Card Edge Connector     | Digikey             | EDC305122-ND    | https://www.digikey.ch/de/products/detail/edac-inc/305-012-520-202/107502                                                          |
+| Female Header Pins      | Digikey             | NPPC082KFMS-RC  | https://www.digikey.ch/de/products/detail/sullins-connector-solutions/NPPC082KFMS-RC/776176                                        |
+| Magnet                  | supermagnete.ch     | S-02-02-N       | https://www.supermagnete.ch/scheibenmagnete-neodym/scheibenmagnet-2mm-2mm_S-02-02-N                                                |
+| Arduino Micro           | Digikey             | A000053         | https://www.digikey.ch/de/products/detail/arduino/A000053/4486332                                                                  |
+| Screws                  | Schraubenking       |                 | https://www.schraubenking.ch/                                                                                                      |
+|                         |                     |                 |                                                                                                                                    |
+| **Module PCB**          |                     |                 |                                                                                                                                    |
+| 10K Resistor            | Digikey             | CRGCQ1210F10K   | https://www.digikey.ch/en/products/detail/te-connectivity-passive-product/CRGCQ1210F10K/8576485                                    |
+| Header Connector        | Digikey             | NPPC082KFMS-RC  | https://www.digikey.ch/en/products/detail/sullins-connector-solutions/NPPC082KFMS-RC/776176                                        |
+| Hall Sensor             | Digikey             | 620-1002-1-ND   | https://www.digikey.ch/de/products/detail/allegro-microsystems/A1102LLHLT-T/1006577                                                |
+| 47 µF Capacitor         | Digikey             | APA0606470M025R | https://www.digikey.ch/en/products/detail/kyocera-avx/APA0606470M025R/15195370                                                     |
+| Wires Connector         | Digikey             | 009176004873906 | https://www.digikey.ch/en/products/detail/kyocera-avx/009176004873906/8540378                                                      |
 
 Generated by https://www.tablesgenerator.com/markdown_tables
 
