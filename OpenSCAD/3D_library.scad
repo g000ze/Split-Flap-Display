@@ -218,7 +218,7 @@ module example_flap_front_bottom(){
 module example_flap_bottom(){
     translate([0, (flap_height/2) + (carousel_flap_path_radius - (carousel_flap_holes_diameter / 2)) , 0]){
         rotate([90,0,90]){
-            flap();
+            flap_with_char(28);
         }
     }
 }
@@ -358,12 +358,14 @@ module chassis_front(){
         translate([geh_front_pos,housing_cutout_position_y,0]) cube([housing_thickness+0.1,housing_cutout_height,housing_cutout_width], center = true);
 
         // Die kleinen Ausschnitte für die Räder des Karussells
+        // tolerance ist die Korrektur, damit OpenSCAD in der Vorschau keine Fehler anzeigt
+        tolerance = 0.1;
         geh_aus_kar = (housing_cutout_width/2) + (housing_cutout_small_width/2);
-        translate([geh_front_pos,carousel_pos_y,geh_aus_kar]) cube([housing_thickness+0.1,housing_cutout_small_height,housing_cutout_small_width], center = true);
-        translate([geh_front_pos,carousel_pos_y,-geh_aus_kar]) cube([housing_thickness+0.1,housing_cutout_small_height,housing_cutout_small_width], center = true);
+        translate([geh_front_pos, carousel_pos_y,  (geh_aus_kar - tolerance)]) cube([housing_thickness + tolerance, housing_cutout_small_height, housing_cutout_small_width + (tolerance * 2)], center = true);
+        translate([geh_front_pos, carousel_pos_y, -(geh_aus_kar - tolerance)]) cube([housing_thickness + tolerance, housing_cutout_small_height, housing_cutout_small_width + (tolerance * 2)], center = true);
     }
 }
-
+        
 module chassis_right(){
     translate([0,0,-((housing_inner_distance/2)+(housing_thickness/2))]){
         difference(){
@@ -401,7 +403,7 @@ module chassis_left(){
 
 module pcb()
 {
-    translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - (pcb_thickness/2))])
+    translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - (pcb_thickness/2)) + pcb_spacer_length])
     {
         color("#1F6239")
         {
@@ -421,7 +423,7 @@ module pcb()
             color("orange")
             for (i = [0:6-1])
             {
-                translate([0, 10 - (i * 4), 0]) cube([pcb_edge_length, 2, pcb_thickness + 0.01], center = true);
+                translate([0, ((pcb_edge_width / 2) - (pcb_copper_width / 2) - ((pcb_copper_width + 0.84) * i) - 1.4), 0]) cube([pcb_edge_length, pcb_copper_width, pcb_thickness + 0.01], center = true);
             }
         }
 
@@ -443,12 +445,36 @@ module pcb_schrauben(){
 }
 
 module pcb_muttern(){
-    translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - housing_thickness - pcb_thickness - 2.2)])
+    translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - housing_thickness - pcb_thickness - 2.2) + pcb_spacer_length])
     {
         translate([((pcb_length/2) - pcb_hole_top_from_left_pcb),    -(motor_winding_distance/2), -1.8]) mutter_m3();
         translate([((pcb_length/2) - pcb_hole_bottom_from_left_pcb),  (motor_winding_distance/2), -1.8]) mutter_m3();
     }
 }
+
+module pcb_spacer(){
+    translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - (pcb_spacer_length/2))])
+    {   
+        translate([((pcb_length/2) - pcb_hole_top_from_left_pcb),    -(motor_winding_distance/2), 0])
+        {
+            difference()
+            {
+                    cylinder(d=pcb_spacer_outer_diameter, h=pcb_spacer_length, center = true); 
+                    cylinder(d=pcb_spacer_inner_diameter, h=pcb_spacer_length + 0.01, center = true);
+            }
+        }
+        translate([((pcb_length/2) - pcb_hole_bottom_from_left_pcb),  (motor_winding_distance/2), 0])
+        {
+            difference()
+            {
+                    cylinder(d=pcb_spacer_outer_diameter, h=pcb_spacer_length, center = true); 
+                    cylinder(d=pcb_spacer_inner_diameter, h=pcb_spacer_length + 0.01, center = true);
+            }
+        }
+    }
+
+}
+
 
 module flap()
 {
@@ -493,6 +519,7 @@ module rotating_carousel()
     }
 }
 
+
 module draw_half_letter(char, flip = false)
 {
     overrides     = get_letter_overrides(chars[char]);
@@ -504,8 +531,13 @@ module draw_half_letter(char, flip = false)
     translate([0, 0, lift_letter]) color(color) intersection()
     {
         cube([flap_height - 0.1, flap_width - 0.1, flap_thickness], center = true);
-        rotate(rotate_letter) translate([0, move_letter, 0]) linear_extrude(height = flap_thickness) draw_letter(chars[char]);
-    }
+        rotate(rotate_letter) translate([0, move_letter, 0]) linear_extrude(height = flap_thickness)
+        difference()
+        {
+            draw_letter(chars[char]);
+            if(flip) translate([0, -((flap_height) - (cut_off_blind/2))]) square([flap_width, cut_off_blind], center = true);
+        }
+}
 }
 
 module flap_with_char(char)

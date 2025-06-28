@@ -107,9 +107,10 @@ housing_bolt_h = 16;
 // PCB
 pcb_width = 42.67;
 pcb_length = 72;
-pcb_edge_width = 26.6;
+pcb_edge_width = 17.2;
 pcb_edge_length = 7.4;
 pcb_thickness = 1.6;
+pcb_copper_width = 1.7;
 
 pcb_hole_diameter = 3.2;
 // Die Position der Löcher im Gehäuse für das PCB sind jeweils
@@ -133,6 +134,10 @@ pcb_hall_width  = 2.6;
 pcb_hall_length = 3.1;
 pcb_hall_height = 0.7;
 
+// Das PCB soll mit Spacern etwas vom Gehäuse abstehen.
+pcb_spacer_length = 2;
+pcb_spacer_outer_diameter = 6;
+pcb_spacer_inner_diameter = 3.2;
 
 // always adjust overrides in _font_setup.scad accordingly
 chars = [ 
