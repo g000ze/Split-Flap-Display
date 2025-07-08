@@ -64,6 +64,7 @@ One flap has basically the size of 40mm height and 50mm width. There are two lit
 ![Flaps Small](https://github.com/user-attachments/assets/0acedc98-daa6-42de-a18b-f75c15f40719)
 
 ## The Software
+The software was mainly written by me. See GitHub repository for details and ask me if you get any questions or suggestions regarding that.
 
 ## Other
 
