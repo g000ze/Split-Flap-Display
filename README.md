@@ -41,7 +41,7 @@ Two different types of PCBs are required. One is a small PCB that is attached to
 
 The TMC2208 and the Hall sensor on the module PCB each operate at +5 VCC, while the motor naturally requires 12 volts.
 
-<img width="567" alt="PCB Module" src="https://github.com/user-attachments/assets/ab931367-9ad7-4703-a052-73e8839e27a8" />
+<img width="595" alt="PCB Module" src="https://github.com/user-attachments/assets/098ccfc8-a7df-4f5d-acef-62c38e36c781" />
 <img width="1418" alt="PCB Backplane" src="https://github.com/user-attachments/assets/a44f44f3-0cbd-4914-85cf-c44a03d4fe48" />
 
 ## The Carousel
@@ -64,6 +64,7 @@ One flap has basically the size of 40mm height and 50mm width. There are two lit
 ![Flaps Small](https://github.com/user-attachments/assets/0acedc98-daa6-42de-a18b-f75c15f40719)
 
 ## The Software
+The software was mainly written by me. See GitHub repository for details and ask me if you get any questions or suggestions regarding that.
 
 ## Other
 
