@@ -75,7 +75,7 @@ The software was mainly written by me. See GitHub repository for details and ask
 - For the Raspberry Pi to communicate with Arduino using I2C, I used this extension: https://github.com/tasoftch/php-i2c-extension
 
 ## Parts
-# Module
+### Module
 <img width="992" height="498" alt="Exploded_Split_Flap_Module" src="https://github.com/user-attachments/assets/d3117def-27e0-46aa-a651-45b54d434ce6" />
 
 
@@ -94,7 +94,7 @@ The software was mainly written by me. See GitHub repository for details and ask
 | Magnet                            | 9   | supermagnete.ch     | S-02-02-N       | https://www.supermagnete.ch/scheibenmagnete-neodym/scheibenmagnet-2mm-2mm_S-02-02-N                                                |
 | Screws                            | 10  | Schraubenking       |                 | https://www.schraubenking.ch/                                                                                                      |
 
-# Module PCB 
+### Module PCB 
 <img width="397" height="236" alt="PCB Module" src="https://github.com/user-attachments/assets/6a371368-e7a7-4c99-8f0a-2f9c4be9d81a" />
 
 
@@ -106,7 +106,7 @@ The software was mainly written by me. See GitHub repository for details and ask
 | 47 µF Capacitor                   | 4   | Digikey             | APA0606470M025R | https://www.digikey.ch/en/products/detail/kyocera-avx/APA0606470M025R/15195370                                                     |
 | Wires Connector                   | 5   | Digikey             | 009176004873906 | https://www.digikey.ch/en/products/detail/kyocera-avx/009176004873906/8540378                                                      |
 
-# Backplane PCB 
+### Backplane PCB 
 
 | Part                              | Nr. | Provider            | Model           | Link                                                                                                                               |
 |-----------------------------------|-----|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
