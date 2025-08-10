@@ -100,11 +100,11 @@ The software was mainly written by me. See GitHub repository for details and ask
 
 | Part                              | Nr. | Provider            | Model           | Link                                                                                                                               |
 |-----------------------------------|-----|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
-| 10K Resistor                      |     | Digikey             | CRGCQ1210F10K   | https://www.digikey.ch/en/products/detail/te-connectivity-passive-product/CRGCQ1210F10K/8576485                                    |
-| Header Connector                  |     | Digikey             | NPPC082KFMS-RC  | https://www.digikey.ch/en/products/detail/sullins-connector-solutions/NPPC082KFMS-RC/776176                                        |
-| Hall Sensor                       |     | Digikey             | 620-1002-1-ND   | https://www.digikey.ch/de/products/detail/allegro-microsystems/A1102LLHLT-T/1006577                                                |
-| 47 µF Capacitor                   |     | Digikey             | APA0606470M025R | https://www.digikey.ch/en/products/detail/kyocera-avx/APA0606470M025R/15195370                                                     |
-| Wires Connector                   |     | Digikey             | 009176004873906 | https://www.digikey.ch/en/products/detail/kyocera-avx/009176004873906/8540378                                                      |
+| 10K Resistor                      | 1   | Digikey             | CRGCQ1210F10K   | https://www.digikey.ch/en/products/detail/te-connectivity-passive-product/CRGCQ1210F10K/8576485                                    |
+| Header Connector                  | 2   | Digikey             | NPPC082KFMS-RC  | https://www.digikey.ch/en/products/detail/sullins-connector-solutions/NPPC082KFMS-RC/776176                                        |
+| Hall Sensor                       | 3   | Digikey             | 620-1002-1-ND   | https://www.digikey.ch/de/products/detail/allegro-microsystems/A1102LLHLT-T/1006577                                                |
+| 47 µF Capacitor                   | 4   | Digikey             | APA0606470M025R | https://www.digikey.ch/en/products/detail/kyocera-avx/APA0606470M025R/15195370                                                     |
+| Wires Connector                   | 5   | Digikey             | 009176004873906 | https://www.digikey.ch/en/products/detail/kyocera-avx/009176004873906/8540378                                                      |
 
 # Backplane PCB 
 
