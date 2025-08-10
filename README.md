@@ -75,36 +75,39 @@ The software was mainly written by me. See GitHub repository for details and ask
 - For the Raspberry Pi to communicate with Arduino using I2C, I used this extension: https://github.com/tasoftch/php-i2c-extension
 
 ## Parts
-| Part                              | Provider            | Model           | Link                                                                                                                               |
-|-----------------------------------|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Housing                           | Blexon Galgenen     |                 | https://blexon.com/                                                                                                                |
-| Stepper Motor                     | Stepper Online      | 17HS13-0404D    | https://www.omc-stepperonline.com/de/doppel-schacht-nema-17-bipolar-1-8deg-26ncm-36-8oz-in-0-4a-12v-42x34mm-4-draehte-17hs13-0404d |
-| Wheels for the Carousel           | Waterjet Mörschwil  |                 | https://www.waterjet.ch/                                                                                                           |
-| Flaps                             | Ren Peck China      |                 | https://www.alibaba.com/product-detail/China-Ren-peck-supply-emotion-cards-60650877066.html                                        |
-| Pouley                            | Eckstein            |                 | https://www.pololu.com/product/1998 https://eckstein-shop.de/PololuUniversalAluminumMountingHubfor5mmShaft2CM3Holes2-PackEN        |
-| PCB                               | JLCPCB              |                 | https://jlcpcb.com/                                                                                                                |
-| Stepper Driver                    | Digikey             | TMC2208         | https://www.digikey.ch/de/products/detail/analog-devices-inc-maxim-integrated/TMC2208SILENTSTEPSTICK/6873626                       |
-| Spacer Motor 20mm                 | Axxatronic          | OG-PA-6-3,2-20  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
-| Spacer Carousel 51mm              | Axxatronic          | OG-PA-6-3,2-51  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
-| Spacer PCB 2mm                    | Axxatronic          | OG-PA-6-3,2-02  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
-| Magnet                            | supermagnete.ch     | S-02-02-N       | https://www.supermagnete.ch/scheibenmagnete-neodym/scheibenmagnet-2mm-2mm_S-02-02-N                                                |
-| Screws                            | Schraubenking       |                 | https://www.schraubenking.ch/                                                                                                      |
-|                                   |                     |                 |                                                                                                                                    |
-| **Module PCB**                    |                     |                 |                                                                                                                                    |
-| 10K Resistor                      | Digikey             | CRGCQ1210F10K   | https://www.digikey.ch/en/products/detail/te-connectivity-passive-product/CRGCQ1210F10K/8576485                                    |
-| Header Connector                  | Digikey             | NPPC082KFMS-RC  | https://www.digikey.ch/en/products/detail/sullins-connector-solutions/NPPC082KFMS-RC/776176                                        |
-| Hall Sensor                       | Digikey             | 620-1002-1-ND   | https://www.digikey.ch/de/products/detail/allegro-microsystems/A1102LLHLT-T/1006577                                                |
-| 47 µF Capacitor                   | Digikey             | APA0606470M025R | https://www.digikey.ch/en/products/detail/kyocera-avx/APA0606470M025R/15195370                                                     |
-| Wires Connector                   | Digikey             | 009176004873906 | https://www.digikey.ch/en/products/detail/kyocera-avx/009176004873906/8540378                                                      |
-|                                   |                     |                 |                                                                                                                                    |
-| **Backplane PCB**                 |                     |                 |                                                                                                                                    |
-| Arduino Micro                     | Digikey             | A000053         | https://www.digikey.ch/de/products/detail/arduino/A000053/4486332                                                                  |
-| Voltage Converter                 | Digikey             | R-78K5.0-1.0    | https://www.digikey.ch/en/products/detail/recom-power/R-78K5-0-1-0/18093047                                                        |
-| Card Edge Connector (old version) | Digikey             | EDC305122-ND    | https://www.digikey.ch/de/products/detail/edac-inc/305-012-520-202/107502                                                          |
-| Card Edge Connector (new version) | Digikey             | EBC06DRXH       | https://www.digikey.ch/de/products/detail/sullins-connector-solutions/EBC06DRXH/927248                                             |
-| Connector Header for Arduino      | Digikey             | 1-215307-7      | https://www.digikey.ch/en/products/detail/te-connectivity-amp-connectors/1-215307-7/2278494                                        |
-| Screw Terminal for 12V Power      | Digikey             | 282836-1        | https://www.digikey.ch/en/products/detail/te-connectivity-amp-connectors/282836-1/2222325                                          |
 
+<img width="992" height="498" alt="Exploded_Split_Flap_Module" src="https://github.com/user-attachments/assets/d3117def-27e0-46aa-a651-45b54d434ce6" />
+
+
+| Part                              | Nr. | Provider            | Model           | Link                                                                                                                               |
+|-----------------------------------|-----|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Housing                           | 1   | Blexon Galgenen     |                 | https://blexon.com/                                                                                                                |
+| Stepper Motor                     | 2   | Stepper Online      | 17HS13-0404D    | https://www.omc-stepperonline.com/de/doppel-schacht-nema-17-bipolar-1-8deg-26ncm-36-8oz-in-0-4a-12v-42x34mm-4-draehte-17hs13-0404d |
+| Wheels for the Carousel           | 3   | Waterjet Mörschwil  |                 | https://www.waterjet.ch/                                                                                                           |
+| Flaps                             | 4   | Ren Peck China      |                 | https://www.alibaba.com/product-detail/China-Ren-peck-supply-emotion-cards-60650877066.html                                        |
+| Pouley                            | 5   | Eckstein            |                 | https://www.pololu.com/product/1998 https://eckstein-shop.de/PololuUniversalAluminumMountingHubfor5mmShaft2CM3Holes2-PackEN        |
+| PCB                               | 6   | JLCPCB              |                 | https://jlcpcb.com/                                                                                                                |
+| Stepper Driver                    | 7   | Digikey             | TMC2208         | https://www.digikey.ch/de/products/detail/analog-devices-inc-maxim-integrated/TMC2208SILENTSTEPSTICK/6873626                       |
+| Spacer Motor 20mm                 | 8   | Axxatronic          | OG-PA-6-3,2-20  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
+| Spacer Carousel 51mm              | 8   | Axxatronic          | OG-PA-6-3,2-51  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
+| Spacer PCB 2mm                    | 8   | Axxatronic          | OG-PA-6-3,2-02  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
+| Magnet                            | 9   | supermagnete.ch     | S-02-02-N       | https://www.supermagnete.ch/scheibenmagnete-neodym/scheibenmagnet-2mm-2mm_S-02-02-N                                                |
+| Screws                            | 10  | Schraubenking       |                 | https://www.schraubenking.ch/                                                                                                      |
+|                                   |     |                     |                 |                                                                                                                                    |
+| **Module PCB**                    |     |                     |                 |                                                                                                                                    |
+| 10K Resistor                      |     | Digikey             | CRGCQ1210F10K   | https://www.digikey.ch/en/products/detail/te-connectivity-passive-product/CRGCQ1210F10K/8576485                                    |
+| Header Connector                  |     | Digikey             | NPPC082KFMS-RC  | https://www.digikey.ch/en/products/detail/sullins-connector-solutions/NPPC082KFMS-RC/776176                                        |
+| Hall Sensor                       |     | Digikey             | 620-1002-1-ND   | https://www.digikey.ch/de/products/detail/allegro-microsystems/A1102LLHLT-T/1006577                                                |
+| 47 µF Capacitor                   |     | Digikey             | APA0606470M025R | https://www.digikey.ch/en/products/detail/kyocera-avx/APA0606470M025R/15195370                                                     |
+| Wires Connector                   |     | Digikey             | 009176004873906 | https://www.digikey.ch/en/products/detail/kyocera-avx/009176004873906/8540378                                                      |
+|                                   |     |                     |                 |                                                                                                                                    |
+| **Backplane PCB**                 |     |                     |                 |                                                                                                                                    |
+| Arduino Micro                     |     | Digikey             | A000053         | https://www.digikey.ch/de/products/detail/arduino/A000053/4486332                                                                  |
+| Voltage Converter                 |     | Digikey             | R-78K5.0-1.0    | https://www.digikey.ch/en/products/detail/recom-power/R-78K5-0-1-0/18093047                                                        |
+| Card Edge Connector (old version) |     | Digikey             | EDC305122-ND    | https://www.digikey.ch/de/products/detail/edac-inc/305-012-520-202/107502                                                          |
+| Card Edge Connector (new version) |     | Digikey             | EBC06DRXH       | https://www.digikey.ch/de/products/detail/sullins-connector-solutions/EBC06DRXH/927248                                             |
+| Connector Header for Arduino      |     | Digikey             | 1-215307-7      | https://www.digikey.ch/en/products/detail/te-connectivity-amp-connectors/1-215307-7/2278494                                        |
+| Screw Terminal for 12V Power      |     | Digikey             | 282836-1        | https://www.digikey.ch/en/products/detail/te-connectivity-amp-connectors/282836-1/2222325                                          |
 
 
 Generated by https://www.tablesgenerator.com/markdown_tables
