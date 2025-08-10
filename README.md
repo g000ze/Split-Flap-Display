@@ -75,7 +75,7 @@ The software was mainly written by me. See GitHub repository for details and ask
 - For the Raspberry Pi to communicate with Arduino using I2C, I used this extension: https://github.com/tasoftch/php-i2c-extension
 
 ## Parts
-
+# Module
 <img width="992" height="498" alt="Exploded_Split_Flap_Module" src="https://github.com/user-attachments/assets/d3117def-27e0-46aa-a651-45b54d434ce6" />
 
 
@@ -93,15 +93,23 @@ The software was mainly written by me. See GitHub repository for details and ask
 | Spacer PCB 2mm                    | 8   | Axxatronic          | OG-PA-6-3,2-02  | https://www.axxatronic.de/distanzhuelsen/kunststoff/OG-PA-0060-0032.html                                                           |
 | Magnet                            | 9   | supermagnete.ch     | S-02-02-N       | https://www.supermagnete.ch/scheibenmagnete-neodym/scheibenmagnet-2mm-2mm_S-02-02-N                                                |
 | Screws                            | 10  | Schraubenking       |                 | https://www.schraubenking.ch/                                                                                                      |
-|                                   |     |                     |                 |                                                                                                                                    |
-| **Module PCB**                    |     |                     |                 |                                                                                                                                    |
+
+# Module PCB 
+<img width="397" height="236" alt="PCB Module" src="https://github.com/user-attachments/assets/6a371368-e7a7-4c99-8f0a-2f9c4be9d81a" />
+
+
+| Part                              | Nr. | Provider            | Model           | Link                                                                                                                               |
+|-----------------------------------|-----|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
 | 10K Resistor                      |     | Digikey             | CRGCQ1210F10K   | https://www.digikey.ch/en/products/detail/te-connectivity-passive-product/CRGCQ1210F10K/8576485                                    |
 | Header Connector                  |     | Digikey             | NPPC082KFMS-RC  | https://www.digikey.ch/en/products/detail/sullins-connector-solutions/NPPC082KFMS-RC/776176                                        |
 | Hall Sensor                       |     | Digikey             | 620-1002-1-ND   | https://www.digikey.ch/de/products/detail/allegro-microsystems/A1102LLHLT-T/1006577                                                |
 | 47 µF Capacitor                   |     | Digikey             | APA0606470M025R | https://www.digikey.ch/en/products/detail/kyocera-avx/APA0606470M025R/15195370                                                     |
 | Wires Connector                   |     | Digikey             | 009176004873906 | https://www.digikey.ch/en/products/detail/kyocera-avx/009176004873906/8540378                                                      |
-|                                   |     |                     |                 |                                                                                                                                    |
-| **Backplane PCB**                 |     |                     |                 |                                                                                                                                    |
+
+# Backplane PCB 
+
+| Part                              | Nr. | Provider            | Model           | Link                                                                                                                               |
+|-----------------------------------|-----|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
 | Arduino Micro                     |     | Digikey             | A000053         | https://www.digikey.ch/de/products/detail/arduino/A000053/4486332                                                                  |
 | Voltage Converter                 |     | Digikey             | R-78K5.0-1.0    | https://www.digikey.ch/en/products/detail/recom-power/R-78K5-0-1-0/18093047                                                        |
 | Card Edge Connector (old version) |     | Digikey             | EDC305122-ND    | https://www.digikey.ch/de/products/detail/edac-inc/305-012-520-202/107502                                                          |
