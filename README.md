@@ -28,7 +28,7 @@ Normally, Nema 17 stepper motors are mounted on the side where the shaft is loca
 <img width="340" alt="17HS13-0404D" src="https://github.com/user-attachments/assets/5ccef8f6-140d-484a-8c40-83faac180ccc" />
 
 ## The Driver
-To operate a stepper motor, you need a driver. There are many. I experimented with stepper motor drivers for a long time until I finally came across the TMC2208 "Silent Step Stick" from [Watterott](https://learn.watterott.com/de/silentstepstick/). This driver allows the 17HS13-0404D to run almost silently. Finally, the sound of a split-flap display plays a crucial role. We want to hear only the flaps clattering, not the motors.
+To operate a stepper motor, you need a driver. There are many. I experimented with stepper motor drivers for a long time until I finally came across the [TMC2208](https://www.digikey.ch/de/products/detail/watterott-electronic-gmbh/20170003-002/10071142) "Silent Step Stick" from [Watterott](https://learn.watterott.com/de/silentstepstick/). This driver allows the 17HS13-0404D to run almost silently. Finally, the sound of a split-flap display plays a crucial role. We want to hear only the flaps clattering, not the motors.
 
 ## The PCBs
 Two different types of PCBs are required. One is a small PCB that is attached to each module. It essentially carries the driver and the Hall sensor. The other is the backplane PCB, which connects the Arduino's electronic wires to the eight modules via card-edge connectors. The six connections that run via the card-edge connectors are:
