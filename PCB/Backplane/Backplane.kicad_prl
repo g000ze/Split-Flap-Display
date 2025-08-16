@@ -46,6 +46,7 @@
       "pads",
       "zones",
       "drc_warnings",
+      "drc_exclusions",
       "locked_item_shadows",
       "conflict_shadows",
       "shapes"
@@ -98,7 +99,7 @@
       103,
       81,
       103,
-      0
+      10
     ],
     "custom_group_rules": [],
     "expanded_rows": [],
