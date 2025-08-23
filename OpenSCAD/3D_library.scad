@@ -138,7 +138,7 @@ module karussell_scheibe_rechts()
 
 module karussell_scheibe_position(side = "rechts")
 {
-    color("#555") rotate([90,90,0])
+    rotate([90,90,0])
     if(side == "rechts")
     {
         translate([0,0,-((carousel_inner_distance/2)+(carousel_thickness/2))])
@@ -156,7 +156,7 @@ module karussell_scheibe_position(side = "rechts")
 }
 
 module karussell_schrauben(){
-    color("#888") rotate([90, 0, 0]){
+    rotate([90, 0, 0]){
         for(i=[1:carousel_spacer_nr]){
             translate([carousel_spacer_path_radius*cos(i*(360/carousel_spacer_nr)), carousel_spacer_path_radius*sin(i*(360/carousel_spacer_nr)), -((carousel_inner_distance/2)+carousel_thickness+0.2)]){
                 senk_schraube_m3(carousel_spacer_screw_length);
@@ -166,7 +166,7 @@ module karussell_schrauben(){
 }
 
 module karussell_muttern(){
-    color("#888") rotate([90, 0, 0]){
+    rotate([90, 0, 0]){
         for(i=[1:carousel_spacer_nr]){
             translate([carousel_spacer_path_radius*cos(i*(360/carousel_spacer_nr)), carousel_spacer_path_radius*sin(i*(360/carousel_spacer_nr)), ((carousel_inner_distance/2)+carousel_thickness+1.1)]){
                 mutter_m3();
@@ -386,8 +386,14 @@ module chassis_right(){
             }
             
             // Und hier noch das Loch für den Bolzen
-            translate([(housing_width/2) - housing_bolt_h,(housing_height/2) - housing_bolt_v,0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);
+            translate([(housing_width/2) - housing_bolt_h, (housing_height/2) - housing_bolt_v, 0]) cylinder(d=motor_spacer_inner_diameter, h=housing_thickness + 1, center = true);
         }
+    }
+}
+
+module chassis_bolt(){
+    translate([0,0,-((housing_inner_distance/2)+(housing_thickness/2))]){
+        translate([(housing_width/2) - housing_bolt_h, (housing_height/2) - housing_bolt_v, -(housing_thickness/2 + 0.2)]) senk_schraube_m3(25);
     }
 }
 
@@ -478,16 +484,16 @@ module pcb_spacer(){
 
 module flap()
 {
-    union() 
+    color("#333") union() 
     {
-        color("#333") cube([flap_height,flap_width, flap_thickness], center = true);
+        cube([flap_height,flap_width, flap_thickness], center = true);
         translate([-((flap_height/2) - (flap_pin/2)), -((flap_width/2) + (flap_pin/2)), 0])
         {
-            color("#333") cube([flap_pin,flap_pin,flap_thickness], center = true);
+            cube([flap_pin,flap_pin,flap_thickness], center = true);
         }
         translate([-((flap_height/2) - (flap_pin/2)),  ((flap_width/2) + (flap_pin/2)), 0]) 
         {
-            color("#333") cube([flap_pin,flap_pin,flap_thickness], center = true);
+            cube([flap_pin,flap_pin,flap_thickness], center = true);
         }
     }
 }

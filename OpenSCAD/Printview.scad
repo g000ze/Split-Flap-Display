@@ -24,7 +24,7 @@ start_row = 1;
 end_row = 10;
 
 // front or back
-side = "back";
+side = "front";
 zoom = 10;
 
 // Das ist die totale Breite sämtlicher Flaps inkl. Nasen & Abstände

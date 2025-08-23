@@ -17,97 +17,37 @@
 
 include<3D_library.scad>;
 
+explode = 0;
 module split_flap(){
-    *check();
-
-    translate(carousel_pos)
-    {
-        //rotate([90, 0, 0]) translate(housing_bol_pos) rotate([90, 0, 0]) circle();
-        
-        rotate([270, 0, 270])
-        {
-            rotate([0, -360 * $t, 0])
-            {
-                color("#bbb") karussell_spacer();
-                karussell_schrauben();
-                karussell_muttern();
-                karussell_scheibe_position("rechts");
-                karussell_scheibe_position("links");
-
-                // Das Pouley
-                color("grey") stepper_pouley();
-                color("#888") pouley_schrauben();
-
-                // The flaps
-                rotating_carousel();
-                *example_flaps_bolt();
-            }
-        }
-
-        // Schräges Flap, um zu checken, ob es am unteren
-        // Ende des Gehäuseausschnittes anschlägt.
-        *odd_flap_bottom();
-
-        // Beispiel Flap
-        *example_flap_front_top();
-        *example_flap_front_bottom();
-        *example_flap_bottom();
-
-        // Stepper Motor, Schrittmotor
-        color("silver") stepper_motor();
-        color("#888")  motor_schrauben();
-
-        // Spacer für Motor
-        color("#333") stepper_spacer();
-
-        // PCB
-        color("#888") pcb_schrauben();
-        color("#888") pcb_muttern();
-        color("#333") pcb_spacer();
-        pcb();
-    }
-
-    // Gehäuse Seiten:
-    color([0.85, 0.85, 0.85, 0.6]){
-        // Rechts mit grossem Ausschnitt
-        %chassis_right();
-
-        // Links mit Löcher für Motor
-        %chassis_left();
-
-        // Front
-        %chassis_front();
-    }
-}
-
-
-
-explode = 12;
-module split_flap_exploded(){
     
     translate(carousel_pos)
     {
         rotate([270, 0, 270])
         {
-            translate([0, -(explode * 10), 0])  color("#333")   karussell_spacer();
-            translate([0, -(explode * 2), 0])                   karussell_schrauben();
-            translate([0, -(explode * 13.5), 0])                karussell_muttern();
-            translate([0, -(explode * 8),  0])                  karussell_scheibe_position("rechts");
-            translate([0, -(explode * 12.5), 0])                karussell_scheibe_position("links");
-            // Das Pouley
-            translate([0, -(explode * 11.5), 0]) color("grey")  stepper_pouley();
-            translate([0, -(explode * 14), 0])   color("#888")  pouley_schrauben();
-            
-            *translate([0, -(explode * 10), 0]) rotating_carousel();
-            *example_flaps_bolt();
+            rotate([0, explode == 0 ? -360 * $t : 0, 0])
+            {
+                translate([0, -(explode * 10), 0])   color("#333")   karussell_spacer();
+                translate([0, -(explode * 2), 0])    color("#888")   karussell_schrauben();
+                translate([0, -(explode * 13.5), 0]) color("#888")   karussell_muttern();
+                translate([0, -(explode * 8), 0])    color("#555")   karussell_scheibe_position("rechts");
+                translate([0, -(explode * 12.5), 0]) color("#555")   karussell_scheibe_position("links");
+                // Das Pouley
+                translate([0, -(explode * 11.5), 0]) color("grey")   stepper_pouley();
+                translate([0, -(explode * 14), 0])   color("#888")   pouley_schrauben();
 
+                // The flaps
+                if (explode == 0)
+                translate([0, -(explode * 10), 0]) rotating_carousel();
+
+            }
         }
 
+        if (explode > 0)
         translate([0, 0, (explode * 10)]) example_flap_bottom();
 
         // Stepper Motor, Schrittmotor
         translate([0, 0, (explode * 10)])   color("silver") stepper_motor();
-        translate([0, 0, -explode * 3])     color("#888")   motor_schrauben();
+        translate([0, 0, -(explode * 3)])   color("#888")   motor_schrauben();
 
         // Spacer für Motor
         translate([0, 0, (explode * 8)])    color("#333")   stepper_spacer();
@@ -124,25 +64,17 @@ module split_flap_exploded(){
     color([0.85, 0.85, 0.85,0.6]){
         // Rechts mit grossem Ausschnitt
         %chassis_right();
-
+        
         // Links mit Löcher für Motor
         %chassis_left();
 
         // Front
         %chassis_front();
     }
+    
+    // Bolt für die Flaps
+    translate([0, 0, -(explode * 3)])   color("#888") chassis_bolt();
 }
 
-
-rotate([270, 0, 0])
-{
-    split_flap();
-}
-
-*rotate([0, 0, -360 * $t])
-{
-    translate([0,  -55, 0]) 
-    rotate([270, 0, 0]) split_flap_exploded();
-}
-
+rotate([270, 0, explode > 0 ? -360 * $t : 0]) translate([0, 0, -(explode * 5)]) split_flap();
 
