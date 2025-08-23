@@ -17,11 +17,16 @@
 
 include<3D_library.scad>;
 
+// explode 12 to show exploded view and spin the view
+//explode = 12;
+// explode 0 to show compact view and spin the carousel
 explode = 0;
-module split_flap(){
-    
+module split_flap()
+{
     translate(carousel_pos)
     {
+        //rotate([90, 0, 0]) translate(housing_virt_bolt_pos) rotate([90, 0, 0]) circle();
+        
         rotate([270, 0, 270])
         {
             rotate([0, explode == 0 ? -360 * $t : 0, 0])
@@ -31,7 +36,8 @@ module split_flap(){
                 translate([0, -(explode * 13.5), 0]) color("#888")   karussell_muttern();
                 translate([0, -(explode * 8), 0])    color("#555")   karussell_scheibe_position("rechts");
                 translate([0, -(explode * 12.5), 0]) color("#555")   karussell_scheibe_position("links");
-                // Das Pouley
+                
+                // The Pouley
                 translate([0, -(explode * 11.5), 0]) color("grey")   stepper_pouley();
                 translate([0, -(explode * 14), 0])   color("#888")   pouley_schrauben();
 
@@ -61,7 +67,8 @@ module split_flap(){
     }
 
     // Gehäuse Seiten:
-    color([0.85, 0.85, 0.85,0.6]){
+    color([0.85, 0.85, 0.85, 0.6])
+    {
         // Rechts mit grossem Ausschnitt
         %chassis_right();
         
@@ -73,8 +80,10 @@ module split_flap(){
     }
     
     // Bolt für die Flaps
-    translate([0, 0, -(explode * 3)])   color("#888") chassis_bolt();
+    translate([0, 0, -(explode * 3)])    color("#888") chassis_bolt_screw();
+    translate([0, 0,  (explode * 2)])    color("#888") chassis_bolt_nut();
 }
 
+// Animation
 rotate([270, 0, explode > 0 ? -360 * $t : 0]) translate([0, 0, -(explode * 5)]) split_flap();
 
