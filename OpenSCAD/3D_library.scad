@@ -223,28 +223,6 @@ module example_flap_bottom(){
     }
 }
 
-module example_flaps_bolt()
-{   // Differences                                   0  -6  -5.7   -5.1   -4.2 -3.1   -2     -0.9
-    angles = [26.1, 24.1, 21, 16.8, 11.7, 6, 0, -6, -11.7, -16.8, -21, -24.1, -26.1];
-    start = 35;
-    end = start + (len(angles) - 1);
-    middle = floor((len(angles) / 2));
-    
-    start_angle = (start + middle) * (360 / nr_of_flaps) - 90;
-    
-    for (i = [start:end]) 
-    {
-        rotated_angle = (360 * (i / nr_of_flaps - $t) + 360) % 360;
-
-        translate([carousel_flap_path_radius * sin(i * (360 / nr_of_flaps)),
-                   0,
-                   carousel_flap_path_radius * cos(i * (360 / nr_of_flaps))])
-        rotate([0, (angles[i-(start)] + start_angle), 0])
-        translate([(flap_height / 2) - (flap_pin / 2), 0, 0])
-        flap();
-    }
-}
-
 module stepper_motor(){
     translate([0,0,-((housing_inner_distance/2)-(motor_depth/2)-motor_spacer_length)]){
         difference(){
@@ -391,9 +369,16 @@ module chassis_right(){
     }
 }
 
-module chassis_bolt(){
+module chassis_bolt_screw(){
     translate([0,0,-((housing_inner_distance/2)+(housing_thickness/2))]){
         translate([(housing_width/2) - housing_bolt_h, (housing_height/2) - housing_bolt_v, -(housing_thickness/2 + 0.2)]) senk_schraube_m3(25);
+    }
+}
+
+module chassis_bolt_nut(){
+    translate([0,0,-((housing_inner_distance/2)+(housing_thickness/2))]){
+        // 1.1 is the height of the nut, it currently is hard coded
+        translate([(housing_width/2) - housing_bolt_h, (housing_height/2) - housing_bolt_v, (housing_thickness/2 + 1.1)]) mutter_m3();
     }
 }
 
@@ -417,7 +402,7 @@ module pcb()
             difference()
             {
                 cube([pcb_length, pcb_width, pcb_thickness], center = true);
-                translate([((pcb_length/2) - pcb_hole_top_from_left_pcb), -(motor_winding_distance/2),0]) cylinder(d=pcb_hole_diameter, h=pcb_thickness + 0.01, center = true);
+                translate([((pcb_length/2) - pcb_hole_top_from_left_pcb),    -(motor_winding_distance/2),0]) cylinder(d=pcb_hole_diameter, h=pcb_thickness + 0.01, center = true);
                 translate([((pcb_length/2) - pcb_hole_bottom_from_left_pcb),  (motor_winding_distance/2),0]) cylinder(d=pcb_hole_diameter, h=pcb_thickness + 0.01, center = true);
             }
         }
