@@ -34,7 +34,7 @@ carousel_inner_distance = 51;
 carousel_flap_holes_diameter = 3.4;
 carousel_flap_path_radius = 40 - (carousel_flap_holes_diameter/2);
 carousel_axis_diameter = 5;
-carousel_pos_x = 20.5;
+carousel_pos_x = 21;        // um 0.5mm nach vorne korrigiert am 08.08.2025, damit die Flaps etwas besser klemmen.
 carousel_pos_y = -13.5;
 carousel_pos = [carousel_pos_x,carousel_pos_y,0];
 
@@ -103,6 +103,8 @@ housing_cutout_position_y = 3;
 // Das Loch für den Bolzen
 housing_bolt_v = 26;
 housing_bolt_h = 16;
+housing_virt_bolt_pos = [37, 0, -70];
+
 
 // PCB
 pcb_width = 42.67;
@@ -170,8 +172,8 @@ chars = [
 
 include<_font_setup.scad>;
 
-
 font_preset = "msgothicsfd";
+
 letter_facet_number = 200;
 
 // how many columns and rows to display
@@ -204,3 +206,5 @@ length_marker = 8;
 width_marker  = 0.2;
 
 indicator_position = 14;
+
+

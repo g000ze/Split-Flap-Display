@@ -19,9 +19,11 @@ include<3D_library.scad>;
 
 module split_flap(){
     *check();
-    
+
     translate(carousel_pos)
     {
+        //rotate([90, 0, 0]) translate(housing_bol_pos) rotate([90, 0, 0]) circle();
+        
         rotate([270, 0, 270])
         {
             rotate([0, -360 * $t, 0])
@@ -89,12 +91,12 @@ module split_flap_exploded(){
         {
             translate([0, -(explode * 10), 0])  color("#333")   karussell_spacer();
             translate([0, -(explode * 2), 0])                   karussell_schrauben();
-            translate([0, -(explode * 12.5), 0])                karussell_muttern();
+            translate([0, -(explode * 13.5), 0])                karussell_muttern();
             translate([0, -(explode * 8),  0])                  karussell_scheibe_position("rechts");
-            translate([0, -(explode * 12), 0])                  karussell_scheibe_position("links");
+            translate([0, -(explode * 12.5), 0])                karussell_scheibe_position("links");
             // Das Pouley
-            translate([0, -(explode * 11.5), 0]) color("grey") stepper_pouley();
-            translate([0, -(explode * 13.5), 0]) color("#888") pouley_schrauben();
+            translate([0, -(explode * 11.5), 0]) color("grey")  stepper_pouley();
+            translate([0, -(explode * 14), 0])   color("#888")  pouley_schrauben();
             
             *translate([0, -(explode * 10), 0]) rotating_carousel();
             *example_flaps_bolt();
@@ -131,8 +133,13 @@ module split_flap_exploded(){
     }
 }
 
-*rotate([270, 0, 0]) split_flap();
-rotate([0, 0, -360 * $t])
+
+rotate([270, 0, 0])
+{
+    split_flap();
+}
+
+*rotate([0, 0, -360 * $t])
 {
     translate([0,  -55, 0]) 
     rotate([270, 0, 0]) split_flap_exploded();

@@ -492,21 +492,29 @@ module flap()
     }
 }
 
-module rotating_carousel() 
+module rotating_carousel()
 {
     for (i = [0:nr_of_flaps-1])
     {
-        rotated_angle = (i * (360 / nr_of_flaps) - (360 * $t) + 360) % 360;
+        position = i * (360 / nr_of_flaps);
+        rotated_angle = (position - (360 * $t) + 360) % 360;
+        dx = (housing_virt_bolt_pos[0]) - (carousel_flap_path_radius * cos(rotated_angle));
+        dy = (housing_virt_bolt_pos[2]) - (carousel_flap_path_radius * sin(rotated_angle));
 
         translate([
-                    carousel_flap_path_radius * sin(i * (360 / nr_of_flaps)),
+                    carousel_flap_path_radius * sin(position),
                     0,
-                    carousel_flap_path_radius * cos(i * (360 / nr_of_flaps))
+                    carousel_flap_path_radius * cos(position)
                   ])
         {
             rotate([0, 360 * $t, 0])
             {
-                angle = (rotated_angle > 0 && rotated_angle < 180) ? rotated_angle : 180 ;
+                // this version shows the rotating flaps without the bolt
+                //angle = (rotated_angle > 0 && rotated_angle < 180) ? rotated_angle : 180 ;
+                
+                // this version shows the flaps as if there where a bolt
+                angle = (rotated_angle > 260 && rotated_angle < 360) ? 270 + atan2(dy, dx) : (rotated_angle > 0 && rotated_angle < 180) ? rotated_angle : 180 ;
+                
                 rotate([0, angle, 0])
                 {
                     translate([(flap_height / 2) - (flap_pin / 2), 0, 0])
@@ -518,7 +526,6 @@ module rotating_carousel()
         }
     }
 }
-
 
 module draw_half_letter(char, flip = false)
 {
@@ -537,7 +544,7 @@ module draw_half_letter(char, flip = false)
             draw_letter(chars[char]);
             if(flip) translate([0, -((flap_height) - (cut_off_blind/2))]) square([flap_width, cut_off_blind], center = true);
         }
-}
+    }
 }
 
 module flap_with_char(char)
