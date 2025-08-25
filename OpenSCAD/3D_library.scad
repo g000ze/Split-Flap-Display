@@ -55,15 +55,6 @@ module check(){
     }
 }
 
-module arc(angle, inner, strength, height){
-    render(convexity = 1)
-    difference(){
-        rotate_extrude() translate([inner, -(height / 2), 0]) square([strength, height]);
-        translate([-angle,-(strength + inner),-(height / 2)]) cube([(strength + inner + angle), (strength + inner) * 2, height]);
-        translate([-(strength + inner),-angle,-(height / 2)]) cube([(strength + inner) * 2, (strength + inner + angle), height]);
-    }
-}
-
 module senk_schraube_m3(length) {
     // Schrauben Kopf Imbus (Sechskant)
     difference() 
@@ -91,34 +82,14 @@ module spacer(length, outer, inner)
 }
 
 /*
-module karussell_scheibe(){
-    // 2D generieren und am Schluss zu 3D machen mit linear_extrude ist viel schneller
-    linear_extrude(height=carousel_thickness, center=true)
-    {
-        difference()
-        {
-            circle(d=carousel_diameter);
-
-            // Löcher für Flaps
-            for(i=[1:nr_of_flaps]){
-                translate([carousel_flap_path_radius*cos(i*(360/nr_of_flaps)), carousel_flap_path_radius*sin(i*(360/nr_of_flaps))]) circle(d=carousel_flap_holes_diameter);
-            }
-
-            // Löcher für Spacers
-            for(i=[1:carousel_spacer_nr]){
-                translate([
-                    carousel_spacer_path_radius*cos(i*(360/carousel_spacer_nr)),
-                    carousel_spacer_path_radius*sin(i*(360/carousel_spacer_nr))
-                ]) circle(d=carousel_spacer_holes_diameter);
-            }
-
-            // Loch für Magnet
-            x=(360 / nr_of_flaps * 7);
-            translate([magnet_hole_path_radius*cos(x), magnet_hole_path_radius*sin(x)]) circle(d=magnet_hole_diameter);
-        }
+module arc(angle, inner, strength, height){
+    render(convexity = 1)
+    difference(){
+        rotate_extrude() translate([inner, -(height / 2), 0]) square([strength, height]);
+        translate([-angle,-(strength + inner),-(height / 2)]) cube([(strength + inner + angle), (strength + inner) * 2, height]);
+        translate([-(strength + inner),-angle,-(height / 2)]) cube([(strength + inner) * 2, (strength + inner + angle), height]);
     }
 }
-*/
 
 module karussell_scheibe(){
     difference(){
@@ -145,7 +116,6 @@ module karussell_scheibe(){
     //x=(360/50*7);
     //translate([0,0,3]) rotate([0,0,x]) color("red") square([100,0.2], center = true);
 }
-
 
 module karussell_scheibe_links()
 {
@@ -179,6 +149,60 @@ module karussell_scheibe_rechts()
     {
         karussell_scheibe();
         cylinder(d=carousel_diameter_cutout, h=carousel_thickness_holes, center = true);
+    }
+}
+*/
+
+module karussell_scheibe_rechts(){
+    difference(){
+        cylinder(d=carousel_diameter, h=carousel_thickness, center = true);
+
+        // Ring
+        cylinder(d=carousel_diameter_cutout, h=carousel_thickness_holes, center = true);
+
+        // Löcher für Flaps
+        for(i=[1:nr_of_flaps]){
+            translate([carousel_flap_path_radius*cos(i*(360/nr_of_flaps)),carousel_flap_path_radius*sin(i*(360/nr_of_flaps)),0]) cylinder(d=carousel_flap_holes_diameter, h=carousel_thickness_holes, center = true);
+        }
+
+        // Löcher Spacers
+        for(i=[1:carousel_spacer_nr]){
+            translate([carousel_spacer_path_radius*cos(i*(360/carousel_spacer_nr)),carousel_spacer_path_radius*sin(i*(360/carousel_spacer_nr)),0]) cylinder(d=carousel_spacer_holes_diameter, h=carousel_thickness_holes, center = true);
+        }
+
+        // 2mm Loch für das Magnet und als Alignement
+        x=(360 / nr_of_flaps * 7);
+        translate([magnet_hole_path_radius*cos(x),magnet_hole_path_radius*sin(x),0]){
+            cylinder(d=magnet_hole_diameter, h=carousel_thickness_holes, center = true);
+        }
+    }
+}
+
+module karussell_scheibe_links()
+{
+    difference()
+    {
+        union()
+        {
+            karussell_scheibe_rechts();
+            // Die beiden Speichen
+            cube([carousel_spokes_width, carousel_diameter_cutout, carousel_thickness], center = true);
+            cube([carousel_diameter_cutout, carousel_spokes_width, carousel_thickness], center = true);
+            // Der Kreis wo die Löcher für das Poulley und die Achse rein kommen
+            cylinder(d=carousel_inner_circle, h=carousel_thickness, center = true);
+        }
+        for(i=[1:pulley_nr_of_holes])
+        {
+            // Loch für Achse
+            cylinder(d=carousel_axis_diameter, h=carousel_thickness_holes, center = true);
+
+            // Löcher für Motor Poulley
+            translate([
+                pulley_holes_path_radius * cos(i * (360 / pulley_nr_of_holes)),
+                pulley_holes_path_radius * sin(i * (360 / pulley_nr_of_holes)),
+                0
+            ]) cylinder(d=pulley_holes_diameter, h=carousel_thickness_holes, center = true);
+        }
     }
 }
 
