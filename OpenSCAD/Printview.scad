@@ -25,6 +25,7 @@ end_row = 10;
 
 // front or back
 side = "front";
+// zoom for better resolution in the output picture
 zoom = 10;
 
 // Das ist die totale Breite sämtlicher Flaps inkl. Nasen & Abstände
