@@ -34,12 +34,14 @@ carousel_inner_distance = 51;
 carousel_flap_holes_diameter = 3.4;
 carousel_flap_path_radius = 40 - (carousel_flap_holes_diameter/2);
 carousel_axis_diameter = 5;
+carousel_inner_circle = 24;
+carousel_spokes_width = 10;
 carousel_pos_x = 21;        // um 0.5mm nach vorne korrigiert am 08.08.2025, damit die Flaps etwas besser klemmen.
 carousel_pos_y = -13.5;
 carousel_pos = [carousel_pos_x,carousel_pos_y,0];
 
 // Die Löcher werden etwas länger, damit die Darstellung von OpenSCAD stimmt
-carousel_thickness_holes = carousel_thickness + 0.005;
+carousel_thickness_holes = carousel_thickness + 0.01;
 
 // Ausschnitt
 carousel_diameter_cutout = 59;
@@ -168,13 +170,19 @@ chars = [
 
 /*
   Settings for the flaps sheet
+  These settings below take place at
+  the following files:
+  - Overallview.scad
+  - Printview.scad
+  - _font_setup.scad
+  - 2D_library.scad
 */
 
 include<_font_setup.scad>;
 
 font_preset = "msgothicsfd";
 
-letter_facet_number = 200;
+letter_facet_number = 50;
 
 // how many columns and rows to display
 cols = 5;
