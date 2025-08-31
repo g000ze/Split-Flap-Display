@@ -87,7 +87,7 @@ function filter_options (array $options)
             'filter'  => FILTER_VALIDATE_REGEXP,
             'options' => [
                 'default' => "start",
-                'regexp'  => "/^(start|stop|left|right)$/",
+                'regexp'  => "/^(start|stop|left|right|right_par|left_par)$/",
             ],
         ],
         'text'      => [
@@ -197,6 +197,7 @@ function get_current_positions () : array
  */
 function set_delay ($targets, $animation = "start")
 {
+    global $rows, $cols;
     $counter = 0;
 
     // create $delay array with values from $targes array
@@ -205,16 +206,22 @@ function set_delay ($targets, $animation = "start")
         foreach ($line as $arduino) {
             foreach($arduino['modules'] as $key => $module) {
                 if($module['walk'] > 0){
-                    $walk = 0;
+                    $time = 0;
                     if($animation == "stop"){
-                        $walk = $module['walk'];
+                        $time = $module['walk'];
                     }else if($animation == "left"){
-                        $walk = $counter--;
+                        $time = $counter--;
                     }else if($animation == "right"){
-                        $walk = $counter++;
+                        $time = $counter++;
+                    }else if($animation == "left_par"){
+                        $time = $counter--;
+                        $counter = $counter <= -$cols ? 0 : $counter;
+                    }else if($animation == "right_par"){
+                        $time = $counter++;
+                        $counter = $counter >=  $cols ? 0 : $counter;
                     }
-                    $delay[$walk][$arduino['i2c']]['size'] = $arduino['size'];
-                    $delay[$walk][$arduino['i2c']]['modules'][$key] = $module;
+                    $delay[$time][$arduino['i2c']]['size'] = $arduino['size'];
+                    $delay[$time][$arduino['i2c']]['modules'][$key] = $module;
                 }
             }
         }
