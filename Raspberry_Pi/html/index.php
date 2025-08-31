@@ -10,6 +10,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/dist/css/cover.css" rel="stylesheet">
 
+    <!-- 
+     adjust the following settings below to change rows and cols:
+     CSS: 
+     - width: calc(1ch * 16);
+     - height: calc(1em * 3 + 2px); 
+     HTML: 
+     - <textarea ... rows="3" cols="16" maxlength="48" ... ></textarea>
+    -->
+
     <style>
     .text-input {
       font-family: monospace;
@@ -23,8 +32,8 @@
       margin: 0;
       text-transform: uppercase;
       width: calc(1ch * 16);
-      height: calc(1em * 3 + 2px);
-      line-height: 1.5;
+      height: calc(1em * 2 + 2px);
+      line-height: 1em;
       white-space: break-spaces;
       word-break: break-all;
     }
