@@ -191,11 +191,12 @@ module karussell_scheibe_links()
             // Der Kreis wo die Löcher für das Poulley und die Achse rein kommen
             cylinder(d=carousel_inner_circle, h=carousel_thickness, center = true);
         }
+
+        // Loch für Achse
+        cylinder(d=carousel_axis_diameter, h=carousel_thickness_holes, center = true);
+
         for(i=[1:pulley_nr_of_holes])
         {
-            // Loch für Achse
-            cylinder(d=carousel_axis_diameter, h=carousel_thickness_holes, center = true);
-
             // Löcher für Motor Poulley
             translate([
                 pulley_holes_path_radius * cos(i * (360 / pulley_nr_of_holes)),
@@ -515,7 +516,7 @@ module pcb_spacer(){
 
 module flap()
 {
-    color("#333") union() 
+    color("#333") union()
     {
         cube([flap_height,flap_width, flap_thickness], center = true);
         translate([-((flap_height/2) - (flap_pin/2)), -((flap_width/2) + (flap_pin/2)), 0])
