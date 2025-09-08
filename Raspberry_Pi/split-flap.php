@@ -195,7 +195,7 @@ function get_current_positions () : array
  * @return array $delay
  *
  */
-function set_delay ($targets, $animation = "start")
+function set_delay ($targets, $animation = "start", $slowdown = 1)
 {
     global $rows, $cols;
     $counter = 0;
@@ -210,14 +210,14 @@ function set_delay ($targets, $animation = "start")
                     if($animation == "stop"){
                         $time = $module['walk'];
                     }else if($animation == "left"){
-                        $time = $counter--;
+                        $time = $counter-- * $slowdown;
                     }else if($animation == "right"){
-                        $time = $counter++;
+                        $time = $counter++ * $slowdown;
                     }else if($animation == "left_par"){
-                        $time = $counter--;
+                        $time = $counter-- * $slowdown;
                         $counter = $counter <= -$cols ? 0 : $counter;
                     }else if($animation == "right_par"){
-                        $time = $counter++;
+                        $time = $counter++ * $slowdown;
                         $counter = $counter >=  $cols ? 0 : $counter;
                     }
                     $delay[$time][$arduino['i2c']]['size'] = $arduino['size'];
@@ -238,19 +238,16 @@ function run_carrousel($targets): void
 {
     global $fd, $delay_per_position, $placeholder;
     $prev_time = 0;
+    $counter = 0;
     foreach ($targets as $time => $delay) {
-        $sleep = $prev_time == 0 ? 0 : ($prev_time - $time) * $delay_per_position;
+        $sleep = $counter == 0 ? 0 : ($prev_time - $time) * $delay_per_position;
         usleep($sleep);
+        $counter++;
         $prev_time = $time;
         foreach ($delay as $i2c => $address) {
             unset($text);
             for ($i = 0; $i < $address['size']; $i++) {
-                if(isset($address['modules'][$i])){
-                    $text[$i] = ord($address['modules'][$i]['char']);
-                }else{
-                    // fill missing array members with placeholder
-                    $text[$i] = ord("$placeholder");
-                }
+              $text[$i] = ord($address['modules'][$i]['char'] ?? $placeholder);
             }
             if (i2c_select($fd, $i2c)) {
                 i2c_write($fd, 0, $text);
