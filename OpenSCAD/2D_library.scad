@@ -97,13 +97,13 @@ module half_letter(col, row)
             if(side == "front")
             {
                 rotate([0, 0]) translate([0, -(flap_height / 2)]) 
-                    draw_letter(chars[(cols * row) + col]);
+                    draw_letter(characters[(cols * row) + col]);
             }
             else
             {
-                character = (cols * row) - col + cols == len(chars) ? 0 : (cols * row) - col + cols ;
+                character = (cols * row) - col + cols == len(characters) ? 0 : (cols * row) - col + cols ;
                 rotate([180, 180]) translate([0,  (flap_height / 2)]) 
-                    draw_letter(chars[character]);
+                    draw_letter(characters[character]);
             }
         }
         // Das ist der Balken, der unten alles Überstehende abschneidet
