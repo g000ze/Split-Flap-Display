@@ -25,7 +25,6 @@ space = 1;
 sheet_width = 500;
 sheet_height = 500;
 
-
 difference()
 {
     square(size = [sheet_width, sheet_height], center = false);
