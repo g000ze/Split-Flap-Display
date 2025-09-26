@@ -81,78 +81,6 @@ module spacer(length, outer, inner)
     }
 }
 
-/*
-module arc(angle, inner, strength, height){
-    render(convexity = 1)
-    difference(){
-        rotate_extrude() translate([inner, -(height / 2), 0]) square([strength, height]);
-        translate([-angle,-(strength + inner),-(height / 2)]) cube([(strength + inner + angle), (strength + inner) * 2, height]);
-        translate([-(strength + inner),-angle,-(height / 2)]) cube([(strength + inner) * 2, (strength + inner + angle), height]);
-    }
-}
-
-module karussell_scheibe(){
-    difference(){
-        cylinder(d=carousel_diameter, h=carousel_thickness, center = true);
-
-        // Löcher für Flaps
-        for(i=[1:nr_of_flaps]){
-            translate([carousel_flap_path_radius*cos(i*(360/nr_of_flaps)),carousel_flap_path_radius*sin(i*(360/nr_of_flaps)),0]) cylinder(d=carousel_flap_holes_diameter, h=carousel_thickness_holes, center = true);
-        }
-
-        // Löcher Spacers
-        for(i=[1:carousel_spacer_nr]){
-            translate([carousel_spacer_path_radius*cos(i*(360/carousel_spacer_nr)),carousel_spacer_path_radius*sin(i*(360/carousel_spacer_nr)),0]) cylinder(d=carousel_spacer_holes_diameter, h=carousel_thickness_holes, center = true);
-        }
-
-        // 2mm Loch für das Magnet und als Alignement
-        x=(360 / nr_of_flaps * 7);
-        translate([magnet_hole_path_radius*cos(x),magnet_hole_path_radius*sin(x),0]){
-            cylinder(d=magnet_hole_diameter, h=carousel_thickness_holes, center = true);
-        }
-    }
-
-    // check
-    //x=(360/50*7);
-    //translate([0,0,3]) rotate([0,0,x]) color("red") square([100,0.2], center = true);
-}
-
-module karussell_scheibe_links()
-{
-    difference()
-    {
-        karussell_scheibe();
-        
-        for(rot=[0,90,180,270])
-        {
-            rotate([0,0,rot]) arc(5, 12, (carousel_diameter_cutout/2) - 12, carousel_thickness + 1);
-        }
-
-        // Achse
-        cylinder(d=carousel_axis_diameter, h=carousel_thickness_holes, center = true);
-
-        // Löcher für Motor Poulley
-        for(i=[1:pulley_nr_of_holes])
-        {
-            translate([
-                pulley_holes_path_radius*cos(i*(360/pulley_nr_of_holes)),
-                pulley_holes_path_radius*sin(i*(360/pulley_nr_of_holes)),
-                0
-            ]) cylinder(d=pulley_holes_diameter, h=carousel_thickness_holes, center = true);
-        }
-    }
-}
-
-module karussell_scheibe_rechts()
-{
-    difference()
-    {
-        karussell_scheibe();
-        cylinder(d=carousel_diameter_cutout, h=carousel_thickness_holes, center = true);
-    }
-}
-*/
-
 module karussell_scheibe_rechts(){
     difference(){
         cylinder(d=carousel_diameter, h=carousel_thickness, center = true);
@@ -209,20 +137,13 @@ module karussell_scheibe_links()
 
 module karussell_scheibe_position(side = "rechts")
 {
+    // z-Offset
+    zoffset = (carousel_inner_distance/2 + carousel_thickness/2) * (side == "rechts" ? -1 : 1);
+    
     rotate([90,90,0])
-    if(side == "rechts")
-    {
-        translate([0,0,-((carousel_inner_distance/2)+(carousel_thickness/2))])
-        {
-            karussell_scheibe_rechts();
-        }
-    }
-    else
-    {
-        translate([0,0, ((carousel_inner_distance/2)+(carousel_thickness/2))])
-        {
-            karussell_scheibe_links();
-        }
+    translate([0,0,zoffset]) {
+        if (side == "rechts") karussell_scheibe_rechts();
+        else                  karussell_scheibe_links();
     }
 }
 
@@ -386,7 +307,7 @@ module pouley_schrauben(){
 module chassis_front(){
     difference(){
         geh_front_pos = (housing_width/2)-(housing_thickness/2);
-        translate([geh_front_pos,0,0]) cube([housing_thickness,housing_height,housing_inner_distance], center = true);
+        translate([geh_front_pos,0,0]) cube([housing_thickness, housing_height, housing_inner_distance], center = true);
         // Ausschnitt
         translate([geh_front_pos,housing_cutout_position_y,0]) cube([housing_thickness+0.1,housing_cutout_height,housing_cutout_width], center = true);
 
@@ -446,7 +367,7 @@ module chassis_left(){
         }
     }
 }
-
+        
 module pcb()
 {
     translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - (pcb_thickness/2)) + pcb_spacer_length])
@@ -483,18 +404,22 @@ module pcb()
 }
 
 module pcb_schrauben(){
-    translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - (pcb_thickness/2))])
+    translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -(housing_inner_distance/2 + housing_thickness + 0.4)])
     {
-        translate([((pcb_length/2) - pcb_hole_top_from_left_pcb),    -(motor_winding_distance/2), -1.8]) senk_schraube_m3(6);
-        translate([((pcb_length/2) - pcb_hole_bottom_from_left_pcb),  (motor_winding_distance/2), -1.8]) senk_schraube_m3(6);
+        translate([((pcb_length/2) - pcb_hole_top_from_left_pcb),    -(motor_winding_distance/2), 0]) senk_schraube_m3(6);
+        translate([((pcb_length/2) - pcb_hole_bottom_from_left_pcb),  (motor_winding_distance/2), 0]) senk_schraube_m3(6);
     }
 }
 
 module pcb_muttern(){
-    translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - housing_thickness - pcb_thickness - 2.2) + pcb_spacer_length])
+    translate([
+                -((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 
+                0,
+                -(housing_inner_distance/2 - pcb_spacer_length - pcb_thickness - (2.2/2))
+              ])
     {
-        translate([((pcb_length/2) - pcb_hole_top_from_left_pcb),    -(motor_winding_distance/2), -1.8]) mutter_m3();
-        translate([((pcb_length/2) - pcb_hole_bottom_from_left_pcb),  (motor_winding_distance/2), -1.8]) mutter_m3();
+        translate([((pcb_length/2) - pcb_hole_top_from_left_pcb),    -(motor_winding_distance/2), 0]) mutter_m3();
+        translate([((pcb_length/2) - pcb_hole_bottom_from_left_pcb),  (motor_winding_distance/2), 0]) mutter_m3();
     }
 }
 
@@ -512,7 +437,6 @@ module pcb_spacer(){
     }
 
 }
-
 
 module flap()
 {
@@ -567,7 +491,7 @@ module rotating_carousel()
 
 module draw_half_letter(char, flip = false)
 {
-    overrides     = get_letter_overrides(chars[char]);
+    overrides     = get_letter_overrides(characters[char]);
     color         = is_undef(overrides[5]) ? get_font_setting("color") : overrides[5];
     rotate_letter = flip ? [0, 180, 90]      : [0, 0, 270];
     lift_letter   = flip ? -0.01             : 0.02;
@@ -579,7 +503,7 @@ module draw_half_letter(char, flip = false)
         rotate(rotate_letter) translate([0, move_letter, 0]) linear_extrude(height = flap_thickness)
         difference()
         {
-            draw_letter(chars[char]);
+            draw_letter(characters[char]);
             if(flip) translate([0, -((flap_height) - (cut_off_blind/2))]) square([flap_width, cut_off_blind], center = true);
         }
     }
