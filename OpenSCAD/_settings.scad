@@ -36,7 +36,8 @@ carousel_flap_path_radius = 40 - (carousel_flap_holes_diameter/2);
 carousel_axis_diameter = 5;
 carousel_inner_circle = 24;
 carousel_spokes_width = 10;
-carousel_pos_x = 21;        // um 0.5mm nach vorne korrigiert am 08.08.2025, damit die Flaps etwas besser klemmen.
+carousel_pos_x = 20.8;        // um 0.5mm nach vorne korrigiert am 08.08.2025, damit die Flaps etwas besser klemmen.
+                              // um 0.2mm nach hinten korrigiert am 31.08.2025, weil das Gehäuse nun 1.0 und nicht mehr 0.8mm ist.
 carousel_pos_y = -13.5;
 carousel_pos = [carousel_pos_x,carousel_pos_y,0];
 
@@ -56,7 +57,7 @@ pulley_axis_diameter = carousel_axis_diameter;
 
 // Spacers Karussell
 carousel_spacer_outer_diameter = 6;
-carousel_spacer_inner_diameter = 3.4;
+carousel_spacer_inner_diameter = 3.2;
 carousel_spacer_length = carousel_inner_distance;
 carousel_spacer_nr = 4;
 carousel_spacer_holes_diameter = 3.2;
@@ -93,7 +94,8 @@ motor_screw_length = 25;
 housing_width = 120;
 housing_height = 150;
 housing_outer_distance = 70;
-housing_thickness = 0.8;
+//housing_thickness = 0.8;
+housing_thickness = 1;
 housing_inner_distance = housing_outer_distance - (2 * housing_thickness);
 
 housing_cutout_height = 104;
@@ -105,7 +107,7 @@ housing_cutout_position_y = 3;
 // Das Loch für den Bolzen
 housing_bolt_v = 26;
 housing_bolt_h = 16;
-housing_virt_bolt_pos = [37, 0, -70];
+housing_virt_bolt_pos = [37, 0, -71];
 
 
 // PCB
@@ -144,21 +146,23 @@ pcb_spacer_outer_diameter = 6;
 pcb_spacer_inner_diameter = 3.2;
 
 // always adjust overrides in _font_setup.scad accordingly
-chars = [ 
-               "0", "A", "B", "C", "D",  
-               "1", "E", "F", "G", "H", 
-               "2", "I", "J", "K", "L", 
-               "3", "M", "N", "O", "P", 
-               "4", "Q", "R", "S", "T",  
-               "5", "U", "V", "W", "X",  
-               "6", "Y", "Z", "+", "-", 
-               "7", "?", "!", ".", ",", 
-               "8", "@", ":", ";", "#", 
-               "9", "*", "$", "w", " ",  
-        ];
+
+        
+characters = [
+     "0", "A", "B", "C", "D",
+     "1", "E", "F", "G", "H",
+     "2", "I", "J", "K", "L",
+     "3", "M", "N", "O", "P",
+     "4", "Q", "R", "S", "T",
+     "5", "U", "V", "W", "X",
+     "6", "Y", "Z", "+", "-",
+     "7", "?", "!", ".", ",",
+     "8", "@", ":", ";", "#",
+     "9", "*", "$", "/", " ", 
+];
 
 /*
-        chars = [
+        characters = [
                "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
@@ -187,7 +191,7 @@ letter_facet_number = 50;
 // how many columns and rows to display
 cols = 5;
 //rows = 10;
-rows = ceil(len(chars) / cols);
+rows = ceil(len(characters) / cols);
 
 // horizontal space between flaps
 h_space_between_flaps = 8;
