@@ -28,7 +28,7 @@
       border: 1px solid white;
       box-sizing: content-box;
       resize: none;
-      padding: 10px;
+      padding: 0.4em;
       margin: 0;
       text-transform: uppercase;
       width: calc(1ch * 16);
