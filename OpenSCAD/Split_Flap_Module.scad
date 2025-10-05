@@ -37,6 +37,10 @@ module split_flap()
                 translate([0, -(explode * 8), 0])    color("#555")   karussell_scheibe_position("rechts");
                 translate([0, -(explode * 12.5), 0]) color("#555")   karussell_scheibe_position("links");
                 
+                // use this trick to speed up things: export rendered carousel wheels to .stl and import it here again.
+                rotate([90, 90, 0]) translate([0, 0,  ((carousel_inner_distance/2) + (carousel_thickness/2) + (explode * 12.5))]) color("#555") import("Carousel_left.stl");
+                rotate([90, 90, 0]) translate([0, 0, -((carousel_inner_distance/2) + (carousel_thickness/2) - (explode * 9))])    color("#555") import("Carousel_right.stl");
+                
                 // The Pouley
                 translate([0, -(explode * 11.5), 0]) color("grey")   stepper_pouley();
                 translate([0, -(explode * 14), 0])   color("#888")   pouley_schrauben();
@@ -49,7 +53,7 @@ module split_flap()
         }
 
         if (explode > 0)
-        translate([0, 0, (explode * 10)]) example_flap_bottom();
+        translate([0, 0, (explode * 10)]) example_flap_bottom(28);
 
         // Stepper Motor, Schrittmotor
         translate([0, 0, (explode * 10)])   color("silver") stepper_motor();
@@ -59,6 +63,7 @@ module split_flap()
         translate([0, 0, (explode * 8)])    color("#333")   stepper_spacer();
 
         // PCB
+        // OpenSCAD generated PCB
         translate([0, 0, (explode * 1)])                    pcb();
         translate([0, 0, -(explode * 1.2)]) color("#888")   pcb_schrauben();
         translate([0, 0, (explode * 2)])    color("#888")   pcb_muttern();
@@ -84,6 +89,5 @@ module split_flap()
     translate([0, 0,  (explode * 2)])    color("#888") chassis_bolt_nut();
 }
 
-// Animation
-rotate([270, 0, explode > 0 ? -360 * $t : 0]) translate([0, 0, -(explode * 5)]) split_flap();
+rotate([270, 0, explode > 0 ? -360 * $t : 0]) split_flap();
 
