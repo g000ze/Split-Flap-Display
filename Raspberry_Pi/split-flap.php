@@ -30,6 +30,17 @@ $targets = array(
         # arduinos or blocks
         0 => array(
             'size' => 8,    // number of modules
+            'i2c'  => 0x0a, // i2c address of arduino
+        ),
+        1 => array(
+            'size' => 8,    // number of modules
+            'i2c'  => 0x0b, // i2c address of arduino
+        ),
+    ),
+    1 => array(
+        # arduinos or blocks
+        0 => array(
+            'size' => 8,    // number of modules
             'i2c'  => 0x0c, // i2c address of arduino
         ),
         1 => array(
@@ -37,7 +48,7 @@ $targets = array(
             'i2c'  => 0x0d, // i2c address of arduino
         ),
     ),
-    1 => array(
+    2 => array(
         0 => array(
             'size' => 8,    // number of modules
             'i2c'  => 0x0e, // i2c address of arduino
@@ -87,7 +98,7 @@ function filter_options (array $options)
             'filter'  => FILTER_VALIDATE_REGEXP,
             'options' => [
                 'default' => "start",
-                'regexp'  => "/^(start|stop|left|right|right_par|left_par)$/",
+                'regexp'  => "/^(start|stop|left_snake|right_snake|right|left)$/",
             ],
         ],
         'text'      => [
@@ -209,14 +220,14 @@ function set_delay ($targets, $animation = "start", $slowdown = 1)
                     $time = 0;
                     if($animation == "stop"){
                         $time = $module['walk'];
+                    }else if($animation == "left_snake"){
+                        $time = $counter-- * $slowdown;
+                    }else if($animation == "right_snake"){
+                        $time = $counter++ * $slowdown;
                     }else if($animation == "left"){
                         $time = $counter-- * $slowdown;
-                    }else if($animation == "right"){
-                        $time = $counter++ * $slowdown;
-                    }else if($animation == "left_par"){
-                        $time = $counter-- * $slowdown;
                         $counter = $counter <= -$cols ? 0 : $counter;
-                    }else if($animation == "right_par"){
+                    }else if($animation == "right"){
                         $time = $counter++ * $slowdown;
                         $counter = $counter >=  $cols ? 0 : $counter;
                     }
