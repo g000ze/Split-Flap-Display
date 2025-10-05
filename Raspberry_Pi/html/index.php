@@ -32,7 +32,7 @@
       margin: 0;
       text-transform: uppercase;
       width: calc(1ch * 16);
-      height: calc(1em * 2 + 2px);
+      height: calc(1em * 3 + 2px);
       line-height: 1em;
       white-space: break-spaces;
       word-break: break-all;
@@ -63,7 +63,7 @@
     
         <form id="form">
           <div class="mb-3">
-            <textarea id="text" name="text" class="text-input form-control mx-auto" rows="2" cols="16" maxlength="32" wrap="soft" autofocus></textarea>
+            <textarea id="text" name="text" class="text-input form-control mx-auto" rows="3" cols="16" maxlength="48" wrap="soft" autofocus></textarea>
           </div>
     
           <div class="mb-3">
@@ -71,6 +71,8 @@
             <select class="form-select" id="dropdown" name="animation">
               <option value="start">Start</option>
               <option value="stop">Stop</option>
+              <option value="left">-&gt; From left snake</option>
+              <option value="right">&lt;- From right snake</option>
               <option value="left">-&gt; From left</option>
               <option value="right">&lt;- From right</option>
             </select>
