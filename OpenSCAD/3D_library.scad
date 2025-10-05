@@ -17,44 +17,6 @@
 
 include<_settings.scad>;
 
-module check(){
-    motor_befestigung_vorne  = (((housing_width/2) - (motor_winding_distance/2)) - carousel_pos_x);
-    motor_befestigung_hinten = (((housing_width/2) + (motor_winding_distance/2)) - carousel_pos_x);
-    motor_befestigung_oben   = (((housing_height/2)  - (motor_winding_distance/2)) + carousel_pos_y);
-    motor_befestigung_unten  = (((housing_height/2)  + (motor_winding_distance/2)) + carousel_pos_y);
-    
-    geh_abst_zu_ausschn_oben = ((housing_height/2)-(housing_cutout_height/2)+housing_cutout_position_y);
-    echo ("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-    echo (concat("motor_befestigung_vorne:  ", motor_befestigung_vorne));
-    echo (concat("motor_befestigung_hinten: ", motor_befestigung_hinten));
-    echo (concat("motor_befestigung_oben:  ", motor_befestigung_oben));
-    echo (concat("motor_befestigung_unten: ", motor_befestigung_unten));
-    echo (concat("geh_abst_zu_ausschn_oben: ", geh_abst_zu_ausschn_oben));
-    echo (concat("Radius Karussell: ", carousel_diameter/2));
-    echo (concat("Radius Pfad Löcher: ", carousel_flap_path_radius));
-    echo ("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
-    // Beweis, dass die oben berechneten Masse stimmen.
-    color("red"){
-        // Schrauben Löcher
-        translate([(housing_width/2)-motor_befestigung_vorne,-29,-36]) square([motor_befestigung_vorne,1], center = false);
-        translate([(housing_width/2)-motor_befestigung_hinten,3,-36]) square([motor_befestigung_hinten,1], center = false);
-        
-        translate([4, -(housing_height/2),-36]) square([1,motor_befestigung_oben], center = false);
-        translate([34,-(housing_height/2),-36]) square([1,motor_befestigung_unten], center = false);
-        
-        // Abstand vorne, von oben bis Ausschnitt
-        translate([61,-(housing_height/2),0]) square(geh_abst_zu_ausschn_oben, center = false);
-        
-        // Wieviel steht das Flap am Gehäuse an, bevor es fällt.
-        translate([61.5,-(housing_height/2)+23,0]) rotate([0, 0, 45]) square([2, 2], center = true);
-        translate([61.5,-(housing_height/2)+26,0]) rotate([0, 0, 45]) square([2, 2], center = true);
-        
-        // Breite des Gehäuses aussen
-        translate([62,-55,0]) cube([2, 2, housing_outer_distance], center = true);
-    }
-}
-
 module senk_schraube_m3(length) {
     // Schrauben Kopf Imbus (Sechskant)
     difference() 
@@ -203,10 +165,10 @@ module example_flap_front_bottom(){
     }
 }
 
-module example_flap_bottom(){
+module example_flap_bottom(number){
     translate([0, (flap_height/2) + (carousel_flap_path_radius - (carousel_flap_holes_diameter / 2)) , 0]){
         rotate([90,0,90]){
-            flap_with_char(28);
+            flap_with_char(number);
         }
     }
 }
@@ -345,6 +307,16 @@ module chassis_right(){
     }
 }
 
+module chassis_left(){
+    // mit Ausschnitt für Karussell
+    translate([0,0,((housing_inner_distance/2)+(housing_thickness/2))]){
+        difference(){
+            cube([housing_width,housing_height,housing_thickness], center = true);
+            cube([housing_width-20,housing_height-20,housing_thickness+0.01], center = true);
+        }
+    }
+}
+
 module chassis_bolt_screw(){
     translate([0,0,-((housing_inner_distance/2)+(housing_thickness/2))]){
         translate([(housing_width/2) - housing_bolt_h, (housing_height/2) - housing_bolt_v, -(housing_thickness/2 + 0.2)]) senk_schraube_m3(25);
@@ -355,16 +327,6 @@ module chassis_bolt_nut(){
     translate([0,0,-((housing_inner_distance/2)+(housing_thickness/2))]){
         // 1.1 is the height of the nut, it currently is hard coded
         translate([(housing_width/2) - housing_bolt_h, (housing_height/2) - housing_bolt_v, (housing_thickness/2 + 1.1)]) mutter_m3();
-    }
-}
-
-module chassis_left(){
-    // mit Ausschnitt für Karussell
-    translate([0,0,((housing_inner_distance/2)+(housing_thickness/2))]){
-        difference(){
-            cube([housing_width,housing_height,housing_thickness], center = true);
-            cube([housing_width-20,housing_height-20,housing_thickness+0.01], center = true);
-        }
     }
 }
         
@@ -512,6 +474,7 @@ module draw_half_letter(char, flip = false)
 module flap_with_char(char)
 {
     flap();
-    draw_half_letter(char-1, flip = false);
+    prev_char = char <= 0 ? nr_of_flaps-1 : char-1;
+    draw_half_letter(prev_char, flip = false);
     draw_half_letter(char,   flip = true);
 }
