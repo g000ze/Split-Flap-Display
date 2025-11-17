@@ -71,10 +71,17 @@
             <select class="form-select" id="dropdown" name="animation">
               <option value="start">Start</option>
               <option value="stop">Stop</option>
-              <option value="left">-&gt; From left snake</option>
-              <option value="right">&lt;- From right snake</option>
               <option value="left">-&gt; From left</option>
               <option value="right">&lt;- From right</option>
+              <option value="top">Top</option>
+              <option value="bottom">Bottom</option>
+              <option value="snake1">Snake 1</option>
+              <option value="snake2">Snake 2</option>
+              <option value="snake3">Snake 3</option>
+              <option value="snake4">Snake 4</option>
+              <option value="random">Random</option>
+              <option value="cross">Cross</option>
+              <option value="diagonal">Diagonal</option>
             </select>
           </div>
     

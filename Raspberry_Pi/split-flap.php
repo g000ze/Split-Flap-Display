@@ -27,7 +27,7 @@ $characters = array(
 $targets = array(
     # lines
     0 => array(
-        # arduinos or blocks
+        # arduinos or units
         0 => array(
             'size' => 8,    // number of modules
             'i2c'  => 0x0a, // i2c address of arduino
@@ -38,24 +38,23 @@ $targets = array(
         ),
     ),
     1 => array(
-        # arduinos or blocks
         0 => array(
-            'size' => 8,    // number of modules
-            'i2c'  => 0x0c, // i2c address of arduino
+            'size' => 8,
+            'i2c'  => 0x0c,
         ),
         1 => array(
-            'size' => 8,    // number of modules
-            'i2c'  => 0x0d, // i2c address of arduino
+            'size' => 8,
+            'i2c'  => 0x0d,
         ),
     ),
     2 => array(
         0 => array(
-            'size' => 8,    // number of modules
-            'i2c'  => 0x0e, // i2c address of arduino
+            'size' => 8,
+            'i2c'  => 0x0e,
         ),
         1 => array(
-            'size' => 8,    // number of modules
-            'i2c'  => 0x0f, // i2c address of arduino
+            'size' => 8,
+            'i2c'  => 0x0f,
         ),
     ),
 );
@@ -98,12 +97,20 @@ function filter_options (array $options)
             'filter'  => FILTER_VALIDATE_REGEXP,
             'options' => [
                 'default' => "start",
-                'regexp'  => "/^(start|stop|left_snake|right_snake|right|left)$/",
+                'regexp'  => "/^(start|stop|right|left|top|bottom|random|snake1|snake2|snake3|snake4|cross|diagonal|round)$/",
             ],
         ],
         'text'      => [
             'filter' => FILTER_DEFAULT,
             #'flags'  => FILTER_REQUIRE_ARRAY,
+        ],
+        'slowdown' => [
+            'filter'  => FILTER_VALIDATE_INT,
+            'options' => [
+                'default' => 1,
+                'min_range' => 1,
+                'max_range' => 10,
+            ],
         ],
     ];
     return (filter_var_array($options, $filters));
@@ -159,29 +166,152 @@ function sanitize_string(string $string, $wipe = false): string
  * @return array $targets
  * merges a sanitized text string into the three-dimensional array
  * that has been specified above.
+ * also specify another array structure in order to be more
+ * intuitive. we change it from:
+ * array
+ *   rows
+ *     arduinos
+ *       modules
+ *
+ * to:
+ * array
+ *   rows
+ *     cols
  */
-function text_to_array(string $text, $same = false): array
+function config_to_grid($text, $same = false): array
 {
-    global $targets, $characters, $placeholder;
+    global $targets, $placeholder, $characters;
+    $array = array();
     $current_positions = get_current_positions();
 
-    $counter = 0;
-    foreach ($targets as $key_line => &$line) {
-        foreach ($line as $key_arduino => &$arduino) {
+    $index = 0;
+    foreach ($targets as $row => $line) {
+        $col = 0;
+        foreach ($line as $arduino) {
             for ($i = 0; $i < $arduino['size']; $i++) {
-                # if no character is given, set a placeholder
-                $char = isset($text[$counter]) ? $text[$counter] : $placeholder;
-
-                $arduino['modules'][$i]['char']    = $char;
+                $array[$row][$col]['i2c']      = $arduino['i2c'];
+                $array[$row][$col]['module']   = $i;
+                $array[$row][$col]['size']     = $arduino['size'];
+                $array[$row][$col]['char']     = isset($text[$index]) ? $text[$index] : $placeholder;
                 # pos 0 in Arduino is the same as pos 50 in PHP
-                $arduino['modules'][$i]['cur_pos'] = ($current_positions[$key_line][$key_arduino][$i] == 0) ? 50 : $current_positions[$key_line][$key_arduino][$i];
-                $arduino['modules'][$i]['new_pos'] = array_search($char, $characters);
-                $arduino['modules'][$i]['walk']    = pos_to_walk($arduino['modules'][$i]['cur_pos'], $arduino['modules'][$i]['new_pos'], $same);
-                $counter++;
+                $array[$row][$col]['cur_pos']  = ($current_positions[$row][$col] == 0) ? 50 : $current_positions[$row][$col];
+                $array[$row][$col]['new_pos']  = array_search($array[$row][$col]['char'], $characters);
+                $array[$row][$col]['walk']     = pos_to_walk($array[$row][$col]['cur_pos'], $array[$row][$col]['new_pos'], $same);
+                $array[$row][$col]['timer']    = 0;
+                $index++;
+                $col++;
             }
         }
     }
-    return ($targets);
+    return ($array);
+}
+
+/**
+ * @param $targets
+ * @return array $delay
+ *
+ * this function sets the "timer" values according to the
+ * animation and changes the array structure 
+ * from:
+ * array
+ *   rows
+ *     cols
+ *       values ...
+ * 
+ * to: 
+ * array
+ *   timer
+ *     i2c
+ *       module
+ *         values ...
+ */
+function set_delay ($array, $animation = "start", $slowdown = 1): array
+{
+    global $rows, $cols;
+
+    $modules = $rows * $cols;
+    $counter = 0;
+    $timer = 0;
+    $return = array();
+    
+    if ($animation === "random") {
+        $randomized = range(0, $modules - 1);
+        shuffle($randomized);
+    }
+
+    for($row = 0; $row < $rows; $row++){
+        for($col = 0; $col < $cols; $col++){
+            switch ($animation) {
+                case "start":
+                    $timer = 0;
+                    break;
+                case "stop":
+                    $timer = $array[$row][$col]['walk'];
+                    break;
+                case "left":
+                    $timer = ($col % $cols === 0) ? $cols : --$timer;
+                    break;
+                case "right":
+                    $timer = ($col % $cols === 0) ? 0 : ++$timer;
+                    break;
+                case "top":
+                    $slowdown = 3;
+                    $timer = ($rows - 1) - $row;
+                    break;
+                case "bottom":
+                    $slowdown = 3;
+                    $timer = $row;
+                    break;
+                case "random":
+                    $timer = $randomized[$counter];
+                    break;
+                case "snake1":
+                    $timer = ($modules - 1) - ($row % 2 === 0 ? (($row + 1) * $cols - $col - 1) : $counter);
+                    break;
+                case "snake2":
+                    $timer = ($modules - 1) - ($row % 2 === 1 ? (($row + 1) * $cols - $col - 1) : $counter);
+                    break;
+                case "snake3":
+                    $timer = $row % 2 === 0 ? (($row + 1) * $cols - $col - 1) : $counter;
+                    break;
+                case "snake4":
+                    $timer = $row % 2 === 1 ? (($row + 1) * $cols - $col - 1) : $counter;
+                    break;
+                case "cross":
+                    ($row % 2 === 0) ? $timer++ : $timer--;
+                    break;
+                case "round":
+                    if     ($row == 0)          { $timer = ($timer + 1); }
+                    else if($row == ($rows - 1)){ $timer = ((($cols - 1) + ($rows - 1)) + ($cols - $col)); }
+                    else
+                    {
+                        if     ($col == 0)          { $timer = ((($cols - 1) + ($rows - 1)) + ($cols + $row)); }
+                        else if($col == ($cols - 1)){ $timer = $cols + $row; }
+                    }
+                    break;
+                case "diagonal":
+                    $slowdown = 2;
+                    $timer = ($row * 2) + $col;
+                    break;
+            }
+            $counter++;
+
+            # only add module to array, if it is meant to be running
+            if($array[$row][$col]['walk'] > 0){
+                $array[$row][$col]['timer'] = $timer * $slowdown;
+    
+                $module   = $array[$row][$col]['module'];
+                $i2c      = $array[$row][$col]['i2c'];
+                $timeout  = $timer * $slowdown;
+    
+                $return[$timeout][$i2c]['size']  = $array[$row][$col]['size'];
+                $return[$timeout][$i2c][$module] = $array[$row][$col];
+            }
+        }
+    }
+
+    krsort($return, SORT_NUMERIC);
+    return ($return);
 }
 
 /**
@@ -191,54 +321,19 @@ function get_current_positions () : array
 {
     global $fd, $targets;
     $array = array();
-    foreach($targets as $key_line => $line) {
-        foreach($line as $key_arduino => $arduino) {
+    foreach($targets as $row => $line) {
+        $col = 0;
+        foreach($line as $arduino) {
             if(i2c_select($fd, $arduino['i2c'])) {
-                $array[$key_line][$key_arduino] = i2c_read($fd, $arduino['size']);
-            }
-        }
-    }
-    return $array;
-}
-
-/**
- * @param $targets
- * @return array $delay
- *
- */
-function set_delay ($targets, $animation = "start", $slowdown = 1)
-{
-    global $rows, $cols;
-    $counter = 0;
-
-    // create $delay array with values from $targes array
-    $delay = array();
-    foreach ($targets as $line) {
-        foreach ($line as $arduino) {
-            foreach($arduino['modules'] as $key => $module) {
-                if($module['walk'] > 0){
-                    $time = 0;
-                    if($animation == "stop"){
-                        $time = $module['walk'];
-                    }else if($animation == "left_snake"){
-                        $time = $counter-- * $slowdown;
-                    }else if($animation == "right_snake"){
-                        $time = $counter++ * $slowdown;
-                    }else if($animation == "left"){
-                        $time = $counter-- * $slowdown;
-                        $counter = $counter <= -$cols ? 0 : $counter;
-                    }else if($animation == "right"){
-                        $time = $counter++ * $slowdown;
-                        $counter = $counter >=  $cols ? 0 : $counter;
-                    }
-                    $delay[$time][$arduino['i2c']]['size'] = $arduino['size'];
-                    $delay[$time][$arduino['i2c']]['modules'][$key] = $module;
+                $positions = i2c_read($fd, $arduino['size']);
+                for ($i = 0; $i < $arduino['size']; $i++) {
+                  $array[$row][$col] = $positions[$i];
+                  $col++;
                 }
             }
         }
     }
-    krsort($delay, SORT_NUMERIC);
-    return ($delay);
+    return $array;
 }
 
 /**
@@ -250,6 +345,7 @@ function run_carrousel($targets): void
     global $fd, $delay_per_position, $placeholder;
     $prev_time = 0;
     $counter = 0;
+
     foreach ($targets as $time => $delay) {
         $sleep = $counter == 0 ? 0 : ($prev_time - $time) * $delay_per_position;
         usleep($sleep);
@@ -258,14 +354,16 @@ function run_carrousel($targets): void
         foreach ($delay as $i2c => $address) {
             unset($text);
             for ($i = 0; $i < $address['size']; $i++) {
-              $text[$i] = ord($address['modules'][$i]['char'] ?? $placeholder);
+                $text[$i] = ord($address[$i]['char'] ?? $placeholder);
             }
+
             if (i2c_select($fd, $i2c)) {
                 i2c_write($fd, 0, $text);
             }
         }
     }
 }
+
 
 /**
  * @param $cur
