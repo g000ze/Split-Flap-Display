@@ -115,7 +115,6 @@ void motor_run(){
     for(byte module = 0; module < modules; module++){
       if(ms_to_go[module] > 0){
         digitalWrite(step_pin[module], HIGH);
-        delayMicroseconds(2);
         digitalWrite(step_pin[module], LOW);
         update_ms_pos(module);
       }
