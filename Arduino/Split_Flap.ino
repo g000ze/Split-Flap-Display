@@ -1,4 +1,3 @@
-#include <inputs/inputs.ino>
 #include <Wire.h>
 
 // motor and flap settings
@@ -25,30 +24,11 @@ const unsigned long speed = 28800 / microsteps;
 // Number of modules
 const byte modules = 8;
 
-// array settings
-// As of Backplane V2 PCB
+// Arduino pin settings
+// as of Backplane V3 PCB
 #include <inputs/pins_v2.ino>
-//// example /////////////////
-/*
-const byte hall_pin_0 = 18;
-const byte hall_pin_1 = 19;
-const byte hall_pin_2 = 20;
-const byte hall_pin_3 = 21;
-const byte hall_pin_4 = 9;
-const byte hall_pin_5 = 10;
-const byte hall_pin_6 = 11;
-const byte hall_pin_7 = 12;
-
-const byte step_pin_0 = 15;
-const byte step_pin_1 = 14;
-const byte step_pin_2 = 23;
-const byte step_pin_3 = 22;
-const byte step_pin_4 = 5;
-const byte step_pin_5 = 4;
-const byte step_pin_6 = 17;
-const byte step_pin_7 = 16;
-*/
-//////////////////////////////
+// input settings
+#include <inputs/inputs_v2.ino>
 
 const byte hall_pin[modules] =
 {
@@ -85,13 +65,20 @@ char new_char[modules]            = {};
 bool set_ms_pos[modules]          = {};
 
 // Feineinstellung
-const int init_ms_pos[modules]   = {43, 43, 43, 43, 43, 43, 43, 43};
+const int UNSET = -1;
+int init_ms_pos[modules] = {UNSET, UNSET, UNSET, UNSET, UNSET, UNSET, UNSET, UNSET};
+//const int init_ms_pos[modules]   = {20, 20, 20, 20, 20, 20, 20, 20};
+
+// read values out of EEPROM
+#include <EEPROM.h>
+const int i2c_addr            = EEPROM.read(0);
+const int default_init_ms_pos = EEPROM.read(1);
 
 void setup() {
   Serial.begin(9600);
 
   // Join I2C bus as slave with uniqe address
-  Wire.begin(0x0b);
+  Wire.begin(i2c_addr);
   // set I2C receive and request functions
   Wire.onReceive(receive_i2c_event);
   Wire.onRequest(request_i2c_event);
@@ -106,8 +93,15 @@ void setup() {
     cur_ms_pos[module] = 0;
     set_ms_pos[module] = false;
     set_ms_to_go(module);
+
+    if (init_ms_pos[module] == UNSET) {
+      init_ms_pos[module] = default_init_ms_pos;
+    }
   }
 }
+
+// ToDo XXX
+#include <output/output.ino>
 
 void loop() {
   motor_run();
@@ -121,6 +115,7 @@ void motor_run(){
     for(byte module = 0; module < modules; module++){
       if(ms_to_go[module] > 0){
         digitalWrite(step_pin[module], HIGH);
+        delayMicroseconds(2);
         digitalWrite(step_pin[module], LOW);
         update_ms_pos(module);
       }
@@ -231,24 +226,23 @@ void receive_serial_event() {
  * I2C events
  */
 void receive_i2c_event(int bytes) {
-  // at least one byte must be given
-  if (bytes <= 0) {
-    return;
-  }
+  // register byte verwerfen
+  Wire.read();
 
-  // ignore the first byte (register-byte)
-  if (Wire.available() > 0) {
-    Wire.read();
-  }
+  // Maximal nur `modules` Bytes einlesen
+  for (byte module = 0; module < modules && Wire.available(); module++) {
+    byte b = Wire.read();
 
-  // Version von Chat GPT
-  for (byte module = 0; module < modules && Wire.available() > 0; module++) {
-  //while(Wire.available() > 0){
-    for (byte module = 0; module < modules; module++) {
-      new_char[module] = Wire.read();
+    // nur druckbare ASCII-Zeichen akzeptieren
+    // https://www.eso.org/~ndelmott/ascii.html
+    if (b >= 0x20 && b <= 0x7E) {
+      new_char[module] = b;
       set_ms_to_go(module);
     }
   }
+
+  // Rest verwerfen falls mehr als 8 Bytes geschickt wurden
+  while (Wire.available()) Wire.read();
 }
 
 void request_i2c_event(){

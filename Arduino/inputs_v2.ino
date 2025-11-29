@@ -2,22 +2,22 @@
 // Col Dez
 
 /*
-               "0", "A", "B", "C", "D",  
-               "1", "E", "F", "G", "H", 
-               "2", "I", "J", "K", "L", 
-               "3", "M", "N", "O", "P", 
-               "4", "Q", "R", "S", "T",  
-               "5", "U", "V", "W", "X",  
-               "6", "Y", "Z", "+", "-", 
-               "7", "?", "!", ".", ",", 
-               "8", "@", ":", ";", "#", 
-               "9", "*", "$", "w", " ",  
+               "0", "A", "B", "C", "D",
+               "1", "E", "F", "G", "H",
+               "2", "I", "J", "K", "L",
+               "3", "M", "N", "O", "P",
+               "4", "Q", "R", "S", "T",
+               "5", "U", "V", "W", "X",
+               "6", "Y", "Z", "+", "-",
+               "7", "?", "!", ".", ",",
+               "8", "@", ":", ";", "#",
+               "9", "*", "$", "/", " ",
 */
 
 int get_position(int input){
-    // Konvertiere Kleinbuchstaben in Grossbuchstaben
+    // convert lowercase to uppercase letters.
     if ((input >= 'a' && input <= 'z') || (input >= 'A' && input <= 'Z')) {
-        input = input & ~32; // Kleinbuchstaben zu Grossbuchstaben
+        input = input & ~32;
     }
 
     switch (input) {
