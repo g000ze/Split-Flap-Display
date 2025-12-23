@@ -26,8 +26,7 @@ if (isset($options) && ! empty($options)) {
     $sanitized_string = sanitize_string($options['text'], $options['wipe']);
     $grid = config_to_grid($sanitized_string, $options['same']);
     $array = set_delay($grid, $options['animation'], $options['slowdown']);
-    run_carrousel($array);
-
+    run_carrousel($array, $options['slowdown']);
     if(!$options['noblock']){
         block();
     }

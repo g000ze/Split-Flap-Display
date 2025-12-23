@@ -197,7 +197,6 @@ function config_to_grid($text, $same = false): array
                 $array[$row][$col]['cur_pos']  = ($current_positions[$row][$col] == 0) ? 50 : $current_positions[$row][$col];
                 $array[$row][$col]['new_pos']  = array_search($array[$row][$col]['char'], $characters);
                 $array[$row][$col]['walk']     = pos_to_walk($array[$row][$col]['cur_pos'], $array[$row][$col]['new_pos'], $same);
-                $array[$row][$col]['timer']    = 0;
                 $index++;
                 $col++;
             }
@@ -225,11 +224,10 @@ function config_to_grid($text, $same = false): array
  *       module
  *         values ...
  */
-function set_delay ($array, $animation = "start", $slowdown = 1): array
+function set_delay ($array, $animation = "start"): array
 {
-    global $rows, $cols;
+    global $rows, $cols, $modules;
 
-    $modules = $rows * $cols;
     $counter = 0;
     $timer = 0;
     $return = array();
@@ -255,11 +253,9 @@ function set_delay ($array, $animation = "start", $slowdown = 1): array
                     $timer = ($col % $cols === 0) ? 0 : ++$timer;
                     break;
                 case "top":
-                    $slowdown = 3;
                     $timer = ($rows - 1) - $row;
                     break;
                 case "bottom":
-                    $slowdown = 3;
                     $timer = $row;
                     break;
                 case "random":
@@ -290,7 +286,6 @@ function set_delay ($array, $animation = "start", $slowdown = 1): array
                     }
                     break;
                 case "diagonal":
-                    $slowdown = 2;
                     $timer = ($row * 2) + $col;
                     break;
             }
@@ -298,14 +293,11 @@ function set_delay ($array, $animation = "start", $slowdown = 1): array
 
             # only add module to array, if it is meant to be running
             if($array[$row][$col]['walk'] > 0){
-                $array[$row][$col]['timer'] = $timer * $slowdown;
-    
                 $module   = $array[$row][$col]['module'];
                 $i2c      = $array[$row][$col]['i2c'];
-                $timeout  = $timer * $slowdown;
-    
-                $return[$timeout][$i2c]['size']  = $array[$row][$col]['size'];
-                $return[$timeout][$i2c][$module] = $array[$row][$col];
+
+                $return[$timer][$i2c]['size']  = $array[$row][$col]['size'];
+                $return[$timer][$i2c][$module] = $array[$row][$col];
             }
         }
     }
@@ -340,14 +332,14 @@ function get_current_positions () : array
  * @param $targets
  * @return void
  */
-function run_carrousel($targets): void
+function run_carrousel($targets, $slowdown = 1): void
 {
     global $fd, $delay_per_position, $placeholder;
     $prev_time = 0;
     $counter = 0;
 
     foreach ($targets as $time => $delay) {
-        $sleep = $counter == 0 ? 0 : ($prev_time - $time) * $delay_per_position;
+        $sleep = $counter == 0 ? 0 : ($prev_time - $time) * ($delay_per_position * $slowdown);
         usleep($sleep);
         $counter++;
         $prev_time = $time;

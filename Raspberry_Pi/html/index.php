@@ -67,7 +67,7 @@
           </div>
     
           <div class="mb-3">
-            <label for="dropdown" class="form-label">Timing</label>
+            <label for="dropdown" class="form-label">Animation</label>
             <select class="form-select" id="dropdown" name="animation">
               <option value="start">Start</option>
               <option value="stop">Stop</option>
