@@ -95,8 +95,7 @@ The software was mainly written by me. See GitHub repository for details and ask
 | Screws                            | 10  | Schraubenking       |                 | https://www.schraubenking.ch/                                                                                                      |
 
 ### Module PCB 
-<img width="397" height="236" alt="PCB Module" src="https://github.com/user-attachments/assets/6a371368-e7a7-4c99-8f0a-2f9c4be9d81a" />
-
+<img width="505" height="284" alt="Module markiert" src="https://github.com/user-attachments/assets/09801947-b2b8-435b-8f75-604dbbe8f652" />
 
 | Part                              | Nr. | Provider            | Model           | Link                                                                                                                               |
 |-----------------------------------|-----|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
@@ -107,6 +106,7 @@ The software was mainly written by me. See GitHub repository for details and ask
 | Wires Connector                   | 5   | Digikey             | 009176004873906 | https://www.digikey.ch/en/products/detail/kyocera-avx/009176004873906/8540378                                                      |
 
 ### Backplane PCB 
+<img width="1680" height="236" alt="Backplane markiert" src="https://github.com/user-attachments/assets/4c6b690f-9a58-4069-b4c9-adfe1afa66fa" />
 
 | Part                              | Nr. | Provider            | Model           | Link                                                                                                                               |
 |-----------------------------------|-----|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
