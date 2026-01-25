@@ -40,6 +40,7 @@ Two different types of PCBs are required. One is a small PCB that is attached to
 - +12V
 
 The TMC2208 and the Hall sensor on the module PCB each operate at +5 VCC, while the motor naturally requires 12 volts.
+
 <img width="505" height="284" alt="Module markiert" src="https://github.com/user-attachments/assets/09801947-b2b8-435b-8f75-604dbbe8f652" />
 <img width="1680" height="236" alt="Backplane markiert" src="https://github.com/user-attachments/assets/4c6b690f-9a58-4069-b4c9-adfe1afa66fa" />
 
