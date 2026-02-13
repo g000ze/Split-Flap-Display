@@ -41,8 +41,8 @@ Two different types of PCBs are required. One is a small PCB that is attached to
 
 The TMC2208 and the Hall sensor on the module PCB each operate at +5 VCC, while the motor naturally requires 12 volts.
 
-<img width="595" alt="PCB Module" src="https://github.com/user-attachments/assets/098ccfc8-a7df-4f5d-acef-62c38e36c781" />
-<img width="1250" height="187" alt="PCB Backplane" src="https://github.com/user-attachments/assets/8234e706-ceb0-4e4e-a887-0f3d664f331b" />
+<img width="505" height="284" alt="Module markiert" src="https://github.com/user-attachments/assets/09801947-b2b8-435b-8f75-604dbbe8f652" />
+<img width="1680" height="236" alt="Backplane markiert" src="https://github.com/user-attachments/assets/4c6b690f-9a58-4069-b4c9-adfe1afa66fa" />
 
 ## The Carousel
 The Carousel is attached to the pouley on the motor shaft so that it can be rotated by the steppermotor. It also holds the 50 flaps in position. The stepper motor is located inside the carousel. With its 82mm diameter, the carousel fits perfectly around the motor and there's enough space for the 50 flap positions. The two wheels are different, as the left wheel contains spokes, while the right wheel is open.
@@ -95,8 +95,7 @@ The software was mainly written by me. See GitHub repository for details and ask
 | Screws                            | 10  | Schraubenking       |                 | https://www.schraubenking.ch/                                                                                                      |
 
 ### Module PCB 
-<img width="397" height="236" alt="PCB Module" src="https://github.com/user-attachments/assets/6a371368-e7a7-4c99-8f0a-2f9c4be9d81a" />
-
+<img width="505" height="284" alt="Module markiert" src="https://github.com/user-attachments/assets/09801947-b2b8-435b-8f75-604dbbe8f652" />
 
 | Part                              | Nr. | Provider            | Model           | Link                                                                                                                               |
 |-----------------------------------|-----|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
@@ -107,15 +106,16 @@ The software was mainly written by me. See GitHub repository for details and ask
 | Wires Connector                   | 5   | Digikey             | 009176004873906 | https://www.digikey.ch/en/products/detail/kyocera-avx/009176004873906/8540378                                                      |
 
 ### Backplane PCB 
+<img width="1680" height="236" alt="Backplane markiert" src="https://github.com/user-attachments/assets/4c6b690f-9a58-4069-b4c9-adfe1afa66fa" />
 
 | Part                              | Nr. | Provider            | Model           | Link                                                                                                                               |
 |-----------------------------------|-----|---------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Arduino Micro                     |     | Digikey             | A000053         | https://www.digikey.ch/de/products/detail/arduino/A000053/4486332                                                                  |
-| Voltage Converter                 |     | Digikey             | R-78K5.0-1.0    | https://www.digikey.ch/en/products/detail/recom-power/R-78K5-0-1-0/18093047                                                        |
-| Card Edge Connector (old version) |     | Digikey             | EDC305122-ND    | https://www.digikey.ch/de/products/detail/edac-inc/305-012-520-202/107502                                                          |
-| Card Edge Connector (new version) |     | Digikey             | EBC06DRXH       | https://www.digikey.ch/de/products/detail/sullins-connector-solutions/EBC06DRXH/927248                                             |
-| Connector Header for Arduino      |     | Digikey             | 1-215307-7      | https://www.digikey.ch/en/products/detail/te-connectivity-amp-connectors/1-215307-7/2278494                                        |
-| Screw Terminal for 12V Power      |     | Digikey             | 282836-1        | https://www.digikey.ch/en/products/detail/te-connectivity-amp-connectors/282836-1/2222325                                          |
+| Arduino Micro                     | 1   | Digikey             | A000053         | https://www.digikey.ch/de/products/detail/arduino/A000053/4486332                                                                  |
+| Voltage Converter                 | 2   | Digikey             | R-78K5.0-1.0    | https://www.digikey.ch/en/products/detail/recom-power/R-78K5-0-1-0/18093047                                                        |
+| Card Edge Connector (old version) | 3   | Digikey             | EDC305122-ND    | https://www.digikey.ch/de/products/detail/edac-inc/305-012-520-202/107502                                                          |
+| Card Edge Connector (new version) | 3   | Digikey             | EBC06DRXH       | https://www.digikey.ch/de/products/detail/sullins-connector-solutions/EBC06DRXH/927248                                             |
+| Connector Header for Arduino      | 4   | Digikey             | 1-215307-7      | https://www.digikey.ch/en/products/detail/te-connectivity-amp-connectors/1-215307-7/2278494                                        |
+| Screw Terminal for 12V Power      | 5   | Digikey             | 282836-1        | https://www.digikey.ch/en/products/detail/te-connectivity-amp-connectors/282836-1/2222325                                          |
 
 
 Generated by https://www.tablesgenerator.com/markdown_tables
