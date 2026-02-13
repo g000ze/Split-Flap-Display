@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
   <head>
-    <script src="/assets/js/color-modes.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,6 +16,9 @@
      - height: calc(1em * 3 + 2px); 
      HTML: 
      - <textarea ... rows="3" cols="16" maxlength="48" ... ></textarea>
+
+      Das hatte zur Folge, dass die letzte "8" im String "1234567812345678" auf die neue Zeile sprang, falls ein Abstand am Schluss des Strings eingegeben wurde.
+      #word-break: break-all;
     -->
 
     <style>
@@ -32,8 +34,8 @@
       margin: 0;
       text-transform: uppercase;
       width: calc(1ch * 16);
-      height: calc(1em * 3 + 2px);
-      line-height: 1em;
+      height: calc(1.4em * 3 + 2px);
+      line-height: 1.4em;
       white-space: break-spaces;
       word-break: break-all;
     }
