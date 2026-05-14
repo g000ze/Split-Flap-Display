@@ -380,7 +380,7 @@ function pos_to_walk($cur, $new, $same = false): int
         }
         else if($cur >= 255){
             // XXX ist das richtig???
-            return (255);
+            return (0);
         }
         else if($new > $cur)
         {
