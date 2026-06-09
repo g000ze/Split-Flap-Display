@@ -329,7 +329,7 @@ module chassis_bolt_nut(){
         translate([(housing_width/2) - housing_bolt_h, (housing_height/2) - housing_bolt_v, (housing_thickness/2 + 1.1)]) mutter_m3();
     }
 }
-        
+
 module pcb()
 {
     translate([-((pcb_length/2) + (motor_winding_distance/2) + (motor_spacer_outer_diameter/2) + 0.5), 0, -((housing_inner_distance/2) - (pcb_thickness/2)) + pcb_spacer_length])
@@ -362,6 +362,30 @@ module pcb()
                 cube([pcb_hall_length, pcb_hall_width, pcb_hall_height], center = true);
             }
         }
+        
+        // pin header sockets
+        rotate([0, 0, 90]) translate([pcb_pin_header_pos_x, pcb_pin_header_pos_y1, ((pcb_pin_header_height+pcb_thickness)/2)]) pin_socket();
+        rotate([0, 0, 90]) translate([pcb_pin_header_pos_x, pcb_pin_header_pos_y2, ((pcb_pin_header_height+pcb_thickness)/2)]) pin_socket();
+    }
+}
+
+module pin_socket()
+{
+    a=pcb_pin_header_pin_distance;
+    difference()
+    {
+        color("#444") cube([pcb_pin_header_length, pcb_pin_header_width, pcb_pin_header_height], center = true);
+        for(i=[1:8])
+        {
+            translate([(a/2) + (a*4) - (a*i),  (a/2), 0]) cube([pcb_pin_header_hole_diam, pcb_pin_header_hole_diam, (pcb_pin_header_height + 0.01)], center = true);
+            translate([(a/2) + (a*4) - (a*i), -(a/2), 0]) cube([pcb_pin_header_hole_diam, pcb_pin_header_hole_diam, (pcb_pin_header_height + 0.01)], center = true);
+        }
+    }
+
+    for(i=[1:8])
+    {
+      color("silver") translate([(a/2) + (a*4) - (a*i),  3, -(pcb_pin_header_height/2)]) cube([1, 2, 0.2], center = true);
+      color("silver") translate([(a/2) + (a*4) - (a*i), -3, -(pcb_pin_header_height/2)]) cube([1, 2, 0.2], center = true);
     }
 }
 
@@ -416,12 +440,12 @@ module flap()
     }
 }
 
-module rotating_carousel()
+module rotating_carousel(time)
 {
     for (i = [0:nr_of_flaps-1])
     {
         position = i * (360 / nr_of_flaps);
-        rotated_angle = (position - (360 * $t) + 360) % 360;
+        rotated_angle = (position - (360 * time) + 360) % 360;
         dx = (housing_virt_bolt_pos[0]) - (carousel_flap_path_radius * cos(rotated_angle));
         dy = (housing_virt_bolt_pos[2]) - (carousel_flap_path_radius * sin(rotated_angle));
 
@@ -431,7 +455,7 @@ module rotating_carousel()
                     carousel_flap_path_radius * cos(position)
                   ])
         {
-            rotate([0, 360 * $t, 0])
+            rotate([0, 360 * time, 0])
             {
                 // this version shows the rotating flaps without the bolt
                 //angle = (rotated_angle > 0 && rotated_angle < 180) ? rotated_angle : 180 ;
@@ -476,5 +500,5 @@ module flap_with_char(char)
     flap();
     prev_char = char <= 0 ? nr_of_flaps-1 : char-1;
     draw_half_letter(prev_char, flip = false);
-    draw_half_letter(char,   flip = true);
+    draw_half_letter(char,      flip = true);
 }

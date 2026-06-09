@@ -21,7 +21,7 @@ module chassis(){
     // Gehäuse Seiten:
     union()
     {
-        color("grey")
+        color("#444")
         {
             // Rechts mit grossem Ausschnitt
             chassis_right();

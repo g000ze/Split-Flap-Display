@@ -145,8 +145,19 @@ pcb_spacer_length = 2;
 pcb_spacer_outer_diameter = 6;
 pcb_spacer_inner_diameter = 3.2;
 
-// always adjust overrides in _font_setup.scad accordingly
+// Pin Header Sockets
+pcb_pin_header_length=20.82;
+pcb_pin_header_width=5.08;
+pcb_pin_header_height=7.1;
+pcb_pin_header_pin_distance=2.54;
+pcb_pin_header_hole_diam=1;
 
+pcb_pin_header_pos_x=7;
+pcb_pin_header_pos_y1=28.8;
+pcb_pin_header_pos_y2=13.5;
+
+
+// always adjust overrides in _font_setup.scad accordingly
         
 characters = [
      "0", "A", "B", "C", "D",
