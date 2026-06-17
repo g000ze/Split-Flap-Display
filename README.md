@@ -1,7 +1,3 @@
-
-
-https://github.com/user-attachments/assets/b8cbd226-f410-4f9d-896a-09aa130f1321
-
 ## Intro
 Older people (like me) look back with nostalgia at train stations and airports, middle-aged people are captivated by technology, and the younger generation is excited by the clattering sound combined with the non-virtual movement. The split flap display remains a fascinating display panel for text and small animations.
 
@@ -17,7 +13,7 @@ As already mentioned, a single module produces little effect, so we want multipl
 
 **Animation of spinning spool using OpenSCAD**
 
-[![Spinning Carousel](https://g000ze.github.io/docs/index.html)](https://github.com/user-attachments/assets/af98eea6-6dcd-4d9f-962c-459cd9d655be)
+[![Spinning Carousel](https://github.com/user-attachments/assets/b8cbd226-f410-4f9d-896a-09aa130f1321)
 
 [![Exploded View]](https://github.com/user-attachments/assets/ecffe0bf-9c8d-47f0-b8ce-c02ede4a916f)
 
