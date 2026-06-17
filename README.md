@@ -13,7 +13,7 @@ As already mentioned, a single module produces little effect, so we want multipl
 
 **Animation of spinning spool using OpenSCAD**
 
-[![Spinning Carousel](https://github.com/user-attachments/assets/b8cbd226-f410-4f9d-896a-09aa130f1321)
+[![Spinning Carousel]](https://github.com/user-attachments/assets/b8cbd226-f410-4f9d-896a-09aa130f1321)
 
 [![Exploded View]](https://github.com/user-attachments/assets/ecffe0bf-9c8d-47f0-b8ce-c02ede4a916f)
 
