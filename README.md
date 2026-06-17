@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/b8cbd226-f410-4f9d-896a-09aa130f1321
+
 ## Intro
 Older people (like me) look back with nostalgia at train stations and airports, middle-aged people are captivated by technology, and the younger generation is excited by the clattering sound combined with the non-virtual movement. The split flap display remains a fascinating display panel for text and small animations.
 
