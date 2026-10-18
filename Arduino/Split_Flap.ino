@@ -24,11 +24,42 @@ const unsigned long speed = 28800 / microsteps;
 // Number of modules
 const byte modules = 8;
 
+// character -> flap position lookup (uppercase letters only; lowercase is
+// converted before lookup). Characters not listed here are unsupported.
+// A character's flap position is its index in this array plus one.
+// https://de.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange
+const char char_positions[] = {
+  '0', 'A', 'B', 'C', 'D',
+  '1', 'E', 'F', 'G', 'H',
+  '2', 'I', 'J', 'K', 'L',
+  '3', 'M', 'N', 'O', 'P',
+  '4', 'Q', 'R', 'S', 'T',
+  '5', 'U', 'V', 'W', 'X',
+  '6', 'Y', 'Z', '+', '-',
+  '7', '?', '!', '.', ',',
+  '8', '@', ':', ';', '#',
+  '9', '*', '$', '/', ' ',
+};
+
 // Arduino pin settings
 // as of Backplane V3 PCB
-#include <inputs/pins_v2.ino>
-// input settings
-#include <inputs/inputs_v2.ino>
+const byte hall_pin_0 = 18;
+const byte hall_pin_1 = 19;
+const byte hall_pin_2 = 20;
+const byte hall_pin_3 = 21;
+const byte hall_pin_4 = 9;
+const byte hall_pin_5 = 10;
+const byte hall_pin_6 = 11;
+const byte hall_pin_7 = 12;
+
+const byte step_pin_0 = 15;
+const byte step_pin_1 = 14;
+const byte step_pin_2 = 23;
+const byte step_pin_3 = 22;
+const byte step_pin_4 = 5;
+const byte step_pin_5 = 4;
+const byte step_pin_6 = 17;
+const byte step_pin_7 = 16;
 
 const byte hall_pin[modules] =
 {
@@ -92,16 +123,14 @@ void setup() {
     new_char[module] = 32;
     cur_ms_pos[module] = 0;
     set_ms_pos[module] = false;
-    set_ms_to_go(module);
 
     if (init_ms_pos[module] == UNSET) {
       init_ms_pos[module] = default_init_ms_pos;
     }
+
+    set_ms_to_go(module);
   }
 }
-
-// ToDo XXX
-#include <output/output.ino>
 
 void loop() {
   motor_run();
@@ -113,7 +142,7 @@ void motor_run(){
   if((curr_time - prev_time) >= speed){
     prev_time = curr_time;
     for(byte module = 0; module < modules; module++){
-      if(ms_to_go[module] > 0){
+      if(is_running(module)){
         digitalWrite(step_pin[module], HIGH);
         digitalWrite(step_pin[module], LOW);
         update_ms_pos(module);
@@ -178,7 +207,20 @@ new = 30
 (50 - 44) + 30 = 36
 */
 void set_ms_to_go(byte module){
-  unsigned int new_flap_pos = get_position(new_char[module]);
+  // convert lowercase to uppercase letters.
+  byte c = new_char[module];
+  if (c >= 'a' && c <= 'z') {
+    c &= ~32;
+  }
+
+  unsigned int new_flap_pos = 0;
+  for (byte i = 0; i < sizeof(char_positions) / sizeof(char_positions[0]); i++) {
+    if (char_positions[i] == c) {
+      new_flap_pos = i + 1;
+      break;
+    }
+  }
+
   // proceed only if a valid character has been provided
   if(new_flap_pos == 0){
     return;
@@ -246,12 +288,16 @@ void receive_i2c_event(int bytes) {
 
 void request_i2c_event(){
   for(byte module = 0; module < modules; module++){
-    if(ms_to_go[module] > 0){
+    if(is_running(module)){
       Wire.write(255);
     }else{
       //round, in case something ran out of count
-      Wire.write(round((float)(cur_ms_pos[module] - init_ms_pos[module]) / ms_per_flap));
-      //Wire.write((cur_ms_pos[module] - init_ms_pos[module]) / ms_per_flap);
+      int flap_pos = round((float)(cur_ms_pos[module] - init_ms_pos[module]) / ms_per_flap);
+      // wrap into [0, flaps) so a resync-induced negative offset never collides
+      // with the 255 "still moving" sentinel above
+      flap_pos = ((flap_pos % (int)flaps) + flaps) % flaps;
+      Wire.write((byte)flap_pos);
     }
   }
 }
+
