@@ -1,0 +1,97 @@
+/*
+ * Split-Flap-Eingabe
+ * Die Fallblätter bleiben in beiden Bootstrap-Themes dunkel, wie am echten Display.
+ * Spaltenzahl (--sf-cols) setzt split-flap.js aus data-cols.
+ */
+
+/* MS Gothic SFD wie auf den Flaps (OpenSCAD/MS-Gothic-SFD.ttf), reduziert auf die 50 Zeichen des Displays */
+@font-face {
+  font-family: "MS Gothic SFD";
+  src: url("../fonts/ms-gothic-sfd.woff") format("woff"), local("MS Gothic");
+  font-display: block;
+}
+
+.split-flap {
+  --sf-flap-top: #1c1e20;
+  --sf-flap-bottom: #141517;
+  --sf-seam: #050505;
+  --sf-ink: #f4f1e8;
+  --sf-accent: #f4f1e8;     /* Rahmen, Cursor und Markierung in der Farbe der Schrift */
+  --sf-on-accent: #141517;
+  --sf-gap: 0.36cqw;
+  --sf-font: "MS Gothic SFD", "MS Gothic", monospace;
+
+  position: relative;
+  container-type: inline-size;
+  cursor: text;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  text-shadow: none;
+  border-radius: var(--bs-border-radius);
+  outline: 2px solid transparent;
+  outline-offset: 8px;
+}
+.split-flap:focus-within { outline-color: var(--sf-accent); }
+
+.split-flap-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--sf-cols), minmax(0, 1fr));
+  gap: var(--sf-gap);
+}
+
+/* Ein Fallblatt. Das Zeichen steht in data-ch. */
+.split-flap-cell {
+  position: relative;
+  aspect-ratio: 5 / 8; /* Flap 50 × 80 mm, siehe OpenSCAD/_settings.scad */
+  display: grid;
+  place-items: center;
+  border-radius: calc(7cqw / var(--sf-cols));
+  background: linear-gradient(var(--sf-flap-top) 50%, var(--sf-flap-bottom) 50%);
+  color: var(--sf-ink);
+  font: 400 calc(132cqw / var(--sf-cols))/1 var(--sf-font);
+}
+.split-flap-cell::before { content: attr(data-ch); white-space: pre; display: inline-block; transform: scaleX(0.92); /* Breite wie in OpenSCAD */ }
+.split-flap-cell::after { /* Trennfuge zwischen oberem und unterem Blatt */
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: max(1px, calc(2.4cqw / var(--sf-cols)));
+  transform: translateY(-50%);
+  background: var(--sf-seam);
+}
+.split-flap-cell.sel { background: var(--sf-accent); color: var(--sf-on-accent); }
+.split-flap-cell.over { box-shadow: inset 0 0 0 2px var(--sf-accent); }
+
+.split-flap-caret {
+  --w: max(2px, calc(8cqw / var(--sf-cols)));
+  position: absolute;
+  z-index: 1;
+  top: -3%;
+  bottom: -3%;
+  left: calc((var(--sf-gap) + var(--w)) / -2);
+  width: var(--w);
+  background: var(--sf-accent);
+  animation: split-flap-blink 1.06s steps(1) infinite;
+}
+.split-flap-caret.end { left: auto; right: calc((var(--sf-gap) + var(--w)) / -2); }
+.split-flap:not(:focus-within) .split-flap-caret { opacity: 0.4; animation: none; }
+@keyframes split-flap-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .split-flap-caret { animation: none; } }
+
+/* Unsichtbares Tastaturfeld, holt auf dem Handy die Bildschirmtastatur */
+.split-flap-capture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  resize: none;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.split-flap-message { min-height: 1.5em; }
